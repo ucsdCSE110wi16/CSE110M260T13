@@ -23,17 +23,22 @@ public class LoginActivity extends ActionBarActivity {
         imageIndex = 1;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        // This timer will change the background image every 3 seconds
+        // It runs for 20 seconds and is then restarted
         new CountDownTimer(20000, 3000) {
             public void onTick(long millisUntilFinished) {
                 changeBackgroundImage();
             }
 
             public void onFinish() {
-                this.start();
+                this.start(); //Restart the timer when it finishes
             }
         }.start();
     }
 
+    /**
+     * Cycles the background image through the 4 different images
+     */
     private void changeBackgroundImage() {
         ImageView bgimage = (ImageView) findViewById(R.id.bgimage);
         imageIndex++;

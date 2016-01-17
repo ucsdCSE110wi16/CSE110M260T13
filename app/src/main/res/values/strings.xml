@@ -2,11 +2,22 @@
     <string name="app_name">TasteBuddy</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Login Screen Activity -->
     <string name="email_prompt">E-mail Address</string>
     <string name="pass_prompt">Password</string>
     <string name="logo_description">TasteBuddy Logo</string>
     <string name="login_string">Sign in</string>
     <string name="register_string">Create Account</string>
 
+    <!-- Post Login Activity -->
+    <string name="diet_button">Dietary Restrictions</string>
+    <string name="title_activity_post_login">Post Login</string>
+    <string name="menu_button">Browse Menu</string>
+    <string name="rec_button">View Recommendations</string>
+    <string name="greeting_morning">Good morning,</string>
+    <string name="greeting_afternoon">Good afternoon,</string>
+    <string name="greeting_evening">Good evening,</string>
+    <string name="post_login_bg">Background image for post login screen</string>
+    <string name="login_bg">Background for login screen</string>
 
 </resources>

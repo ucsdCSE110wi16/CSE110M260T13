@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="login_screen_tint">#cb424242</color>
+    <!-- Global color values -->
+    <color name="app_bgcolor">#424242</color>
+    <item name="bg_alpha" format="float" type="dimen">.70</item>
+
+    <!-- Login screen colors -->
     <color name="text_field_tint">#ffffff</color>
     <color name="text_field_bgcolor">#88888888</color>
     <color name="login_hint_color">#99ffffff</color>
     <color name="login_text_color">#ffffff</color>
+
+    <!-- Post login colors -->
 </resources>

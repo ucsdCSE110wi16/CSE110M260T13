@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="login_screen_tint">#55EEEEEE</color>
-    <color name="text_field_tint">#55FFFFFF</color>
+    <color name="login_screen_tint">#cb424242</color>
+    <color name="text_field_tint">#ffffff</color>
+    <color name="text_field_bgcolor">#88888888</color>
+    <color name="login_hint_color">#99ffffff</color>
+    <color name="login_text_color">#ffffff</color>
 </resources>

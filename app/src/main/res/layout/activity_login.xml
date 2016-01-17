@@ -1,15 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/Theme.AppCompat.NoActionBar"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical" tools:context=".MainActivity"
+    android:orientation="vertical" tools:context=".LoginActivity"
     android:id="@+id/login_screen"
-    android:background="@drawable/login_1"
-    android:backgroundTint="@color/ripple_material_dark"
-    android:backgroundTintMode="src_over">
+    android:clickable="false">
+
+    <ImageView
+        android:id="@+id/bgimage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/login_2"
+        android:alpha=".65"
+        android:visibility="visible" />
 
     <ImageView
         android:layout_width="128dp"
@@ -23,7 +28,7 @@
         android:src="@drawable/icon"/>
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="256dp"
         android:layout_height="wrap_content"
         android:id="@+id/email_field"
         android:gravity="center"
@@ -33,10 +38,14 @@
         android:hint="@string/email_prompt"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/pass_field"
-        android:layout_alignStart="@+id/pass_field" />
+        android:layout_alignStart="@+id/pass_field"
+        android:background="@color/text_field_bgcolor"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/login_text_color"
+        android:textColorHint="@color/login_hint_color" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="256dp"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:gravity="center"
@@ -44,8 +53,14 @@
         android:ems="10"
         android:id="@+id/pass_field"
         android:hint="@string/pass_prompt"
+        android:fontFamily="sans-serif"
+        android:background="@color/text_field_bgcolor"
         android:layout_below="@+id/email_field"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/login_text_color"
+        android:textColorHint="@color/login_hint_color" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -65,5 +80,6 @@
         android:layout_gravity="center"
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"/>
 </RelativeLayout>

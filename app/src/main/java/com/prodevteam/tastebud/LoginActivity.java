@@ -1,12 +1,20 @@
 package com.prodevteam.tastebud;
 
+import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-public class MainActivity extends ActionBarActivity {
+public class LoginActivity extends ActionBarActivity {
 
     private int imageIndex;
 
@@ -14,39 +22,37 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         imageIndex = 1;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true) {
-                    changeBackgroundImage();
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        break;
-                    }
-                }
+        setContentView(R.layout.activity_login);
+        new CountDownTimer(20000, 3000) {
+            public void onTick(long millisUntilFinished) {
+                changeBackgroundImage();
             }
-        }).run();
+
+            public void onFinish() {
+                this.start();
+            }
+        }.start();
     }
 
-    private int changeBackgroundImage() {
-        RelativeLayout loginScreen = (RelativeLayout) findViewById(R.id.login_screen);
-        imageIndex = (imageIndex % 4) + 1;
+    private void changeBackgroundImage() {
+        ImageView bgimage = (ImageView) findViewById(R.id.bgimage);
+        imageIndex++;
         switch(imageIndex) {
+            case 5:
+                imageIndex = 1;
             case 1:
-                loginScreen.setBackground(getResources().getDrawable(R.drawable.login_1));
+                bgimage.setImageDrawable(getResources().getDrawable(R.drawable.login_1));
                 break;
             case 2:
-                loginScreen.setBackground(getResources().getDrawable(R.drawable.login_2));
+                bgimage.setImageDrawable(getResources().getDrawable(R.drawable.login_2));
                 break;
             case 3:
-                loginScreen.setBackground(getResources().getDrawable(R.drawable.login_3));
+                bgimage.setImageDrawable(getResources().getDrawable(R.drawable.login_3));
                 break;
             case 4:
-                loginScreen.setBackground(getResources().getDrawable(R.drawable.login_4));
+                bgimage.setImageDrawable(getResources().getDrawable(R.drawable.login_4));
+                break;
         }
-        return 1;
     }
 
     @Override

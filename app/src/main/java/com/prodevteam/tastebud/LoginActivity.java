@@ -1,5 +1,6 @@
 package com.prodevteam.tastebud;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,11 +12,14 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 public class LoginActivity extends ActionBarActivity {
 
+    protected static final String EMAIL_EXTRA_KEY = "com.prodevteam.tastebud.USER_EMAIL";
     private int imageIndex;
 
     @Override
@@ -23,6 +27,7 @@ public class LoginActivity extends ActionBarActivity {
         imageIndex = 1;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         // This timer will change the background image every 3 seconds
         // It runs for 20 seconds and is then restarted
         new CountDownTimer(20000, 3000) {
@@ -34,11 +39,22 @@ public class LoginActivity extends ActionBarActivity {
                 this.start(); //Restart the timer when it finishes
             }
         }.start();
+
+        // This sets the behavior of the sign in button, it calls onSignInClick
+        Button signInButton = (Button) findViewById(R.id.signin_button);
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onSignInClick();
+            }
+        });
     }
 
     /**
      * Cycles the background image through the 4 different images
      */
+    // TODO: Modify this method to crossfade the background images (i.e. login_1 fades into login_2, etc.)
+    // TODO: Test the background image scaling on large screens (1080p)
+    // Possibly helpful information: http://developer.android.com/training/animation/crossfade.html
     private void changeBackgroundImage() {
         ImageView bgimage = (ImageView) findViewById(R.id.bgimage);
         imageIndex++;
@@ -58,6 +74,26 @@ public class LoginActivity extends ActionBarActivity {
                 bgimage.setImageDrawable(getResources().getDrawable(R.drawable.login_4));
                 break;
         }
+    }
+
+    /**
+     * This method is called when the sign in button is clicked.
+     */
+    private void onSignInClick() {
+        // Creates an Intent that will open the post login activity
+        Intent intent = new Intent(this, PostLoginActivity.class);
+
+        // Retrieving the email address and password fields
+        EditText emailBar = (EditText) findViewById(R.id.email_field);
+        EditText passwordBar = (EditText) findViewById((R.id.pass_field));
+        String password = passwordBar.getText().toString();
+        String userEmail = emailBar.getText().toString();
+
+        // WILL BE CHANGED: Pass the user's email address as an extra to the next intent
+        // TODO: Change this to pass the user's first name (retrieved from SQL server)
+        intent.putExtra(EMAIL_EXTRA_KEY, userEmail);
+        // Switch to the post login activity
+        startActivity(intent);
     }
 
     @Override

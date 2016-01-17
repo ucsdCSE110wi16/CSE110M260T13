@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">TasteBud</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="email_prompt">E-mail Address</string>
+    <string name="pass_prompt">Password</string>
+    <string name="logo_description">TasteBuddy Logo</string>
+    <string name="login_string">Sign in</string>
+    <string name="register_string">Create Account</string>
+
+
 </resources>

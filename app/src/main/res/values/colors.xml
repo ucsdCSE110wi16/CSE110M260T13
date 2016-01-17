@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="login_screen_tint">#55EEEEEE</color>
+    <color name="text_field_tint">#55FFFFFF</color>
+</resources>

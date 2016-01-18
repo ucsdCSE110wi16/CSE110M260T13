@@ -2,6 +2,7 @@ package com.prodevteam.tastebud;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Matrix;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,7 +53,11 @@ public class PostLoginActivity extends ActionBarActivity implements SensorEventL
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
 
+    public void onMenuButtonClicked() {
+        Intent intent = new Intent(this, MenuScreen.class);
+        startActivity(intent);
     }
 
     @Override
@@ -77,16 +83,25 @@ public class PostLoginActivity extends ActionBarActivity implements SensorEventL
         int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         TextView greeting_text = (TextView) findViewById(R.id.greetings_text);
 
-        //Set the greeting text according to the time of day
+        // Set the greeting text according to the time of day
         if(hour < 12) greeting_text.setText(R.string.greeting_morning);
         else if(hour < 17) greeting_text.setText(R.string.greeting_afternoon);
         else greeting_text.setText(R.string.greeting_evening);
 
         TextView name_text = (TextView) findViewById(R.id.user_fname);
-        //Retrieve the user's email address from the intent
+
+        // Retrieve the user's email address from the intent
         userEmail = getIntent().getStringExtra(LoginActivity.EMAIL_EXTRA_KEY);
         if(userEmail.indexOf('@') > 0)
             userEmail = userEmail.substring(0, userEmail.indexOf('@'));
         name_text.setText(userEmail.toCharArray(), 0, userEmail.length());
+
+        // Set up the Menu button
+        Button menuButton = (Button) findViewById(R.id.menu_button);
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onMenuButtonClicked();
+            }
+        });
     }
 }

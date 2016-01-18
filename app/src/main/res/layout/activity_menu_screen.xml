@@ -43,6 +43,7 @@
             android:layout_toRightOf="@+id/menu_ingredient_string"
             android:layout_toEndOf="@+id/menu_ingredient_string" />
 
+        <!-- TODO: Change the picture of this button to a small green check mark or similar -->
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="34dp"
@@ -56,6 +57,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
+        <!-- TODO: Change the picture of this button to a small red X or similar -->
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="34dp"

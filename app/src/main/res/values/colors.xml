@@ -9,6 +9,7 @@
     <color name="text_field_bgcolor">#88888888</color>
     <color name="login_hint_color">#99ffffff</color>
     <color name="login_text_color">#ffffff</color>
+    <color name="menu_upper_bar_1_color">#424242</color>
 
     <!-- Post login colors -->
 </resources>

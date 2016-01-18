@@ -83,6 +83,8 @@ public class PostLoginActivity extends ActionBarActivity implements SensorEventL
         int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         TextView greeting_text = (TextView) findViewById(R.id.greetings_text);
 
+        // TODO: Test the greeting to make sure it sets the correct greeting for the time of day
+        // Modify greeting text resources as necessary
         // Set the greeting text according to the time of day
         if(hour < 12) greeting_text.setText(R.string.greeting_morning);
         else if(hour < 17) greeting_text.setText(R.string.greeting_afternoon);

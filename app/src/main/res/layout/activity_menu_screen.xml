@@ -1,15 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.prodevteam.tastebud.MenuScreen"
-    android:theme="@style/Theme.AppCompat.NoActionBar" >
+    android:theme="@style/Theme.AppCompat.NoActionBar"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    tools:context="com.prodevteam.tastebud.MenuScreen">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+        android:layout_height="@dimen/menu_upper_bar_1_height"
+        android:id="@+id/menu_upper_bar_1"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/menu_upper_bar_1_color"
+        android:orientation="vertical" >
 
-</android.support.v4.widget.NestedScrollView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/menu_ing_1"
+            android:id="@+id/menu_ingredient_string"
+            android:layout_marginLeft="@dimen/menu_text_margin"
+            android:layout_marginTop="@dimen/menu_text_margin"
+            android:textSize="12sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ingredient_field"
+            android:inputType="text"
+            android:ems="10"
+            android:maxEms="10"
+            android:textSize="12sp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/menu_text_margin_small"
+            android:layout_toRightOf="@+id/menu_ingredient_string"
+            android:layout_toEndOf="@+id/menu_ingredient_string" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:text="N"
+            android:textSize="12sp"
+            android:id="@+id/no_button"
+            android:layout_marginRight="@dimen/menu_text_margin"
+            android:layout_marginTop="@dimen/menu_button_top_margin"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:textSize="12sp"
+            android:layout_marginRight="@dimen/menu_button_top_margin"
+            android:layout_marginLeft="@dimen/menu_text_margin"
+            android:text="Y"
+            android:id="@+id/yes_button"
+            android:layout_alignBottom="@+id/no_button"
+            android:layout_toLeftOf="@+id/no_button"
+            android:layout_toStartOf="@+id/no_button" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ffffff"
+            android:id="@+id/horizontal_line"
+            android:alpha="0.2"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"></View>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:id="@+id/ing_list"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" >
+
+            <!-- TODO: Replace this TextView with small, clickable text bubbles
+             that are created when the user clicks on the yes/no buttons -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lorem"
+                android:id="@+id/textView"
+                android:layout_marginLeft="@dimen/menu_text_margin" />
+        </HorizontalScrollView>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/menu_scrollview">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/menu_wrapper">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/menu_item_height"
+                android:id="@+id/sample_item">
+
+                <ImageView
+                    android:layout_width="@dimen/menu_item_pic_size"
+                    android:layout_height="@dimen/menu_item_pic_size"
+                    android:layout_marginLeft="@dimen/menu_text_margin"
+                    android:layout_marginTop="@dimen/menu_text_margin"
+                    android:layout_marginRight="@dimen/menu_text_margin"
+                    android:src="#ff0000"
+                    android:id="@+id/item_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Item Name"
+                    android:id="@+id/sample_name"
+                    android:layout_alignTop="@+id/item_icon"
+                    android:layout_toRightOf="@+id/item_icon"
+                    android:layout_toEndOf="@+id/item_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Ingredients List"
+                    android:id="@+id/sample_ing"
+                    android:layout_below="@+id/sample_name"
+                    android:layout_alignLeft="@+id/sample_name"
+                    android:layout_alignStart="@+id/sample_name" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Price"
+                    android:id="@+id/sample_price"
+                    android:layout_below="@+id/item_icon"
+                    android:layout_alignLeft="@+id/item_icon"
+                    android:layout_alignStart="@+id/item_icon"
+                    android:layout_alignRight="@+id/item_icon"
+                    android:layout_alignEnd="@+id/item_icon"
+                    android:layout_marginTop="@dimen/menu_button_top_margin"
+                    android:gravity="center" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</LinearLayout>

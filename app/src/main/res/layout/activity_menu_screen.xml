@@ -84,9 +84,14 @@
 
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="34dp"
+            android:layout_height="wrap_content"
             android:id="@+id/ing_list"
-            android:layout_alignParentBottom="true">
+            android:layout_below="@+id/horizontal_line"
+            android:layout_marginTop="@dimen/menu_text_margin_small"
+            android:paddingRight="@dimen/menu_text_margin_small"
+            android:paddingLeft="@dimen/menu_text_margin_small"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbarSize="@dimen/menu_scrollbar_size">
 
             <!-- TODO: Replace this TextView with small, clickable text bubbles
              that are created when the user clicks on the yes/no buttons -->
@@ -95,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lorem"
                 android:id="@+id/textView"
-                android:layout_marginLeft="@dimen/menu_text_margin" />
+                android:paddingBottom="4dp"/>
         </HorizontalScrollView>
 
     </RelativeLayout>

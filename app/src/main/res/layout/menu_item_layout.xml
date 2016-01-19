@@ -5,14 +5,23 @@
     android:layout_height="@dimen/menu_item_height"
     android:id="@+id/sample_item">
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_checkbox"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/horizontal_line_2"
+        android:layout_alignStart="@+id/horizontal_line_2" />
+
     <ImageView
         android:layout_width="@dimen/menu_item_pic_size"
         android:layout_height="@dimen/menu_item_pic_size"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="@dimen/menu_text_margin"
-        android:layout_marginRight="@dimen/menu_text_margin"
         android:src="#ff0000"
-        android:id="@+id/item_icon" />
+        android:id="@+id/item_icon"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/item_checkbox"
+        android:layout_toEndOf="@+id/item_checkbox"
+        android:layout_marginRight="@dimen/menu_text_margin_small" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,32 +29,37 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Item Name"
         android:id="@+id/item_name"
+        android:textStyle="bold"
         android:layout_alignTop="@+id/item_icon"
         android:layout_toRightOf="@+id/item_icon"
-        android:layout_toEndOf="@+id/item_icon"
-        android:layout_marginRight="24dp"
-        android:textStyle="bold" />
+        android:layout_toEndOf="@+id/item_icon" />
 
     <HorizontalScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_below="@+id/item_name"
-        android:layout_alignLeft="@+id/item_name"
-        android:layout_alignStart="@+id/item_name">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@id/ing_list"
+        android:layout_alignLeft="@id/item_name"
+        android:layout_alignStart="@id/item_name"
+        android:layout_below="@id/item_name"
+        android:paddingRight="22dp"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbarSize="@dimen/menu_scrollbar_size">
 
+        <!-- TODO: Change this TextView to a LinearLayout (horizontal) that will hold text bubbles
+                   This should be similar to the ingredients list in the menu screen (R.id.ing_list) -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Ingredients List"
             android:id="@+id/item_ing"
-            android:layout_marginRight="24dp"
             android:textStyle="italic"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:paddingBottom="4dp" />
 
     </HorizontalScrollView>
 
-
+    <!-- TODO: Find a better place to put the price, item looks lopsided with price under icon -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,12 +67,12 @@
         android:text="Price"
         android:textStyle=""
         android:id="@+id/item_price"
-        android:layout_below="@+id/item_icon"
-        android:layout_alignLeft="@+id/item_icon"
-        android:layout_alignStart="@+id/item_icon"
-        android:layout_alignRight="@+id/item_icon"
-        android:layout_alignEnd="@+id/item_icon"
-        android:layout_marginTop="1dp"
+        android:layout_below="@id/item_icon"
+        android:layout_alignLeft="@id/item_icon"
+        android:layout_alignStart="@id/item_icon"
+        android:layout_alignRight="@id/item_icon"
+        android:layout_alignEnd="@id/item_icon"
+        android:textSize="10sp"
         android:gravity="center" />
 
     <View
@@ -70,6 +84,5 @@
         android:layout_marginLeft="@dimen/menu_text_margin"
         android:layout_marginRight="@dimen/menu_text_margin"
         android:layout_alignParentBottom="true" />
-
 
 </RelativeLayout>

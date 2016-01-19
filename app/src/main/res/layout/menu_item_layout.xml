@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/menu_item_height"
+    android:id="@+id/sample_item">
+
+    <ImageView
+        android:layout_width="@dimen/menu_item_pic_size"
+        android:layout_height="@dimen/menu_item_pic_size"
+        android:layout_marginLeft="@dimen/menu_text_margin"
+        android:layout_marginTop="@dimen/menu_text_margin"
+        android:layout_marginRight="@dimen/menu_text_margin"
+        android:src="#ff0000"
+        android:id="@+id/item_icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Item Name"
+        android:id="@+id/item_name"
+        android:layout_alignTop="@+id/item_icon"
+        android:layout_toRightOf="@+id/item_icon"
+        android:layout_toEndOf="@+id/item_icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Ingredients List"
+        android:id="@+id/item_ing"
+        android:layout_below="@+id/item_name"
+        android:layout_alignLeft="@+id/item_name"
+        android:layout_alignStart="@+id/item_name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Price"
+        android:id="@+id/item_price"
+        android:layout_below="@+id/item_icon"
+        android:layout_alignLeft="@+id/item_icon"
+        android:layout_alignStart="@+id/item_icon"
+        android:layout_alignRight="@+id/item_icon"
+        android:layout_alignEnd="@+id/item_icon"
+        android:layout_marginTop="@dimen/menu_button_top_margin"
+        android:gravity="center" />
+
+</RelativeLayout>

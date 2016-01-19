@@ -1,7 +1,10 @@
 package com.prodevteam.tastebud;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -44,6 +47,8 @@ public class MenuScreen extends ActionBarActivity {
         });
 
         // TODO: Populate the menu with menu items, programmatically generate RelativeLayouts (menu items) and add then to the menu
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        RelativeLayout parent = (RelativeLayout) inflater.inflate(R.layout.menu_item_layout, null);
 
 
     }
@@ -56,5 +61,27 @@ public class MenuScreen extends ActionBarActivity {
     private void onYesClick() {
         // TODO: Set the behavior of this button to create a new ingredient bubble that is not grayed out
         // The bubble should contain whatever was entered into the ingredient field
+    }
+
+    private class MenuItem extends RelativeLayout {
+
+        private ImageView itemIcon;
+        private TextView itemName;
+        private TextView itemPrice;
+        private TextView itemIng;
+
+        public MenuItem(Context context) {
+            super(context);
+        }
+
+        public void setItemIcon(ImageView icon) {
+            itemIcon = icon;
+        }
+
+        public void setItemName(TextView name) {
+
+        }
+
+        public void setItemPrice()
     }
 }

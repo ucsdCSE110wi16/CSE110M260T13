@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Price"
-                    android:id="@+id/sample_price"
+                    android:id="@+id/item_price"
                     android:layout_below="@+id/item_icon"
                     android:layout_alignLeft="@+id/item_icon"
                     android:layout_alignStart="@+id/item_icon"

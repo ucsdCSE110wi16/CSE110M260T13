@@ -21,9 +21,12 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_post_login"
             android:theme="@style/FullscreenTheme" />
+
         <activity
             android:name=".MenuScreen"
-            android:label="@string/title_activity_menu_screen"></activity>
+            android:label="@string/title_activity_menu_screen">
+
+        </activity>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.prodevteam.tastebud;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -17,12 +18,6 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 public class MenuScreen extends ActionBarActivity {
-
-    private ViewGroup.LayoutParams iconParams;
-    private ViewGroup.LayoutParams itemParams;
-    private ViewGroup.LayoutParams priceParams;
-    private ViewGroup.LayoutParams nameParams;
-    private ViewGroup.LayoutParams ingParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +41,24 @@ public class MenuScreen extends ActionBarActivity {
             }
         });
 
-        // TODO: Populate the menu with menu items, programmatically generate RelativeLayouts (menu items) and add then to the menu
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        RelativeLayout parent = (RelativeLayout) inflater.inflate(R.layout.menu_item_layout, null);
+        // TODO: Change this code block to retrieve the menu from the server and populate the menu view
+        // Get the menu wrapper that we will add the items too
+        LinearLayout menuWrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
 
+        // Add 8 items
+        for(int i = 0; i < 8; i++) {
+            // Create the menu items
+            MenuItem menuItem = new MenuItem(this);
+
+            // Set the menu items' contents
+            menuItem.setItemIcon(getResources().getDrawable(R.drawable.menu_item_1));
+            menuItem.setItemName(getResources().getString(R.string.menu_item_1_name));
+            menuItem.setItemPrice(getResources().getString(R.string.menu_item_1_price));
+            menuItem.setItemIng(getResources().getString(R.string.menu_item_1_ing));
+
+            // Add the item to the menu
+            menuWrapper.addView(menuItem);
+        }
 
     }
 
@@ -72,16 +81,45 @@ public class MenuScreen extends ActionBarActivity {
 
         public MenuItem(Context context) {
             super(context);
+
+            View.inflate(context, R.layout.menu_item_layout, this);
+            itemIcon = (ImageView) findViewById(R.id.item_icon);
+            itemName = (TextView) findViewById(R.id.item_name);
+            itemPrice = (TextView) findViewById(R.id.item_price);
+            itemIng = (TextView) findViewById(R.id.item_ing);
         }
 
-        public void setItemIcon(ImageView icon) {
-            itemIcon = icon;
+        public void setItemIcon(Drawable icon) {
+            itemIcon.setImageDrawable(icon);
+            itemIcon.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
 
-        public void setItemName(TextView name) {
-
+        public void setItemName(String name) {
+            itemName.setText(name.toCharArray(), 0, name.length());
         }
 
-        public void setItemPrice()
+        public void setItemPrice(String price) {
+            itemPrice.setText(price.toCharArray(), 0, price.length());
+        }
+
+        public void setItemIng(String ing) {
+            itemIng.setText(ing.toCharArray(), 0, ing.length());
+        }
+
+        public ImageView getItemIcon() {
+            return itemIcon;
+        }
+
+        public TextView getItemName() {
+            return itemName;
+        }
+
+        public TextView getItemPrice() {
+            return itemPrice;
+        }
+
+        public TextView getItemIng() {
+            return itemIng;
+        }
     }
 }

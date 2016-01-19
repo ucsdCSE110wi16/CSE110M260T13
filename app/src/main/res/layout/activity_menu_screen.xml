@@ -80,14 +80,13 @@
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"></View>
+            android:layout_centerHorizontal="true" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="34dp"
             android:id="@+id/ing_list"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" >
+            android:layout_alignParentBottom="true">
 
             <!-- TODO: Replace this TextView with small, clickable text bubbles
              that are created when the user clicks on the yes/no buttons -->
@@ -112,55 +111,7 @@
             android:orientation="vertical"
             android:id="@+id/menu_wrapper">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/menu_item_height"
-                android:id="@+id/sample_item">
 
-                <ImageView
-                    android:layout_width="@dimen/menu_item_pic_size"
-                    android:layout_height="@dimen/menu_item_pic_size"
-                    android:layout_marginLeft="@dimen/menu_text_margin"
-                    android:layout_marginTop="@dimen/menu_text_margin"
-                    android:layout_marginRight="@dimen/menu_text_margin"
-                    android:src="#ff0000"
-                    android:id="@+id/item_icon" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Item Name"
-                    android:id="@+id/sample_name"
-                    android:layout_alignTop="@+id/item_icon"
-                    android:layout_toRightOf="@+id/item_icon"
-                    android:layout_toEndOf="@+id/item_icon" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Ingredients List"
-                    android:id="@+id/sample_ing"
-                    android:layout_below="@+id/sample_name"
-                    android:layout_alignLeft="@+id/sample_name"
-                    android:layout_alignStart="@+id/sample_name" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Price"
-                    android:id="@+id/item_price"
-                    android:layout_below="@+id/item_icon"
-                    android:layout_alignLeft="@+id/item_icon"
-                    android:layout_alignStart="@+id/item_icon"
-                    android:layout_alignRight="@+id/item_icon"
-                    android:layout_alignEnd="@+id/item_icon"
-                    android:layout_marginTop="@dimen/menu_button_top_margin"
-                    android:gravity="center" />
-
-            </RelativeLayout>
         </LinearLayout>
 
     </ScrollView>

@@ -1,11 +1,13 @@
 package com.prodevteam.tastebud;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 public class LoginActivity extends ActionBarActivity {
@@ -29,8 +32,8 @@ public class LoginActivity extends ActionBarActivity {
         setContentView(R.layout.activity_login);
 
         // This timer will change the background image every 3 seconds
-        // It runs for 20 seconds and is then restarted
-        new CountDownTimer(20000, 3000) {
+        // It runs for 21 seconds and is then restarted
+        new CountDownTimer(21000, 3000) {
             public void onTick(long millisUntilFinished) {
                 changeBackgroundImage();
             }
@@ -47,6 +50,33 @@ public class LoginActivity extends ActionBarActivity {
                 onSignInClick();
             }
         });
+
+        // This sets the behavior of the create account button, it calls onCreateAccountClick
+        Button createAccountButton = (Button) findViewById(R.id.create_acc_button);
+        createAccountButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+        //        onCreateAccountClick();
+            }
+        });
+    }
+
+    /**
+     * Handles the 'Create Account' button being clicked
+     */
+    private void onCreateAccountClick() {
+
+        // Bring up create account dialog
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout dialog = (LinearLayout) inflater.inflate(R.layout.create_account_dialog_layout, null);
+
+        RelativeLayout login_screen = (RelativeLayout) findViewById(R.id.login_screen);
+        login_screen.addView(dialog);
+
+        // Create a new account on the database
+
+        // Take the user to the settings screen
+        // Intent intent = new Intent(this, AccountSettingsScreen.class);
+        //startActivity(intent);
     }
 
     /**

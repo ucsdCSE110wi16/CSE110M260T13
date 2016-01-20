@@ -17,6 +17,15 @@
         android:alpha="@dimen/bg_alpha"
         android:visibility="visible"
         android:contentDescription="@string/login_bg" />
+    <ImageView
+        android:id="@+id/bgimage2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/login_2"
+        android:alpha="@dimen/bg_alpha"
+        android:visibility="invisible"
+        android:contentDescription="@string/login_bg2" />
 
     <ImageView
         android:layout_width="128dp"

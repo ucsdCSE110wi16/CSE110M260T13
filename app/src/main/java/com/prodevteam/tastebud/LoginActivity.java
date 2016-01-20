@@ -2,6 +2,8 @@ package com.prodevteam.tastebud;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -87,23 +89,30 @@ public class LoginActivity extends ActionBarActivity {
     // Possibly helpful information: http://developer.android.com/training/animation/crossfade.html
     private void changeBackgroundImage() {
         ImageView bgimage = (ImageView) findViewById(R.id.bgimage);
+        ImageView bgimage2 = (ImageView) findViewById(R.id.bgimage2);
+        Drawable next_img;
+        Drawable this_img;
         imageIndex++;
         switch(imageIndex) {
             case 5:
                 imageIndex = 1;
             case 1:
-                bgimage.setImageDrawable(getResources().getDrawable(R.drawable.login_1));
+                next_img = getResources().getDrawable(R.drawable.login_1);
                 break;
             case 2:
-                bgimage.setImageDrawable(getResources().getDrawable(R.drawable.login_2));
+                next_img = getResources().getDrawable(R.drawable.login_2);
                 break;
             case 3:
-                bgimage.setImageDrawable(getResources().getDrawable(R.drawable.login_3));
-                break;
-            case 4:
-                bgimage.setImageDrawable(getResources().getDrawable(R.drawable.login_4));
-                break;
-        }
+                bgimage2.setImageDrawable(getResources().
+        bgimage2.setImageAlpha(0);
+        bgimage2.setVisibility(View.VISIBLE);
+        Drawable backgrounds[] = new Drawable[2];
+        backgrounds[0] = bgimage.getDrawable();
+        backgrounds[1] = bgimage2.getDrawable();
+
+        TransitionDrawable crossfader = new TransitionDrawable(backgrounds);
+        bgimage.setImageDrawable(crossfader);
+        crossfader.startTransition(2000);
     }
 
     /**

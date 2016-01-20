@@ -9,7 +9,7 @@
     <string name="login_string">Sign in</string>
     <string name="register_string">Create Account</string>
     <string name="login_bg">Background for login screen</string>
-
+    <string name="login_bg2">Background for login screen</string>
     <!-- Post Login Activity -->
     <string name="diet_button">Dietary Restrictions</string>
     <string name="title_activity_post_login">Post Login</string>

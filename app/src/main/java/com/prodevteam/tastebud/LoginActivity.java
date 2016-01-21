@@ -98,10 +98,8 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     /**
-     * Sets the background image through the 4 different images
+     * Changes the background image through the 4 different images
      */
-    // TODO: Modify this method to crossfade the background images (i.e. login_1 fades into login_2, etc.)
-    // Possibly helpful information: http://developer.android.com/training/animation/crossfade.html
     private void changeBackgroundImage() {
         switch(imageIndex) {
             case 5:

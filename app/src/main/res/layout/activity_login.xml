@@ -8,24 +8,16 @@
     android:id="@+id/login_screen"
     android:clickable="false">
 
+    <!-- TODO: Test the background image scaling on large screens (1080p) -->
     <ImageView
         android:id="@+id/bgimage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/login_2"
-        android:alpha="@dimen/bg_alpha"
+        android:alpha="1.0"
         android:visibility="visible"
         android:contentDescription="@string/login_bg" />
-    <ImageView
-        android:id="@+id/bgimage2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/login_2"
-        android:alpha="@dimen/bg_alpha"
-        android:visibility="invisible"
-        android:contentDescription="@string/login_bg2" />
 
     <ImageView
         android:layout_width="128dp"

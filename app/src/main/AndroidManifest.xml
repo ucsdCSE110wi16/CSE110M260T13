@@ -2,31 +2,45 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.prodevteam.tastebud">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".App">
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name">
+            <meta-data
+                android:name="com.parse.APPLICATION_ID"
+                android:value="22oGHmMQOZvDuumizSeMuG09QsTaL6WFsWFkc1mG" />
+
+            <meta-data
+                android:name="com.parse.CLIENT_KEY"
+                android:value="caGmrg8tpFpRCoBfD2pJAqW4vHeDgz16jjkjpxOG" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".PostLoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_post_login"
             android:theme="@style/FullscreenTheme" />
+
         <activity
             android:name=".MenuScreen"
-            android:label="@string/title_activity_menu_screen"></activity>
+            android:label="@string/title_activity_menu_screen" />
+
         <activity
             android:name=".AccountSettingsScreen"
-            android:label="@string/title_activity_account_settings_screen"></activity>
+            android:label="@string/title_activity_account_settings_screen" />
     </application>
 
 </manifest>

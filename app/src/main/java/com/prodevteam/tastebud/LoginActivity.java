@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,22 +23,31 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+
 public class LoginActivity extends ActionBarActivity {
 
     protected static final String EMAIL_EXTRA_KEY = "com.prodevteam.tastebud.USER_EMAIL";
+    private Drawable[] backgrounds;
     private int imageIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        imageIndex = 1;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        ImageView bgimage = (ImageView) findViewById(R.id.bgimage);
+        backgrounds = new Drawable[2];
+        imageIndex = 2;
+        bgimage.setImageDrawable(getResources().getDrawable(R.drawable.login_2));
 
         // This timer will change the background image every 3 seconds
         // It runs for 21 seconds and is then restarted
         new CountDownTimer(21000, 3000) {
             public void onTick(long millisUntilFinished) {
                 changeBackgroundImage();
+                imageIndex++;
             }
 
             public void onFinish() {
@@ -57,9 +67,16 @@ public class LoginActivity extends ActionBarActivity {
         Button createAccountButton = (Button) findViewById(R.id.create_acc_button);
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-        //        onCreateAccountClick();
+                onCreateAccountClick();
             }
         });
+
+        // THIS IS NOT WORKING
+        ParseObject parseObject = ParseObject.create("Customer");
+        parseObject.put("objectID", "1");
+        parseObject.put("first_name", "Belton");
+        parseObject.put("last_name", "Zhong");
+        parseObject.saveInBackground();
     }
 
     /**
@@ -82,37 +99,32 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     /**
-     * Cycles the background image through the 4 different images
+     * Changes the background image through the 4 different images
      */
-    // TODO: Modify this method to crossfade the background images (i.e. login_1 fades into login_2, etc.)
-    // TODO: Test the background image scaling on large screens (1080p)
-    // Possibly helpful information: http://developer.android.com/training/animation/crossfade.html
     private void changeBackgroundImage() {
-        ImageView bgimage = (ImageView) findViewById(R.id.bgimage);
-        ImageView bgimage2 = (ImageView) findViewById(R.id.bgimage2);
-        Drawable next_img;
-        Drawable this_img;
-        imageIndex++;
         switch(imageIndex) {
             case 5:
                 imageIndex = 1;
             case 1:
-                next_img = getResources().getDrawable(R.drawable.login_1);
+                backgrounds[0] = getResources().getDrawable(R.drawable.login_1);
+                backgrounds[1] = getResources().getDrawable(R.drawable.login_2);
                 break;
             case 2:
-                next_img = getResources().getDrawable(R.drawable.login_2);
+                backgrounds[0] = getResources().getDrawable(R.drawable.login_2);
+                backgrounds[1] = getResources().getDrawable(R.drawable.login_3);
                 break;
             case 3:
-                bgimage2.setImageDrawable(getResources().
-        bgimage2.setImageAlpha(0);
-        bgimage2.setVisibility(View.VISIBLE);
-        Drawable backgrounds[] = new Drawable[2];
-        backgrounds[0] = bgimage.getDrawable();
-        backgrounds[1] = bgimage2.getDrawable();
-
-        TransitionDrawable crossfader = new TransitionDrawable(backgrounds);
-        bgimage.setImageDrawable(crossfader);
-        crossfader.startTransition(2000);
+                backgrounds[0] = getResources().getDrawable(R.drawable.login_3);
+                backgrounds[1] = getResources().getDrawable(R.drawable.login_4);
+                break;
+            case 4:
+                backgrounds[0] = getResources().getDrawable(R.drawable.login_4);
+                backgrounds[1] = getResources().getDrawable(R.drawable.login_1);
+                break;
+        }
+        TransitionDrawable crossfade = new TransitionDrawable(backgrounds);
+        ((ImageView) findViewById(R.id.bgimage)).setImageDrawable(crossfade);
+        crossfade.startTransition(400);
     }
 
     /**
@@ -127,6 +139,9 @@ public class LoginActivity extends ActionBarActivity {
         EditText passwordBar = (EditText) findViewById((R.id.pass_field));
         String password = passwordBar.getText().toString();
         String userEmail = emailBar.getText().toString();
+
+
+
 
         // WILL BE CHANGED: Pass the user's email address as an extra to the next intent
         // TODO: Change this to pass the user's first name (retrieved from SQL server)

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" tools:context=".LoginActivity"
     android:id="@+id/login_screen"
+    android:gravity="center_horizontal"
     android:clickable="false">
 
     <!-- TODO: Test the background image scaling on large screens (1080p) -->

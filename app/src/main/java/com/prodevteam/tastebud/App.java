@@ -3,6 +3,7 @@ package com.prodevteam.tastebud;
 import android.app.Application;
 
 import com.parse.Parse;
+import com.parse.ParseObject;
 
 /**
  * Created by Belton on 1/21/2016.

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -24,6 +25,8 @@ import android.widget.RelativeLayout;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
+
+import java.sql.Connection;
 
 public class LoginActivity extends ActionBarActivity {
 
@@ -69,13 +72,6 @@ public class LoginActivity extends ActionBarActivity {
                 onCreateAccountClick();
             }
         });
-
-        // THIS IS NOT WORKING
-        ParseObject parseObject = ParseObject.create("Customer");
-        parseObject.put("objectID", "1");
-        parseObject.put("first_name", "Belton");
-        parseObject.put("last_name", "Zhong");
-        parseObject.saveInBackground();
     }
 
     /**
@@ -88,7 +84,13 @@ public class LoginActivity extends ActionBarActivity {
         LinearLayout dialog = (LinearLayout) inflater.inflate(R.layout.create_account_dialog_layout, null);
 
         RelativeLayout login_screen = (RelativeLayout) findViewById(R.id.login_screen);
-        login_screen.addView(dialog);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+
+        login_screen.addView(dialog, params);
+        findViewById(R.id.signin_button).setVisibility(View.INVISIBLE);
+
+
 
         // Create a new account on the database
 

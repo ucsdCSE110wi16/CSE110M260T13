@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -140,6 +141,9 @@ public class LoginActivity extends ActionBarActivity {
         EditText passwordBar = (EditText) findViewById((R.id.pass_field));
         String password = passwordBar.getText().toString();
         String userEmail = emailBar.getText().toString();
+
+
+
 
         // WILL BE CHANGED: Pass the user's email address as an extra to the next intent
         // TODO: Change this to pass the user's first name (retrieved from SQL server)

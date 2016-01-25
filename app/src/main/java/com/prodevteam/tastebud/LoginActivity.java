@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -147,6 +148,14 @@ public class LoginActivity extends ActionBarActivity {
 
         // WILL BE CHANGED: Pass the user's email address as an extra to the next intent
         // TODO: Change this to pass the user's first name (retrieved from SQL server)
+        new AsyncTask<String, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(String...params) {
+                MySQL.insert(MySQL.CUSTOMER_INFO, customer);
+            }
+        }.execute();
+
+
         intent.putExtra(EMAIL_EXTRA_KEY, userEmail);
         // Switch to the post login activity
         startActivity(intent);

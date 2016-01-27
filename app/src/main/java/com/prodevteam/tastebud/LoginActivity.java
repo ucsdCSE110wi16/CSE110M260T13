@@ -24,9 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import com.parse.Parse;
-import com.parse.ParseObject;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.util.concurrent.ExecutionException;
@@ -141,28 +139,25 @@ public class LoginActivity extends ActionBarActivity {
         EditText passwordBar = (EditText) findViewById((R.id.pass_field));
         String password = passwordBar.getText().toString();
         final String userEmail = emailBar.getText().toString();
-
         final Intent intent = new Intent(this, PostLoginActivity.class);
 
-
-        // WILL BE CHANGED: Pass the user's email address as an extra to the next intent
-        // TODO: Change this to pass the user's first name (retrieved from SQL server)
+        // Login to the app
         new AsyncTask<String, Void, String>() {
             @Override
             protected String doInBackground(String...params) {
-                return App.sqlConnection.getNameMatchingEmail(params[0]);
+                return App.sqlConnection.attemptLogin(params[0], params[1]);
             }
 
             @Override
             protected void onPostExecute(String result) {
-                try {
-                    String name = get();
-                    intent.putExtra(NAME_EXTRA_KEY, name);
-                } catch (InterruptedException e) {}
-                catch (ExecutionException e) {}
-                startActivity(intent);
+                if(result == null)
+                    Toast.makeText(LoginActivity.this, "Error signing in, invalid email address or password.", Toast.LENGTH_SHORT).show();
+                else {
+                    intent.putExtra(NAME_EXTRA_KEY, result);
+                    startActivity(intent);
+                }
             }
-        }.execute(userEmail);
+        }.execute(userEmail, password);
     }
 
     @Override

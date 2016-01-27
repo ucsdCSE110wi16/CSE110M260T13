@@ -39,32 +39,17 @@ public class MySQL {
             }}.execute();
     }
 
-    public String getNameMatchingEmail(final String email) {
-        String query = "select name from Customer_Info where EMAIL = '" + email + "'";
-        ResultSet results;
-        String name = "";
-        try {
-            results = statement.executeQuery(query);
-            while(results.next())
-                name = results.getString("name");
-        } catch(SQLException ex) {
-            Log.e("MySQL", "Error:", ex);
-        }
-        return name;
-    }
-
-    public boolean attemptLogin(String email, String password) {
-        String query = "select password from Customer_Info where EMAIL = '" + email + "'";
+    public String attemptLogin(String email, String password) {
+        String query = "select * from Customer_Info where EMAIL = '" + email + "' and password = '" + password + "' limit 1";
         ResultSet results;
         try {
             results = statement.executeQuery(query);
-            while(results.next())
-                if(password.equals(results.getString("password"))) return true;
-            return false;
+            if(results.next() == false) return null;
+            return results.getString("name");
         } catch (SQLException e) {
             Log.e("MySQL", "Error:", e);
         }
-        return false;
+        return null;
     }
 
     public void executeUpdate(String query) throws SQLException {

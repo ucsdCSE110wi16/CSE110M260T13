@@ -14,13 +14,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name">
-            <meta-data
-                android:name="com.parse.APPLICATION_ID"
-                android:value="22oGHmMQOZvDuumizSeMuG09QsTaL6WFsWFkc1mG" />
-
-            <meta-data
-                android:name="com.parse.CLIENT_KEY"
-                android:value="caGmrg8tpFpRCoBfD2pJAqW4vHeDgz16jjkjpxOG" />
+          
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

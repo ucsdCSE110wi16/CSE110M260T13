@@ -1,52 +1,73 @@
 package com.prodevteam.tastebud;
 
+import android.content.Context;
+import android.database.CursorJoiner;
+import android.graphics.Interpolator;
+import android.os.AsyncTask;
 import android.util.Log;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Driver;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class MySQL {
 
     /* variable declarations */
-    public Connection connection;
-    public Statement statement;
-    public ResultSet result;
+    public static Connection connection;
+    public static Statement statement;
 
-    public void connect(String JDBC, String dbUsername, String dbPassword) {
+    private String DB_USERNAME = "sql3104137";
+    private String DB_PASSWORD = "EdL4hLKf6S";
+    private String JDBC = "jdbc:mysql://sql3.freesqldatabase.com:3306/sql3104137";
 
-
-        try {
-            /* connect to the database */
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            connection = DriverManager.getConnection(JDBC, dbUsername, dbPassword);
-            statement = connection.createStatement();
-            Log.d("SQL","Login successful");
-
-        } catch (SQLException | NumberFormatException | InstantiationException| IllegalAccessException| ClassNotFoundException e) {
-            Log.d("SQL", e.toString());
-
-        }
-
+    public void initializeConnection() {
+        new AsyncTask<String, Void, String>() {
+            @Override
+            protected String doInBackground(String... urls) {
+                try {
+                    Class.forName("com.mysql.jdbc.Driver").newInstance();
+                    connection = DriverManager.getConnection(JDBC, DB_USERNAME, DB_PASSWORD);
+                    statement = connection.createStatement();
+                } catch (SQLException | NumberFormatException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {}
+                return "";
+            }}.execute();
     }
 
-    public ResultSet executeQuery(String query) throws SQLException {
-        return result = statement.executeQuery(query);
+    public String getNameMatchingEmail(final String email) {
+        String query = "select name from Customer_Info where EMAIL = '" + email + "'";
+        ResultSet results;
+        String name = "";
+        try {
+            results = statement.executeQuery(query);
+            while(results.next())
+                name = results.getString("name");
+        } catch(SQLException ex) {
+            Log.e("MySQL", "Error:", ex);
+        }
+        return name;
+    }
+
+    public boolean attemptLogin(String email, String password) {
+        String query = "select password from Customer_Info where EMAIL = '" + email + "'";
+        ResultSet results;
+        try {
+            results = statement.executeQuery(query);
+            while(results.next())
+                if(password.equals(results.getString("password"))) return true;
+            return false;
+        } catch (SQLException e) {
+            Log.e("MySQL", "Error:", e);
+        }
+        return false;
     }
 
     public void executeUpdate(String query) throws SQLException {
         statement.executeUpdate(query);
     }
-
-    public boolean next() throws SQLException {
-        return result.next();
-    }
-
-    public void close() throws SQLException{
-        connection.close();
-    }
-
 }

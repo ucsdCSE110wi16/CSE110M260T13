@@ -29,10 +29,11 @@ import com.parse.Parse;
 import com.parse.ParseObject;
 
 import java.sql.Connection;
+import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends ActionBarActivity {
 
-    protected static final String EMAIL_EXTRA_KEY = "com.prodevteam.tastebud.USER_EMAIL";
+    protected static final String NAME_EXTRA_KEY = "com.prodevteam.tastebud.USER_NAME";
     private Drawable[] backgrounds;
     private int imageIndex;
 
@@ -48,6 +49,7 @@ public class LoginActivity extends ActionBarActivity {
 
         // This timer will change the background image every 3 seconds
         // It runs for 21 seconds and is then restarted
+        /*
         new CountDownTimer(21000, 3000) {
             public void onTick(long millisUntilFinished) {
                 changeBackgroundImage();
@@ -58,7 +60,7 @@ public class LoginActivity extends ActionBarActivity {
                 this.start(); //Restart the timer when it finishes
             }
         }.start();
-
+        */
         // This sets the behavior of the sign in button, it calls onSignInClick
         Button signInButton = (Button) findViewById(R.id.signin_button);
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -134,31 +136,33 @@ public class LoginActivity extends ActionBarActivity {
      * This method is called when the sign in button is clicked.
      */
     private void onSignInClick() {
-        // Creates an Intent that will open the post login activity
-        Intent intent = new Intent(this, PostLoginActivity.class);
-
         // Retrieving the email address and password fields
         EditText emailBar = (EditText) findViewById(R.id.email_field);
         EditText passwordBar = (EditText) findViewById((R.id.pass_field));
         String password = passwordBar.getText().toString();
-        String userEmail = emailBar.getText().toString();
+        final String userEmail = emailBar.getText().toString();
 
-
+        final Intent intent = new Intent(this, PostLoginActivity.class);
 
 
         // WILL BE CHANGED: Pass the user's email address as an extra to the next intent
         // TODO: Change this to pass the user's first name (retrieved from SQL server)
-        new AsyncTask<String, Void, Boolean>() {
+        new AsyncTask<String, Void, String>() {
             @Override
-            protected Boolean doInBackground(String...params) {
-                MySQL.insert(MySQL.CUSTOMER_INFO, customer);
+            protected String doInBackground(String...params) {
+                return App.sqlConnection.getNameMatchingEmail(params[0]);
             }
-        }.execute();
 
-
-        intent.putExtra(EMAIL_EXTRA_KEY, userEmail);
-        // Switch to the post login activity
-        startActivity(intent);
+            @Override
+            protected void onPostExecute(String result) {
+                try {
+                    String name = get();
+                    intent.putExtra(NAME_EXTRA_KEY, name);
+                } catch (InterruptedException e) {}
+                catch (ExecutionException e) {}
+                startActivity(intent);
+            }
+        }.execute(userEmail);
     }
 
     @Override

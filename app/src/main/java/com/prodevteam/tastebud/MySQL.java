@@ -35,8 +35,8 @@ public class MySQL {
     }
 
     public String attemptLogin(String email, String password) {
-        String query = "SELECT * FROM Customer_Info where Email = '" + email + "' and Password = '" + password + "' limit 1";
         ResultSet result;
+        String query = "SELECT * FROM Customer_Info where Email = '" + email + "' and Password = '" + password + "' LIMIT 1";
         try {
             result = statement.executeQuery(query);
             if(result.next() == false) return null;

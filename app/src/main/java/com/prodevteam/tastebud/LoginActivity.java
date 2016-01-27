@@ -92,8 +92,6 @@ public class LoginActivity extends ActionBarActivity {
         login_screen.addView(dialog, params);
         findViewById(R.id.signin_button).setVisibility(View.INVISIBLE);
 
-
-
         // Create a new account on the database
 
         // Take the user to the settings screen

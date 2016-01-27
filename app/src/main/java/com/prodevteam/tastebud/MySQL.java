@@ -1,20 +1,13 @@
 package com.prodevteam.tastebud;
 
-import android.content.Context;
-import android.database.CursorJoiner;
-import android.graphics.Interpolator;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
 
 public class MySQL {
 
@@ -25,6 +18,8 @@ public class MySQL {
     private String DB_USERNAME = "sql3104137";
     private String DB_PASSWORD = "EdL4hLKf6S";
     private String JDBC = "jdbc:mysql://sql3.freesqldatabase.com:3306/sql3104137";
+
+    private int customerCount;
 
     public void initializeConnection() {
         new AsyncTask<String, Void, String>() {
@@ -37,6 +32,7 @@ public class MySQL {
                 } catch (SQLException | NumberFormatException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {}
                 return "";
             }}.execute();
+        customerCount = 0;
     }
 
     public String attemptLogin(String email, String password) {
@@ -52,7 +48,17 @@ public class MySQL {
         return null;
     }
 
-    public void executeUpdate(String query) throws SQLException {
-        statement.executeUpdate(query);
+    public Boolean createNewAccount(String email, String password, String name) {
+        String query = "insert into Customer_Info (email, password, name) VALUES('" + email + "','" + password + "', '" + name + "')";
+        int results = customerCount;
+        try {
+            results = statement.executeUpdate(query);
+        } catch (SQLException e) {
+            Log.e("MySQL", "Error:", e);
+        }
+        if(results == customerCount + 1) {
+            customerCount++;
+            return true;
+        } else return false;
     }
 }

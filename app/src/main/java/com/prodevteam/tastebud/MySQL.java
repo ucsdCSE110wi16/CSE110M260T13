@@ -2,7 +2,6 @@ package com.prodevteam.tastebud;
 
 import android.os.AsyncTask;
 import android.util.Log;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -36,12 +35,12 @@ public class MySQL {
     }
 
     public String attemptLogin(String email, String password) {
-        String query = "select * from Customer_Info where EMAIL = '" + email + "' and password = '" + password + "' limit 1";
-        ResultSet results;
+        String query = "SELECT * FROM Customer_Info where Email = '" + email + "' and Password = '" + password + "' limit 1";
+        ResultSet result;
         try {
-            results = statement.executeQuery(query);
-            if(results.next() == false) return null;
-            return results.getString("name");
+            result = statement.executeQuery(query);
+            if(result.next() == false) return null;
+            return result.getString("Name");
         } catch (SQLException e) {
             Log.e("MySQL", "Error:", e);
         }

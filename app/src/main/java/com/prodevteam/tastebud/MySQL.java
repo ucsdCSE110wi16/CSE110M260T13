@@ -47,8 +47,26 @@ public class MySQL {
         return null;
     }
 
+    public boolean checkForDuplicate(String email) throws SQLException {
+
+        String query = "SELECT * FROM Customer_Info where email = '" + email + "'";
+        try {
+            ResultSet result = statement.executeQuery(query);
+            if (result.next()) {
+                return false;
+            }
+            return true;
+
+        }
+        catch (SQLException e) {
+            Log.e("MySQL", "Error:", e);
+            return false;
+        }
+    }
+
     public Boolean createNewAccount(String email, String password, String name) {
-        String query = "insert into Customer_Info (email, password, name) VALUES('" + email + "','" + password + "', '" + name + "')";
+
+        String query = "INSERT INTO Customer_Info (email, password, name) VALUES('" + email + "','" + password + "', '" + name + "')";
         int results = customerCount;
         try {
             results = statement.executeUpdate(query);

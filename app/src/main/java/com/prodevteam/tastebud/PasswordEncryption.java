@@ -28,7 +28,7 @@ public class PasswordEncryption {
                 encryptedPassword.append(Integer.toHexString(0xff & digested[i]));
             }
 
-            return encryptedPassword.toString().toLowerCase();
+            return encryptedPassword.toString();
 
         } catch (NoSuchAlgorithmException ex) {
             return null;

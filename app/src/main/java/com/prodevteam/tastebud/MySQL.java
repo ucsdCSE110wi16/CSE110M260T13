@@ -2,6 +2,7 @@ package com.prodevteam.tastebud;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.MenuItem;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ public class MySQL {
     /* variable declarations */
     public static Connection connection;
     public static Statement statement;
+    public static int user_key;
 
     private String DB_USERNAME = "sql3104137";
     private String DB_PASSWORD = "EdL4hLKf6S";
@@ -39,8 +41,11 @@ public class MySQL {
         String query = "SELECT * FROM Customer_Info where Email = '" + email + "' and Password = '" + password + "' LIMIT 1";
         try {
             result = statement.executeQuery(query);
-            if(result.next() == false) return null;
+            if(result.next() == false)
+                return null;
+            //user_key = result.getInt("ID");
             return result.getString("Name");
+
         } catch (SQLException e) {
             Log.e("MySQL", "Error:", e);
         }
@@ -63,6 +68,22 @@ public class MySQL {
             return false;
         }
     }
+
+    /* body of getMenu method - IN PROGRESS */
+    public void getMenu (MenuItem menu) {
+
+        String query = "SELECT * From Menu";
+        try {
+            ResultSet result = statement.executeQuery(query);
+            while (result.next()) {
+                //Populate menu items
+            }
+        } catch (SQLException e) {
+            Log.e("MySQL", "Error:", e);
+        }
+    }
+
+
 
     public Boolean createNewAccount(String email, String password, String name) {
 

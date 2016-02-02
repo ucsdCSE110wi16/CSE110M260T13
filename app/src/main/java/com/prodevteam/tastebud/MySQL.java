@@ -83,8 +83,6 @@ public class MySQL {
         }
     }
 
-
-
     public Boolean createNewAccount(String email, String password, String name) {
 
         String query = "INSERT INTO Customer_Info (email, password, name) VALUES('" + email + "','" + password + "', '" + name + "')";

@@ -60,14 +60,10 @@ public class MenuScreen extends ActionBarActivity {
     }
 
     private void onNoClick() {
-        // TODO: Set the behavior of this button to create a new ingredient bubble that is grayed out
-        // The bubble should contain whatever was entered into the ingredient field
         addIngredient().getButton().setChecked(false);
     }
 
     private void onYesClick() {
-        // TODO: Set the behavior of this button to create a new ingredient bubble that is not grayed out
-        // The bubble should contain whatever was entered into the ingredient field
         addIngredient().getButton().setChecked(true);
     }
 

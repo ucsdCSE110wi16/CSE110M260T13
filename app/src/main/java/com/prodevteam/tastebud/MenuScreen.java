@@ -6,8 +6,12 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -53,19 +57,76 @@ public class MenuScreen extends ActionBarActivity {
             // Add the item to the menu
             menuWrapper.addView(menuItem);
         }
-
     }
 
     private void onNoClick() {
         // TODO: Set the behavior of this button to create a new ingredient bubble that is grayed out
         // The bubble should contain whatever was entered into the ingredient field
-        //light off set light on
+        addIngredient().getButton().setChecked(false);
     }
 
     private void onYesClick() {
         // TODO: Set the behavior of this button to create a new ingredient bubble that is not grayed out
         // The bubble should contain whatever was entered into the ingredient field
-        //light on set light off
+        addIngredient().getButton().setChecked(true);
+    }
+
+    private IngredientItem addIngredient() {
+        // Get the ingredient name from the ingredient field
+        EditText ing_field = (EditText) findViewById(R.id.ingredient_field);
+        String ing_name = ing_field.getText().toString();
+        final IngredientItem ing = new IngredientItem(this);
+        ing.setName(ing_name);
+
+        // Add the ingredient to the ingredient list
+        final LinearLayout ing_list = (LinearLayout) findViewById(R.id.ing_wrapper);
+
+        // Set the X button to remove the ingredient from the wrapper
+        ing.x_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ing_list.removeView(ing);
+
+                // TODO: This should also remove the filtering rule corresponding to item
+            }
+        });
+        ing_list.addView(ing);
+
+        // Reset the ingredient field so the user can enter another ingredient
+        ing_field.setText("".toCharArray(), 0, 0);
+
+        return ing;
+    }
+
+    private class IngredientItem extends LinearLayout {
+        private CheckBox button;
+        private TextView name;
+        public ImageButton x_button;
+
+        public IngredientItem(Context context) {
+            super(context);
+
+            View.inflate(context, R.layout.ing_item_layout, this);
+
+            // button is initially off
+            button = (CheckBox) findViewById(R.id.ing_button);
+            button.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO: Change the filtering logic for the ingredient that is the parent of v
+                }
+            });
+            name = (TextView) findViewById(R.id.ing_name);
+            x_button = (ImageButton) findViewById(R.id.ing_x_button);
+        }
+
+        public CheckBox getButton() {
+            return button;
+        }
+
+        public void setName(String ing_name) {
+            name.setText(ing_name.toCharArray(), 0, ing_name.length());
+        }
     }
 
     private class MenuItem extends RelativeLayout {
@@ -100,22 +161,6 @@ public class MenuScreen extends ActionBarActivity {
 
         public void setItemIng(String ing) {
             itemIng.setText(ing.toCharArray(), 0, ing.length());
-        }
-
-        public ImageView getItemIcon() {
-            return itemIcon;
-        }
-
-        public TextView getItemName() {
-            return itemName;
-        }
-
-        public TextView getItemPrice() {
-            return itemPrice;
-        }
-
-        public TextView getItemIng() {
-            return itemIng;
         }
     }
 }

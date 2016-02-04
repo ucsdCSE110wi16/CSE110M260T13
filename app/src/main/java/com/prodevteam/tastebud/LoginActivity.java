@@ -47,7 +47,6 @@ public class LoginActivity extends ActionBarActivity {
 
         // This timer will change the background image every 3 seconds
         // It runs for 21 seconds and is then restarted
-        /*
         new CountDownTimer(21000, 3000) {
             public void onTick(long millisUntilFinished) {
                 changeBackgroundImage();
@@ -58,7 +57,7 @@ public class LoginActivity extends ActionBarActivity {
                 this.start(); //Restart the timer when it finishes
             }
         }.start();
-        */
+
         // This sets the behavior of the sign in button, it calls onSignInClick
         Button signInButton = (Button) findViewById(R.id.signin_button);
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -94,9 +93,112 @@ public class LoginActivity extends ActionBarActivity {
 
         // Create a new account on the database
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // Take the user to the settings screen
         // Intent intent = new Intent(this, AccountSettingsScreen.class);
-        //startActivity(intent);
+        // startActivity(intent);
     }
 
     /**

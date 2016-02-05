@@ -30,11 +30,12 @@ public class PostLoginActivity extends ActionBarActivity implements SensorEventL
 
     private static final float BG_IMAGE_OFFSET_Y = 100.0F;
     private static final float BG_IMAGE_OFFSET_X = 400.0F;
-    private String userEmail;
+
     private SensorManager sensorManager;
     private Sensor gyroscope;
     private Matrix transformationMatrix;
     private ImageView bgImage;
+
     private static final float NS2S = 1.0f / 1000000000.0f;
     private final float[] deltaRotationVector = new float[4];
 
@@ -57,6 +58,7 @@ public class PostLoginActivity extends ActionBarActivity implements SensorEventL
 
     public void onMenuButtonClicked() {
         Intent intent = new Intent(this, MenuScreen.class);
+        intent.putExtra("a", "b");
         startActivity(intent);
     }
 
@@ -90,13 +92,14 @@ public class PostLoginActivity extends ActionBarActivity implements SensorEventL
         else if(hour < 17) greeting_text.setText(R.string.greeting_afternoon);
         else greeting_text.setText(R.string.greeting_evening);
 
+
         TextView name_text = (TextView) findViewById(R.id.user_fname);
 
         // Retrieve the user's email address from the intent
-        userEmail = getIntent().getStringExtra(LoginActivity.EMAIL_EXTRA_KEY);
-        if(userEmail.indexOf('@') > 0)
-            userEmail = userEmail.substring(0, userEmail.indexOf('@'));
-        name_text.setText(userEmail.toCharArray(), 0, userEmail.length());
+        String userName = getIntent().getStringExtra(LoginActivity.NAME_EXTRA_KEY);
+        String firstName = userName.split(" ")[0];
+
+        name_text.setText(firstName.toCharArray(), 0, firstName.length());
 
         // Set up the Menu button
         Button menuButton = (Button) findViewById(R.id.menu_button);

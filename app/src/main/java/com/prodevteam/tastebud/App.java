@@ -2,18 +2,15 @@ package com.prodevteam.tastebud;
 
 import android.app.Application;
 
-import com.parse.Parse;
-import com.parse.ParseObject;
-
 public class App extends Application {
+
+    static MySQL sqlConnection;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
-        Parse.initialize(this, "22oGHmMQOZvDuumizSeMuG09QsTaL6WFsWFkc1mG", "caGmrg8tpFpRCoBfD2pJAqW4vHeDgz16jjkjpxOG");
-
-        MySQL sql = new MySQL();
-        sql.connect("jdbc:sqlserver://sql3.freesqldatabase.com:3306/sql3104137", "sql3104137", "EdL4hLKf6S");
-
+        sqlConnection = new MySQL();
+        sqlConnection.initializeConnection();
     }
 }

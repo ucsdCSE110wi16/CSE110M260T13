@@ -43,12 +43,14 @@
             android:layout_toRightOf="@+id/menu_ingredient_string"
             android:layout_toEndOf="@+id/menu_ingredient_string" />
 
-        <!-- TODO: Change the picture of this button to a small green check mark or similar -->
+        <!-- TODO: Change the picture of this button to a small red x or similar -->
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="34dp"
             android:layout_height="34dp"
-            android:text="N"
+            android:text=""
+            android:scaleType="fitCenter"
+            android:background="@drawable/red_x"
             android:textSize="12sp"
             android:id="@+id/no_button"
             android:layout_marginRight="@dimen/menu_text_margin"
@@ -57,7 +59,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
-        <!-- TODO: Change the picture of this button to a small red X or similar -->
+        <!-- TODO: Change the picture of this button to a small green check or similar -->
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="34dp"
@@ -65,7 +67,9 @@
             android:textSize="12sp"
             android:layout_marginRight="@dimen/menu_button_top_margin"
             android:layout_marginLeft="@dimen/menu_text_margin"
-            android:text="Y"
+            android:text=""
+            android:scaleType="fitCenter"
+            android:background="@drawable/green_check"
             android:id="@+id/yes_button"
             android:layout_alignBottom="@+id/no_button"
             android:layout_toLeftOf="@+id/no_button"
@@ -87,18 +91,19 @@
             android:layout_height="wrap_content"
             android:id="@+id/ing_list"
             android:layout_below="@+id/horizontal_line"
-            android:layout_marginTop="@dimen/menu_text_margin_small"
             android:paddingRight="@dimen/menu_text_margin_small"
             android:paddingLeft="@dimen/menu_text_margin_small"
+            android:paddingTop="5dp"
             android:scrollbarStyle="insideOverlay"
             android:scrollbarSize="@dimen/menu_scrollbar_size">
 
-            <!-- TODO: Replace this TextView with small, clickable text bubbles
-             that are created when the user clicks on the yes/no buttons -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></LinearLayout>
+                android:layout_height="match_parent"
+                android:id="@+id/ing_wrapper"
+                android:layout_gravity="center_vertical"
+                android:paddingBottom="5dp"></LinearLayout>
         </HorizontalScrollView>
 
     </RelativeLayout>

@@ -60,11 +60,52 @@ public class MenuScreen extends ActionBarActivity {
     }
 
     private void onNoClick() {
-        addIngredient().getButton().setChecked(false);
+        IngredientItem ing = addIngredient();
+        ing.getButton().setChecked(false);
+
+        updateIngredientLogic();
+    }
+
+    private void addIngredientLogic(IngredientItem ing, boolean val) {
+        LinearLayout menuWrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
+        if(!val) {
+            for (int i = 0; i < menuWrapper.getChildCount(); i++) {
+                View v = menuWrapper.getChildAt(i);
+                MenuItem item = (MenuItem) v;
+                String[] ingredients_list = item.getIngredients().split(",");
+                for (String s : ingredients_list)
+                    if (s.equals(ing.getName())) item.setVisibility(View.GONE);
+            }
+        } else {
+            for (int i = 0; i < menuWrapper.getChildCount(); i++) {
+                View v = menuWrapper.getChildAt(i);
+                MenuItem item = (MenuItem) v;
+                String[] ingredients_list = item.getIngredients().split(",");
+                boolean containsIng = false;
+                for (String s : ingredients_list)
+                    if (s.equals(ing.getName())) containsIng = true;
+                if(!containsIng) item.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private void updateIngredientLogic() {
+        LinearLayout menuWrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
+        for(int i = 0; i < menuWrapper.getChildCount(); i++)
+            menuWrapper.getChildAt(i).setVisibility(View.VISIBLE);
+        LinearLayout ing_wrapper = (LinearLayout) findViewById(R.id.ing_wrapper);
+        for (int i = 0; i < ing_wrapper.getChildCount(); i++) {
+            View v = ing_wrapper.getChildAt(i);
+            IngredientItem ing = (IngredientItem) v;
+            addIngredientLogic(ing, ing.getButton().isChecked());
+        }
     }
 
     private void onYesClick() {
-        addIngredient().getButton().setChecked(true);
+        IngredientItem ing = addIngredient();
+        ing.getButton().setChecked(true);
+
+        updateIngredientLogic();
     }
 
     private IngredientItem addIngredient() {
@@ -82,8 +123,7 @@ public class MenuScreen extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 ing_list.removeView(ing);
-
-                // TODO: This should also remove the filtering rule corresponding to item
+                updateIngredientLogic();
             }
         });
         ing_list.addView(ing);
@@ -109,7 +149,7 @@ public class MenuScreen extends ActionBarActivity {
             button.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO: Change the filtering logic for the ingredient that is the parent of v
+                    updateIngredientLogic();
                 }
             });
             name = (TextView) findViewById(R.id.ing_name);
@@ -122,6 +162,10 @@ public class MenuScreen extends ActionBarActivity {
 
         public void setName(String ing_name) {
             name.setText(ing_name.toCharArray(), 0, ing_name.length());
+        }
+
+        public String getName() {
+            return name.getText().toString();
         }
     }
 
@@ -157,6 +201,10 @@ public class MenuScreen extends ActionBarActivity {
 
         public void setItemIng(String ing) {
             itemIng.setText(ing.toCharArray(), 0, ing.length());
+        }
+
+        public String getIngredients() {
+            return itemIng.getText().toString();
         }
     }
 }

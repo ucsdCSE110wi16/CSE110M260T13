@@ -74,7 +74,7 @@ public class MenuScreen extends ActionBarActivity {
                 MenuItem item = (MenuItem) v;
                 String[] ingredients_list = item.getIngredients().split(",");
                 for (String s : ingredients_list)
-                    if (s.equals(ing.getName())) item.setVisibility(View.GONE);
+                    if (s.trim().equals(ing.getName())) item.setVisibility(View.GONE);
             }
         } else {
             for (int i = 0; i < menuWrapper.getChildCount(); i++) {
@@ -83,7 +83,7 @@ public class MenuScreen extends ActionBarActivity {
                 String[] ingredients_list = item.getIngredients().split(",");
                 boolean containsIng = false;
                 for (String s : ingredients_list)
-                    if (s.equals(ing.getName())) containsIng = true;
+                    if (s.trim().equals(ing.getName().trim())) containsIng = true;
                 if(!containsIng) item.setVisibility(View.GONE);
             }
         }

@@ -43,12 +43,14 @@
             android:layout_toRightOf="@+id/menu_ingredient_string"
             android:layout_toEndOf="@+id/menu_ingredient_string" />
 
-        <!-- TODO: Change the picture of this button to a small green check mark or similar -->
+        <!-- TODO: Change the picture of this button to a small red x or similar -->
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="34dp"
             android:layout_height="34dp"
-            android:text="N"
+            android:text=""
+            android:scaleType="fitCenter"
+            android:background="@drawable/red_x"
             android:textSize="12sp"
             android:id="@+id/no_button"
             android:layout_marginRight="@dimen/menu_text_margin"
@@ -57,7 +59,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
-        <!-- TODO: Change the picture of this button to a small red X or similar -->
+        <!-- TODO: Change the picture of this button to a small green check or similar -->
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="34dp"
@@ -65,7 +67,9 @@
             android:textSize="12sp"
             android:layout_marginRight="@dimen/menu_button_top_margin"
             android:layout_marginLeft="@dimen/menu_text_margin"
-            android:text="Y"
+            android:text=""
+            android:scaleType="fitCenter"
+            android:background="@drawable/green_check"
             android:id="@+id/yes_button"
             android:layout_alignBottom="@+id/no_button"
             android:layout_toLeftOf="@+id/no_button"

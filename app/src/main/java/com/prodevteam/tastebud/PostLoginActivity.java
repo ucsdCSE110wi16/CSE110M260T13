@@ -62,6 +62,11 @@ public class PostLoginActivity extends ActionBarActivity implements SensorEventL
         startActivity(intent);
     }
 
+    public void signoutButtonClicked() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,5 +113,15 @@ public class PostLoginActivity extends ActionBarActivity implements SensorEventL
                 onMenuButtonClicked();
             }
         });
+
+        //set up the signout button
+        Button signoutButton =(Button) findViewById(R.id.signout_button);
+        signoutButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                signoutButtonClicked();
+            }
+        });
+
+
     }
 }

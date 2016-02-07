@@ -36,6 +36,8 @@ public class MySQL {
         customerCount = 0;
     }
 
+    // TODO: MenuData class to hold info from the db and pass to MenuScreen
+
     public String attemptLogin(String email, String password) {
         ResultSet result;
         String query = "SELECT * FROM Customer_Info where Email = '" + email + "' and Password = '" + password + "' LIMIT 1";

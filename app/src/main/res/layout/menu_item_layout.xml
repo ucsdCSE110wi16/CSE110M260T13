@@ -45,7 +45,8 @@
         android:scrollbarStyle="insideOverlay"
         android:scrollbarSize="@dimen/menu_scrollbar_size">
 
-        <!-- TODO: Change this TextView to a LinearLayout (horizontal) that will hold text bubbles
+        <!--
+        TODO: Change this TextView to a LinearLayout (horizontal) that will hold text bubbles
                    This should be similar to the ingredients list in the menu screen (R.id.ing_list) -->
         <TextView
             android:layout_width="wrap_content"

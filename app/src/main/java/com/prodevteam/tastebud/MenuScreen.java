@@ -15,6 +15,8 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MenuScreen extends ActionBarActivity {
 
     @Override
@@ -42,7 +44,11 @@ public class MenuScreen extends ActionBarActivity {
         // TODO: Change this code block to retrieve the menu from the server and populate the menu view
         // Get the menu wrapper that we will add the items too
         LinearLayout menuWrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
-
+        /*
+        ArrayList<MenuItem> list = App.sqlConnection.getMenu();
+        for(MenuItem m : list)
+            menuWrapper.addView(m);
+            */
         // Add 8 items
         for(int i = 0; i < 8; i++) {
             // Create the menu items
@@ -61,6 +67,7 @@ public class MenuScreen extends ActionBarActivity {
 
     private void onNoClick() {
         IngredientItem ing = addIngredient();
+        if(ing == null) return;
         ing.getButton().setChecked(false);
 
         updateIngredientLogic();
@@ -103,6 +110,7 @@ public class MenuScreen extends ActionBarActivity {
 
     private void onYesClick() {
         IngredientItem ing = addIngredient();
+        if(ing == null) return;
         ing.getButton().setChecked(true);
 
         updateIngredientLogic();
@@ -112,6 +120,7 @@ public class MenuScreen extends ActionBarActivity {
         // Get the ingredient name from the ingredient field
         EditText ing_field = (EditText) findViewById(R.id.ingredient_field);
         String ing_name = ing_field.getText().toString();
+        if(ing_name.equals("")) return null;
         final IngredientItem ing = new IngredientItem(this);
         ing.setName(ing_name);
 
@@ -175,6 +184,7 @@ public class MenuScreen extends ActionBarActivity {
         private TextView itemName;
         private TextView itemPrice;
         private TextView itemIng;
+
 
         public MenuItem(Context context) {
             super(context);

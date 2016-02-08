@@ -31,6 +31,7 @@ import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends ActionBarActivity {
 
+    // TODO: Change this so that extra keys are global, or change extras so they are instead global fields
     protected static final String NAME_EXTRA_KEY = "com.prodevteam.tastebud.USER_NAME";
     private Drawable[] backgrounds;
     private int imageIndex;
@@ -42,11 +43,12 @@ public class LoginActivity extends ActionBarActivity {
 
         ImageView bgimage = (ImageView) findViewById(R.id.bgimage);
         backgrounds = new Drawable[2];
-        imageIndex = 2;
-        bgimage.setImageDrawable(getResources().getDrawable(R.drawable.login_2));
+        imageIndex = 4;
+        bgimage.setImageDrawable(getResources().getDrawable(R.drawable.login_4));
 
         // This timer will change the background image every 3 seconds
         // It runs for 21 seconds and is then restarted
+        /*
         new CountDownTimer(21000, 3000) {
             public void onTick(long millisUntilFinished) {
                 changeBackgroundImage();
@@ -57,6 +59,7 @@ public class LoginActivity extends ActionBarActivity {
                 this.start(); //Restart the timer when it finishes
             }
         }.start();
+        */
 
         // This sets the behavior of the sign in button, it calls onSignInClick
         Button signInButton = (Button) findViewById(R.id.signin_button);
@@ -91,10 +94,32 @@ public class LoginActivity extends ActionBarActivity {
         login_screen.addView(dialog, params);
         findViewById(R.id.signin_button).setVisibility(View.INVISIBLE);
 
+        Button continueButton = (Button) findViewById(R.id.continue_button);
+        continueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onContinueClick();
+            }
+        });
         // Create a new account on the database
 
+    }
+
+    private void onContinueClick() {
         // Take the user to the settings screen
+
         Intent intent = new Intent(this, AccountSettingsScreen.class);
+        EditText fname_field = (EditText) findViewById(R.id.first_name_field);
+        EditText lname_field = (EditText) findViewById(R.id.last_name_field);
+        EditText email_field = (EditText) findViewById(R.id.new_email_field);
+        EditText pass_field = (EditText) findViewById(R.id.pass_field);
+
+        String fname = fname_field.getText().toString();
+        String lname = lname_field.getText().toString();
+        String email = email_field.getText().toString();
+        String pass = pass_field.getText().toString();
+
+        App.currentUser = new App.UserInfo(fname, lname, email, pass);
         startActivity(intent);
     }
 
@@ -139,18 +164,17 @@ public class LoginActivity extends ActionBarActivity {
         final Intent intent = new Intent(this, PostLoginActivity.class);
 
         // Login to the app
-        new AsyncTask<String, Void, String>() {
+        new AsyncTask<String, Void, App.UserInfo>() {
             @Override
-            protected String doInBackground(String...params) {
-                return App.sqlConnection.attemptLogin(params[0], params[1]);
+            protected App.UserInfo doInBackground(String...params) {
+                return App.currentUser = App.sqlConnection.attemptLogin(params[0], params[1]);
             }
 
             @Override
-            protected void onPostExecute(String result) {
+            protected void onPostExecute(App.UserInfo result) {
                 if(result == null)
                     Toast.makeText(LoginActivity.this, "Error signing in, invalid email address or password.", Toast.LENGTH_SHORT).show();
                 else {
-                    intent.putExtra(NAME_EXTRA_KEY, result);
                     startActivity(intent);
                 }
             }

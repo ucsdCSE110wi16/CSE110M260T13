@@ -73,6 +73,7 @@ public class MenuScreen extends ActionBarActivity {
         updateIngredientLogic();
     }
 
+    // TODO: Change this to better search within ingredient names
     private void addIngredientLogic(IngredientItem ing, boolean val) {
         LinearLayout menuWrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
         if(!val) {
@@ -116,6 +117,7 @@ public class MenuScreen extends ActionBarActivity {
         updateIngredientLogic();
     }
 
+    // TODO: Check for duplicate ingredients
     private IngredientItem addIngredient() {
         // Get the ingredient name from the ingredient field
         EditText ing_field = (EditText) findViewById(R.id.ingredient_field);

@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/menu_text_margin">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="My Account"
+        android:text="@string/my_acc_string"
+        android:paddingBottom="@dimen/menu_text_margin_small"
         android:id="@+id/account_title" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ffffff"
+        android:id="@+id/horizontal_line2"
+        android:alpha="0.2"
+        android:layout_marginBottom="@dimen/menu_text_margin"
+        android:layout_gravity="center"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,7 +33,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="user@example.com"
-        android:id="@+id/email_address" />
+        android:textSize="16dp"
+        android:alpha="0.5"
+        android:layout_marginBottom="@dimen/menu_text_margin"
+        android:id="@+id/user_email" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,9 +49,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:ems="10"
+        android:textSize="16dp"
         android:id="@+id/pass_field"
-        android:text="abcdefg" />
+        android:layout_marginBottom="@dimen/menu_text_margin"
+        android:text="123456" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,7 +67,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/fname_field"
-        android:text="fname" />
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:textSize="16dp"
+        android:text="fname"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginBottom="@dimen/menu_text_margin"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,22 +85,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
+        android:textSize="16dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginBottom="@dimen/menu_text_margin"
         android:text="lname"
         android:ems="10"
         android:id="@+id/lname_field" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ffffff"
+        android:id="@+id/horizontal_line3"
+        android:alpha="0.2"
+        android:layout_marginBottom="@dimen/menu_text_margin"
+        android:layout_gravity="center"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Dietary Restrictions"
+        android:layout_marginBottom="@dimen/menu_text_margin_small"
         android:id="@+id/diet_title" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ffffff"
+        android:id="@+id/horizontal_line4"
+        android:alpha="0.2"
+        android:layout_marginBottom="@dimen/menu_text_margin"
+        android:layout_gravity="center"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
+        android:textSize="16dp"
+        android:layout_marginBottom="@dimen/menu_text_margin"
         android:text="cinnamon" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Changes"
+        android:id="@+id/save_button" />
 
 
 </LinearLayout>

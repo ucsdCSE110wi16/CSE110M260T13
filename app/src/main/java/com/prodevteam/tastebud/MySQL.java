@@ -38,7 +38,7 @@ public class MySQL {
 
     // TODO: MenuData class to hold info from the db and pass to MenuScreen
 
-    public String attemptLogin(String email, String password) {
+    public App.UserInfo attemptLogin(String email, String password) {
         ResultSet result;
         String query = "SELECT * FROM Customer_Info where Email = '" + email + "' and Password = '" + password + "' LIMIT 1";
         try {
@@ -46,7 +46,12 @@ public class MySQL {
             if(result.next() == false)
                 return null;
             //user_key = result.getInt("ID");
-            return result.getString("Name");
+            String[] names = result.getString("Name").split(" ");
+            String fname = names[0];
+            String lname = "";
+
+            App.UserInfo user = new App.UserInfo(fname, lname, email, password);
+            return user;
 
         } catch (SQLException e) {
             Log.e("MySQL", "Error:", e);

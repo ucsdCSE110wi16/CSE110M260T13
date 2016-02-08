@@ -37,7 +37,7 @@
             android:inputType="textEmailAddress"
             android:ems="6"
             android:textSize="14sp"
-            android:id="@+id/email_field"
+            android:id="@+id/new_email_field"
             android:layout_marginLeft="@dimen/menu_text_margin_small" />
     </LinearLayout>
 
@@ -118,7 +118,7 @@
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Account"
-        android:id="@+id/create_account_button" />
+        android:text="Continue"
+        android:id="@+id/continue_button" />
 
 </LinearLayout>

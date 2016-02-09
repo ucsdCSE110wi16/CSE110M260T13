@@ -2,40 +2,54 @@ package com.prodevteam.tastebud;
 
 /**
  * Created by Nzechi Nwaokoro on 2/8/16.
- * this classe will interface with the MySQL class as the the objects returned from get menu method
+ * this class will interface with the MySQL class as the the objects returned from get menu method
  * the data base; MenuData will also be utilized by different methods to before being passed into
  * A MenuIteam.
  */
 
 public class MenuData {
-    private String itemIcon;
-    private String iteamName;
-    private String iteamPrice;
-    private String iteamIng;
+    private String itemName;
+    private String itemPrice;
+    private String itemIng;
+    private String itemImg;
 
-    // constrcuctor to create new menudata
-    public MenuData(String icon, String name, String price, String ing){
-        this.itemIcon = icon;
-        this.iteamName = name;
-        this.iteamPrice = price;
-        this.iteamIng = ing;
+    public MenuData(String name, String price, String ing, String img) {
+        this.itemName = name;
+        this.itemPrice = price;
+        this.itemIng = ing;
+        this.itemImg = img;
     }
 
-
-    // get method to retrieve the data in MenuData
-    public String getIteamIng() {
-        return iteamIng;
+    public String getName() {
+        return itemName;
     }
 
-    public void setIteamName(String iteamName) {
-        this.iteamName = iteamName;
+    public String getPrice() {
+        return itemPrice;
     }
 
-    public void setItemIcon(String itemIcon) {
-        this.itemIcon = itemIcon;
+    public String getIng() {
+        return itemIng;
     }
 
-    public void setIteamPrice(String iteamPrice) {
-        this.iteamPrice = iteamPrice;
+    public String getImg() {
+        return itemImg;
     }
+
+    public void setName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public void setPrice(String itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+
+    public void setIng(String itemIng) {
+        this.itemIng = itemIng;
+    }
+
+    public void setImg(String itemImg) {
+        this.itemImg = itemImg;
+    }
+
 }

@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class MySQL {
 
@@ -76,18 +77,45 @@ public class MySQL {
         }
     }
 
-    /* body of getMenu method - IN PROGRESS */
-    public void getMenu (MenuItem menu) {
+    /*  - Using MenuData.java, getMenu() returns an arrayList of menu items in the format
+        ["Item Name", "Item Ing", "Item_Price", "Item_Img"] for each item.
 
-        String query = "SELECT * From Menu";
+        - To access menu items, store getMenu()'s return into a local ArrayList variable, we will call it MenuItems
+
+        - To access elements stored in MenuItems (done inside of MenuScreen.java:
+        for (int i = 0; i < MenuItems.size(); i++) {
+           String item_name = MenuItems.get(i).getName();
+           String item_ing = MenuItems.get(i).getIng();
+           String item_price = MenuItems.get(i).getPrice();
+           etc...
+        }
+    */
+    public ArrayList getMenu () {
+
+        String query = "SELECT * From Menu_Items";
+        ArrayList<MenuData> listMenuItems = new ArrayList<>();
+
         try {
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
-                //Populate menu items
+
+                /* initialize and store values into item */
+                MenuData item = new MenuData("","","","");
+                item.setName(result.getString("Item_Name"));
+                item.setIng(result.getString("Item_Ing"));
+                item.setPrice(result.getString("Item_Price"));
+                item.setImg(result.getString("Item_Img"));
+
+                /* add item into ListMenuItem */
+                listMenuItems.add(item);
+
             }
         } catch (SQLException e) {
             Log.e("MySQL", "Error:", e);
         }
+
+        /* return list of menu item */
+        return listMenuItems;
     }
 
     public Boolean createNewAccount(String email, String password, String name) {

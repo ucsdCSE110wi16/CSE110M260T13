@@ -80,10 +80,10 @@ public class MySQL {
     /*  - Using MenuData.java, getMenu() returns an arrayList of menu items in the format
         ["Item Name", "Item Ing", "Item_Price", "Item_Img"] for each item.
 
-        - getMenu should be called before or immediately after the user logs in.
+        - getMenu() should be called before or immediately after the user logs in.
 
         HOW TO USE:
-        - Store getMenu()'s return into a local ArrayList variable, we will call it MenuItems.
+        - Store getMenu()'s return into a local ArrayList<MenuData> variable, we will call it MenuItems.
         - To access elements stored in MenuItems (done inside of MenuScreen.java):
         for (int i = 0; i < MenuItems.size(); i++) {
            menuItem.setItemName(MenuItems.get(i).getName());

@@ -91,7 +91,7 @@ public class MySQL {
            etc...
         }
     */
-    public ArrayList getMenu () {
+    public ArrayList<MenuData> getMenu () {
 
         String query = "SELECT * From Menu_Items";
         ArrayList<MenuData> listMenuItems = new ArrayList<>();

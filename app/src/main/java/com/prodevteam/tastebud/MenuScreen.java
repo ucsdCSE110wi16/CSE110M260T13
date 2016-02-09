@@ -1,7 +1,10 @@
 package com.prodevteam.tastebud;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -15,6 +18,11 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MenuScreen extends ActionBarActivity {
@@ -41,28 +49,21 @@ public class MenuScreen extends ActionBarActivity {
             }
         });
 
-        // TODO: Change this code block to retrieve the menu from the server and populate the menu view
         // Get the menu wrapper that we will add the items too
-        LinearLayout menuWrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
-        /*
-        ArrayList<MenuItem> list = App.sqlConnection.getMenu();
-        for(MenuItem m : list)
-            menuWrapper.addView(m);
-            */
-        // Add 8 items
-        for(int i = 0; i < 8; i++) {
-            // Create the menu items
-            MenuItem menuItem = new MenuItem(this);
+        final LinearLayout menuWrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
+        final Context context = this;
+        new AsyncTask<Void, Void, ArrayList<MenuData>>() {
+            @Override
+            protected ArrayList<MenuData> doInBackground(Void... params) {
+                return App.sqlConnection.getMenu();
+            }
 
-            // Set the menu items' contents
-            menuItem.setItemIcon(getResources().getDrawable(R.drawable.menu_item_1));
-            menuItem.setItemName(getResources().getString(R.string.menu_item_1_name));
-            menuItem.setItemPrice(getResources().getString(R.string.menu_item_1_price));
-            menuItem.setItemIng(getResources().getString(R.string.menu_item_1_ing));
-
-            // Add the item to the menu
-            menuWrapper.addView(menuItem);
-        }
+            @Override
+            protected void onPostExecute(ArrayList<MenuData> result) {
+                for(MenuData m : result)
+                    menuWrapper.addView(new MenuItem(context, m));
+            }
+        }.execute();
     }
 
     private void onNoClick() {
@@ -196,6 +197,23 @@ public class MenuScreen extends ActionBarActivity {
             itemName = (TextView) findViewById(R.id.item_name);
             itemPrice = (TextView) findViewById(R.id.item_price);
             itemIng = (TextView) findViewById(R.id.item_ing);
+        }
+
+        public MenuItem(Context context, MenuData m) {
+            this(context);
+
+            this.setItemName(m.getName());
+            this.setItemPrice(m.getPrice());
+            this.setItemIng(m.getIng());
+            String url = m.getImg();
+            try {
+                HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+                connection.connect();
+                InputStream input = connection.getInputStream();
+                this.setItemIcon(new BitmapDrawable(getResources(), BitmapFactory.decodeStream(input)));
+            } catch (Exception e) {
+                this.setItemIcon(getResources().getDrawable(R.drawable.no_image));
+            }
         }
 
         public void setItemIcon(Drawable icon) {

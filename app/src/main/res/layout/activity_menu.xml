@@ -106,7 +106,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:id="@+id/menu_scrollview">
 
         <LinearLayout
@@ -119,6 +120,15 @@
 
     </ScrollView>
 
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:src="@drawable/order_button"
+        android:background="@drawable/order_button"
+        android:scaleType="centerCrop"
+        android:paddingRight="2dp"
+        android:id="@+id/order_button"
+        />
     <!-- TODO: Add Order button -->
 
 </LinearLayout>

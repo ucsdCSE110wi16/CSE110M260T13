@@ -66,7 +66,6 @@ public class MenuScreen extends ActionBarActivity {
         }.execute();
     }
 
-    // TODO: Change this to better search within ingredient names
     private void addIngredientLogic(IngredientItem ing, boolean val) {
         LinearLayout menuWrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
         if(!val) {
@@ -74,12 +73,9 @@ public class MenuScreen extends ActionBarActivity {
                 View v = menuWrapper.getChildAt(i);
                 MenuItem item = (MenuItem) v;
                 String[] ingredients_list = item.getIngredients().split(",");
-                for (String s : ingredients_list) {
-
-                    // CHECK WITHIN S
-                    if (s.trim().equalsIgnoreCase(ing.getName().trim()))
+                for (String s : ingredients_list)
+                    if (s.trim().equalsIgnoreCase(ing.getName().trim()) || s.contains(ing.getName().trim()))
                         item.setVisibility(View.GONE);
-                }
             }
         } else {
             for (int i = 0; i < menuWrapper.getChildCount(); i++) {
@@ -88,7 +84,7 @@ public class MenuScreen extends ActionBarActivity {
                 String[] ingredients_list = item.getIngredients().split(",");
                 boolean containsIng = false;
                 for (String s : ingredients_list)
-                    if (s.trim().equalsIgnoreCase(ing.getName().trim())) containsIng = true;
+                    if (s.trim().equalsIgnoreCase(ing.getName().trim()) || s.contains(ing.getName().trim())) containsIng = true;
                 if(!containsIng) item.setVisibility(View.GONE);
             }
         }

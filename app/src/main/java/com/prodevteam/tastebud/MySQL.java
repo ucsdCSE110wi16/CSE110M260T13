@@ -21,8 +21,6 @@ public class MySQL {
     private String DB_PASSWORD = "EdL4hLKf6S";
     private String JDBC = "jdbc:mysql://sql3.freesqldatabase.com:3306/sql3104137";
 
-    private int customerCount;
-
     public void initializeConnection() {
         new AsyncTask<String, Void, String>() {
             @Override
@@ -34,7 +32,6 @@ public class MySQL {
                 } catch (SQLException | NumberFormatException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {}
                 return "";
             }}.execute();
-        customerCount = 0;
     }
 
     // TODO: MenuData class to hold info from the db and pass to MenuScreen
@@ -58,6 +55,20 @@ public class MySQL {
             Log.e("MySQL", "Error:", e);
         }
         return null;
+    }
+
+    public Boolean createNewAccount(String email, String password, String name) {
+
+        String query = "INSERT INTO Customer_Info (email, password, name) VALUES('" + email + "','" + password + "', '" + name + "')";
+        try {
+            if (statement.execute(query)){
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            Log.e("MySQL", "Error:", e);
+            return false;
+        }
     }
 
     public boolean checkForDuplicate(String email) throws SQLException {
@@ -117,21 +128,6 @@ public class MySQL {
 
         /* return list of menu item */
         return listMenuItems;
-    }
-
-    public Boolean createNewAccount(String email, String password, String name) {
-
-        String query = "INSERT INTO Customer_Info (email, password, name) VALUES('" + email + "','" + password + "', '" + name + "')";
-        int results = customerCount;
-        try {
-            results = statement.executeUpdate(query);
-        } catch (SQLException e) {
-            Log.e("MySQL", "Error:", e);
-        }
-        if(results == customerCount + 1) {
-            customerCount++;
-            return true;
-        } else return false;
     }
 
     /* method to get order ings for specified email */

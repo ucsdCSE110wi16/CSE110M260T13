@@ -21,8 +21,6 @@ public class MySQL {
     private String DB_PASSWORD = "EdL4hLKf6S";
     private String JDBC = "jdbc:mysql://sql3.freesqldatabase.com:3306/sql3104137";
 
-    private int customerCount;
-
     public void initializeConnection() {
         new AsyncTask<String, Void, String>() {
             @Override
@@ -34,7 +32,6 @@ public class MySQL {
                 } catch (SQLException | NumberFormatException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {}
                 return "";
             }}.execute();
-        customerCount = 0;
     }
 
     public App.UserInfo attemptLogin(String email, String password) {
@@ -58,6 +55,20 @@ public class MySQL {
             Log.e("MySQL", "Error:", e);
         }
         return null;
+    }
+
+    public Boolean createNewAccount(String email, String password, String name) {
+
+        String query = "INSERT INTO Customer_Info (email, password, name) VALUES('" + email + "','" + password + "', '" + name + "')";
+        try {
+            if (statement.execute(query)){
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            Log.e("MySQL", "Error:", e);
+            return false;
+        }
     }
 
     public boolean checkForDuplicate(String email) throws SQLException {
@@ -119,18 +130,48 @@ public class MySQL {
         return listMenuItems;
     }
 
-    public Boolean createNewAccount(String email, String password, String name) {
+    /* method to get order ings for specified email */
+    public String getUserIngs(String email) throws SQLException {
 
-        String query = "INSERT INTO Customer_Info (email, password, name) VALUES('" + email + "','" + password + "', '" + name + "')";
-        int results = customerCount;
-        try {
-            results = statement.executeUpdate(query);
-        } catch (SQLException e) {
-            Log.e("MySQL", "Error:", e);
+        String orderIngs = "";
+        String query = "SELECT Ings_In_Orders from Order_History where email = '" + email + "')";
+        try{
+            ResultSet result = statement.executeQuery(query);
+            while (result.next()){
+                orderIngs = orderIngs + ", " + result.toString();
+            }
         }
-        if(results == customerCount + 1) {
-            customerCount++;
+        catch (SQLException e){
+            Log.e("MySQL", "Error:", e);
+            return "";
+        }
+        return orderIngs;
+    }
+
+    /* method to get user restrictions */
+    public String getUserRestrictions(String email){
+        String restrictions = "";
+        String query = "SELECT Restrictions from Customer_Info where email = '" + email + "')";
+        try{
+            ResultSet result = statement.executeQuery(query);
+            if (result.next()){
+                restrictions =  result.toString();
+            }
+        }
+        catch (SQLException e){
+            Log.e("MySQL", "Error:", e);
+            return "";
+        }
+        return restrictions;
+    }
+
+    /* method to store orders into database */
+    public boolean placeOrder (String email, String ings) throws SQLException{
+
+        String query = "INSERT INTO Order_History values ('"+ email +"', '" + ings + "')";
+        if (statement.execute(query)){
             return true;
-        } else return false;
+        }
+        return false;
     }
 }

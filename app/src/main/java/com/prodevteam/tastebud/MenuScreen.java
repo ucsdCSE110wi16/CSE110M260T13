@@ -1,6 +1,7 @@
 package com.prodevteam.tastebud;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -35,6 +36,7 @@ public class MenuScreen extends ActionBarActivity {
         // Set up click listeners for the two buttons
         Button yesButton = (Button) findViewById(R.id.yes_button);
         Button noButton = (Button) findViewById(R.id.no_button);
+        ImageButton orderButton = (ImageButton) findViewById(R.id.order_button);
 
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +48,12 @@ public class MenuScreen extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 onNoClick();
+            }
+        });
+        orderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOrderButtonClick();
             }
         });
 
@@ -64,6 +72,21 @@ public class MenuScreen extends ActionBarActivity {
                     menuWrapper.addView(new MenuItem(context, m));
             }
         }.execute();
+    }
+
+    private void onOrderButtonClick() {
+        LinearLayout menuWrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
+        ArrayList<MenuData> selectedItems = new ArrayList<>();
+        for(int i = 0; i < menuWrapper.getChildCount(); i++) {
+            MenuItem item = (MenuItem) menuWrapper.getChildAt(i);
+            if(item.isChecked()) selectedItems.add(new MenuData(item));
+        }
+
+        // TODO: Call MySQL.placeOrder with all ingredients
+
+        Intent intent = new Intent(this, PostOrderScreen.class);
+        intent.putExtra("selectedItems", selectedItems);
+        startActivity(intent);
     }
 
     private void addIngredientLogic(IngredientItem ing, boolean val) {
@@ -187,13 +210,13 @@ public class MenuScreen extends ActionBarActivity {
         }
     }
 
-    private class MenuItem extends RelativeLayout {
+    public class MenuItem extends RelativeLayout {
 
         private ImageView itemIcon;
         private TextView itemName;
         private TextView itemPrice;
         private TextView itemIng;
-
+        private CheckBox itemBox;
 
         public MenuItem(Context context) {
             super(context);
@@ -235,6 +258,18 @@ public class MenuScreen extends ActionBarActivity {
 
         public String getIngredients() {
             return itemIng.getText().toString();
+        }
+
+        public String getName() { return itemName.getText().toString();}
+
+        public String getPrice() { return itemPrice.getText().toString();}
+
+        public Drawable getImage() {
+            return itemIcon.getDrawable();
+        }
+
+        public boolean isChecked() {
+            return itemBox.isChecked();
         }
     }
 }

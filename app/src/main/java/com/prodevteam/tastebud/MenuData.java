@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.view.MenuItem;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -22,6 +23,13 @@ public class MenuData {
     private String itemPrice;
     private String itemIng;
     private Drawable itemImg;
+
+    public MenuData(MenuScreen.MenuItem item) {
+        itemName = item.getName();
+        itemPrice = item.getPrice();
+        itemIng = item.getIngredients();
+        itemImg = item.getImage();
+    }
 
     public MenuData(String name, String price, String ing, String img) {
         this.itemName = name;

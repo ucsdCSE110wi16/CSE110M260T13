@@ -43,7 +43,6 @@
             android:layout_toRightOf="@+id/menu_ingredient_string"
             android:layout_toEndOf="@+id/menu_ingredient_string" />
 
-        <!-- TODO: Change the picture of this button to a small red x or similar -->
         <Button
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="34dp"
@@ -57,7 +56,6 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
-        <!-- TODO: Change the picture of this button to a small green check or similar -->
         <Button
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="34dp"
@@ -129,6 +127,5 @@
         android:paddingRight="2dp"
         android:id="@+id/order_button"
         />
-    <!-- TODO: Add Order button -->
 
 </LinearLayout>

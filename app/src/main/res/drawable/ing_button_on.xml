@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- TODO: Change this to a check mark -->
+<!-- TODO: REFACTOR: this layout may be unnecessary-->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
 

@@ -117,7 +117,7 @@ public class LoginActivity extends ActionBarActivity {
         String email = email_field.getText().toString();
         String pass = pass_field.getText().toString();
 
-        App.currentUser = new App.UserInfo(fname, lname, email, pass);
+        App.currentUser = new App.UserInfo(fname, lname, email, pass, "");
         startActivity(intent);
     }
 

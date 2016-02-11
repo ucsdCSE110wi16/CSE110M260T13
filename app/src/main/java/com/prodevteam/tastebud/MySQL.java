@@ -133,4 +133,49 @@ public class MySQL {
             return true;
         } else return false;
     }
+
+    /* method to get order ings for specified email */
+    public String getUserIngs(String email) throws SQLException {
+
+        String orderIngs = "";
+        String query = "SELECT Ings_In_Orders from Order_History where email = '" + email + "')";
+        try{
+            ResultSet result = statement.executeQuery(query);
+            while (result.next()){
+                orderIngs = orderIngs + ", " + result.toString();
+            }
+        }
+        catch (SQLException e){
+            Log.e("MySQL", "Error:", e);
+            return "";
+        }
+        return orderIngs;
+    }
+
+    /* method to get user restrictions */
+    public String getUserRestrictions(String email){
+        String restrictions = "";
+        String query = "SELECT Restrictions from Customer_Info where email = '" + email + "')";
+        try{
+            ResultSet result = statement.executeQuery(query);
+            if (result.next()){
+                restrictions =  result.toString();
+            }
+        }
+        catch (SQLException e){
+            Log.e("MySQL", "Error:", e);
+            return "";
+        }
+        return restrictions;
+    }
+
+    /* method to store orders into database */
+    public boolean placeOrder (String email, String ings) throws SQLException{
+
+        String query = "INSERT INTO Order_History values ('"+ email +"', '" + ings + "')";
+        if (statement.execute(query)){
+            return true;
+        }
+        return false;
+    }
 }

@@ -1,8 +1,11 @@
 package com.prodevteam.tastebud;
 
 import android.app.Application;
+import android.content.res.Resources;
 
 public class App extends Application {
+
+    static App myApp;
 
     static MySQL sqlConnection;
     static UserInfo currentUser;
@@ -10,10 +13,11 @@ public class App extends Application {
         currentUser = new UserInfo("", "", "", "");
     }
 
-
     @Override
     public void onCreate() {
         super.onCreate();
+
+        if(myApp == null) myApp = this;
 
         sqlConnection = new MySQL();
         sqlConnection.initializeConnection();

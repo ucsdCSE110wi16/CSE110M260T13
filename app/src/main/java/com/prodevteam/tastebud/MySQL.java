@@ -44,7 +44,7 @@ public class MySQL {
         String query = "SELECT * FROM Customer_Info where Email = '" + email + "' and Password = '" + password + "' LIMIT 1";
         try {
             result = statement.executeQuery(query);
-            if(result.next() == false)
+            if(!result.next())
                 return null;
             //user_key = result.getInt("ID");
             String[] names = result.getString("Name").split(" ");
@@ -101,11 +101,11 @@ public class MySQL {
             while (result.next()) {
 
                 /* initialize and store values into item */
-                MenuData item = new MenuData("","","","");
-                item.setName(result.getString("Item_Name"));
-                item.setIng(result.getString("Item_Ing"));
-                item.setPrice(result.getString("Item_Price"));
-                item.setImg(result.getString("Item_Img"));
+                String name = result.getString("Item_Name");
+                String ing = result.getString("Item_Ing");
+                String price = result.getString("Item_Price");
+                String img = result.getString("Item_Img");
+                MenuData item = new MenuData(name, price, ing, img);
 
                 /* add item into ListMenuItem */
                 listMenuItems.add(item);

@@ -66,14 +66,6 @@ public class MenuScreen extends ActionBarActivity {
         }.execute();
     }
 
-    private void onNoClick() {
-        IngredientItem ing = addIngredient();
-        if(ing == null) return;
-        ing.getButton().setChecked(false);
-
-        updateIngredientLogic();
-    }
-
     // TODO: Change this to better search within ingredient names
     private void addIngredientLogic(IngredientItem ing, boolean val) {
         LinearLayout menuWrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
@@ -82,8 +74,12 @@ public class MenuScreen extends ActionBarActivity {
                 View v = menuWrapper.getChildAt(i);
                 MenuItem item = (MenuItem) v;
                 String[] ingredients_list = item.getIngredients().split(",");
-                for (String s : ingredients_list)
-                    if (s.trim().equalsIgnoreCase(ing.getName().trim())) item.setVisibility(View.GONE);
+                for (String s : ingredients_list) {
+
+                    // CHECK WITHIN S
+                    if (s.trim().equalsIgnoreCase(ing.getName().trim()))
+                        item.setVisibility(View.GONE);
+                }
             }
         } else {
             for (int i = 0; i < menuWrapper.getChildCount(); i++) {
@@ -118,12 +114,26 @@ public class MenuScreen extends ActionBarActivity {
         updateIngredientLogic();
     }
 
-    // TODO: Check for duplicate ingredients
+    private void onNoClick() {
+        IngredientItem ing = addIngredient();
+        if(ing == null) return;
+        ing.getButton().setChecked(false);
+
+        updateIngredientLogic();
+    }
+
     private IngredientItem addIngredient() {
         // Get the ingredient name from the ingredient field
         EditText ing_field = (EditText) findViewById(R.id.ingredient_field);
         String ing_name = ing_field.getText().toString();
         if(ing_name.equals("")) return null;
+
+        LinearLayout ing_wrapper = (LinearLayout) findViewById(R.id.ing_wrapper);
+        for (int i = 0; i < ing_wrapper.getChildCount(); i++) {
+            IngredientItem ing = (IngredientItem) ing_wrapper.getChildAt(i);
+            if(ing_name.equals(ing.getName())) return null;
+        }
+
         final IngredientItem ing = new IngredientItem(this);
         ing.setName(ing_name);
 
@@ -205,15 +215,9 @@ public class MenuScreen extends ActionBarActivity {
             this.setItemName(m.getName());
             this.setItemPrice(m.getPrice());
             this.setItemIng(m.getIng());
-            String url = m.getImg();
-            try {
-                HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-                connection.connect();
-                InputStream input = connection.getInputStream();
-                this.setItemIcon(new BitmapDrawable(getResources(), BitmapFactory.decodeStream(input)));
-            } catch (Exception e) {
-                this.setItemIcon(getResources().getDrawable(R.drawable.no_image));
-            }
+            Drawable img = m.getImg();
+            if(img == null) img = getResources().getDrawable(R.drawable.no_image);
+            this.setItemIcon(img);
         }
 
         public void setItemIcon(Drawable icon) {

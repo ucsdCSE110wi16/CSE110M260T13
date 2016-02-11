@@ -29,8 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/diet_button"
-            android:id="@+id/diet_button"
-            android:layout_gravity="right" />
+            android:id="@+id/my_acc_button"
+            android:layout_gravity="end" />
 
         <TextView
             android:layout_width="match_parent"
@@ -38,13 +38,14 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text=""
             android:id="@+id/greetings_text"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:textSize="40sp"
             android:alpha="0.75"
             android:textStyle="italic"
             android:typeface="sans"
-            android:layout_marginLeft="20sp"
-            android:gravity="left" />
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="start" />
 
         <TextView
             android:layout_width="match_parent"
@@ -53,16 +54,17 @@
             android:textSize="44sp"
             android:id="@+id/user_fname"
             android:text=""
-            android:layout_marginRight="20sp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
             android:typeface="sans"
             android:alpha=".90"
             android:maxHeight="46dp"
-            android:gravity="bottom|right" />
+            android:gravity="bottom|end" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:gravity="center"
             android:layout_weight="1"
             android:baselineAligned="false">

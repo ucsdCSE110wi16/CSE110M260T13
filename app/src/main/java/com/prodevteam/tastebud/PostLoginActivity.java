@@ -68,6 +68,10 @@ public class PostLoginActivity extends ActionBarActivity implements SensorEventL
         startActivity(intent);
     }
 
+    private void myAccountButtonClicked() {
+        startActivity(new Intent(this, AccountSettingsScreen.class));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,10 +117,19 @@ public class PostLoginActivity extends ActionBarActivity implements SensorEventL
         });
 
         //set up the signout button
-        Button signoutButton =(Button) findViewById(R.id.signout_button);
+        Button signoutButton = (Button) findViewById(R.id.signout_button);
         signoutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 signoutButtonClicked();
+            }
+        });
+
+        // set up the my account button
+        Button myAccountButton = (Button) findViewById(R.id.my_acc_button);
+        myAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myAccountButtonClicked();
             }
         });
     }

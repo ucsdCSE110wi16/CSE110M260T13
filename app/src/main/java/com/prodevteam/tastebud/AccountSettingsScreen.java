@@ -56,5 +56,6 @@ public class AccountSettingsScreen extends Activity {
 
     private void saveButtonClicked() {
         startActivity(new Intent(this, PostLoginActivity.class));
+        // TODO: This method should also update the database with the newly entered info
     }
 }

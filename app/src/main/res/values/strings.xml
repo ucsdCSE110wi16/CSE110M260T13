@@ -12,7 +12,7 @@
     <string name="login_bg2">Background for login screen</string>
 
     <!-- Post Login Activity -->
-    <string name="diet_button">Dietary Restrictions</string>
+    <string name="diet_button">My Account</string>
     <string name="title_activity_post_login">Post Login</string>
     <string name="menu_button">Browse Menu</string>
     <string name="rec_button">View Recommendations</string>

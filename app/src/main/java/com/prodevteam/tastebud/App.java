@@ -1,19 +1,25 @@
 package com.prodevteam.tastebud;
 
 import android.app.Application;
+import android.content.res.Resources;
+
+import org.apache.http.util.CharArrayBuffer;
 
 public class App extends Application {
+
+    static App myApp;
 
     static MySQL sqlConnection;
     static UserInfo currentUser;
     static {
-        currentUser = new UserInfo("", "", "", "");
+        currentUser = new UserInfo("", "", "", "", "");
     }
-
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        if(myApp == null) myApp = this;
 
         sqlConnection = new MySQL();
         sqlConnection.initializeConnection();
@@ -25,12 +31,14 @@ public class App extends Application {
         private String lastName;
         private String emailAddress;
         private String password;
+        private String restrictions;
 
-        public UserInfo(String firstName, String lastName, String emailAddress, String password) {
+        public UserInfo(String firstName, String lastName, String emailAddress, String password, String restrictions) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.emailAddress = emailAddress;
             this.password = password;
+            this.restrictions = restrictions;
         }
 
         public String getFirstName() {
@@ -47,6 +55,10 @@ public class App extends Application {
 
         public String getPassword() {
             return password;
+        }
+
+        public String getRestrictions() {
+            return restrictions;
         }
     }
 }

@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class MySQL {
 
@@ -20,8 +21,6 @@ public class MySQL {
     private String DB_PASSWORD = "EdL4hLKf6S";
     private String JDBC = "jdbc:mysql://sql3.freesqldatabase.com:3306/sql3104137";
 
-    private int customerCount;
-
     public void initializeConnection() {
         new AsyncTask<String, Void, String>() {
             @Override
@@ -33,30 +32,43 @@ public class MySQL {
                 } catch (SQLException | NumberFormatException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {}
                 return "";
             }}.execute();
-        customerCount = 0;
     }
-
-    // TODO: MenuData class to hold info from the db and pass to MenuScreen
 
     public App.UserInfo attemptLogin(String email, String password) {
         ResultSet result;
         String query = "SELECT * FROM Customer_Info where Email = '" + email + "' and Password = '" + password + "' LIMIT 1";
         try {
             result = statement.executeQuery(query);
-            if(result.next() == false)
+            if(!result.next())
                 return null;
             //user_key = result.getInt("ID");
             String[] names = result.getString("Name").split(" ");
             String fname = names[0];
             String lname = "";
+            String restrictions = "";
+            // String restrictions = result.getString("Restrictions");
 
-            App.UserInfo user = new App.UserInfo(fname, lname, email, password);
+            App.UserInfo user = new App.UserInfo(fname, lname, email, password, restrictions);
             return user;
 
         } catch (SQLException e) {
             Log.e("MySQL", "Error:", e);
         }
         return null;
+    }
+
+    public Boolean createNewAccount(String email, String password, String name) {
+
+        String query = "INSERT INTO Customer_Info (email, password, name) VALUES('" + email + "','" + password + "', '" + name + "')";
+        try {
+            if (statement.execute(query)){
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            Log.e("MySQL", "Error:", e);
+            return false;
+        }
     }
 
     public boolean checkForDuplicate(String email) throws SQLException {
@@ -76,32 +88,90 @@ public class MySQL {
         }
     }
 
-    /* body of getMenu method - IN PROGRESS */
-    public void getMenu (MenuItem menu) {
+    /*  - Using MenuData.java, getMenu() returns an arrayList of menu items in the format
+        ["Item Name", "Item Ing", "Item_Price", "Item_Img"] for each item.
 
-        String query = "SELECT * From Menu";
+        - getMenu() should be called before or immediately after the user logs in.
+
+        HOW TO USE:
+        - Store getMenu()'s return into a local ArrayList<MenuData> variable, we will call it MenuItems.
+        - To access elements stored in MenuItems (done inside of MenuScreen.java):
+        for (int i = 0; i < MenuItems.size(); i++) {
+           menuItem.setItemName(MenuItems.get(i).getName());
+           menuItem.setItemIng(MenuItems.get(i).getIng());
+           etc...
+        }
+    */
+    public ArrayList<MenuData> getMenu () {
+
+        String query = "SELECT * From Menu_Items";
+        ArrayList<MenuData> listMenuItems = new ArrayList<>();
+
         try {
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
-                //Populate menu items
+
+                /* initialize and store values into item */
+                String name = result.getString("Item_Name");
+                String ing = result.getString("Item_Ing");
+                String price = result.getString("Item_Price");
+                String img = result.getString("Item_Img");
+                MenuData item = new MenuData(name, price, ing, img);
+
+                /* add item into ListMenuItem */
+                listMenuItems.add(item);
+
             }
         } catch (SQLException e) {
             Log.e("MySQL", "Error:", e);
         }
+
+        /* return list of menu item */
+        return listMenuItems;
     }
 
-    public Boolean createNewAccount(String email, String password, String name) {
+    /* method to get order ings for specified email */
+    public String getUserIngs(String email) throws SQLException {
 
-        String query = "INSERT INTO Customer_Info (email, password, name) VALUES('" + email + "','" + password + "', '" + name + "')";
-        int results = customerCount;
-        try {
-            results = statement.executeUpdate(query);
-        } catch (SQLException e) {
-            Log.e("MySQL", "Error:", e);
+        String orderIngs = "";
+        String query = "SELECT Ings_In_Orders from Order_History where email = '" + email + "')";
+        try{
+            ResultSet result = statement.executeQuery(query);
+            while (result.next()){
+                orderIngs = orderIngs + ", " + result.toString();
+            }
         }
-        if(results == customerCount + 1) {
-            customerCount++;
+        catch (SQLException e){
+            Log.e("MySQL", "Error:", e);
+            return "";
+        }
+        return orderIngs;
+    }
+
+    /* method to get user restrictions */
+    public String getUserRestrictions(String email){
+        String restrictions = "";
+        String query = "SELECT Restrictions from Customer_Info where email = '" + email + "')";
+        try{
+            ResultSet result = statement.executeQuery(query);
+            if (result.next()){
+                restrictions =  result.toString();
+            }
+        }
+        catch (SQLException e){
+            Log.e("MySQL", "Error:", e);
+            return "";
+        }
+        return restrictions;
+    }
+
+    /* method to store orders into database */
+    public boolean placeOrder (String email, String ings) throws SQLException{
+
+        String query = "INSERT INTO Order_History values ('"+ email +"', '" + ings + "')";
+        if (statement.execute(query)){
             return true;
-        } else return false;
+        }
+        return false;
     }
 }

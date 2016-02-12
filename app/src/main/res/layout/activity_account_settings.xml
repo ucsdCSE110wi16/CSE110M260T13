@@ -121,10 +121,9 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/restrictions_field"
         android:textSize="16dp"
-        android:layout_marginBottom="@dimen/menu_text_margin"
-        android:text="cinnamon" />
+        android:layout_marginBottom="@dimen/menu_text_margin" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

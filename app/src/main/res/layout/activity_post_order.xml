@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/menu_text_margin">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Thank you for your order!"
+        android:paddingBottom="@dimen/menu_text_margin"
+        android:id="@+id/order_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Your food is on its way..."
+        android:paddingBottom="@dimen/menu_text_margin_small"
+        android:layout_marginLeft="@dimen/menu_text_margin_small"
+        android:id="@+id/order_text1" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:id="@+id/scrollView"
+        android:layout_marginRight="@dimen/menu_text_margin_small"
+        android:layout_marginLeft="@dimen/menu_text_margin_small"
+        android:background="#212121">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Continue"
+        android:layout_marginTop="@dimen/menu_text_margin"
+        android:id="@+id/order_finished_button"
+        android:layout_gravity="center_horizontal" />
+</LinearLayout>

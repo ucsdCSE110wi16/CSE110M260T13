@@ -1,7 +1,11 @@
 package com.prodevteam.tastebud;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -15,6 +19,11 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MenuScreen extends ActionBarActivity {
@@ -27,6 +36,7 @@ public class MenuScreen extends ActionBarActivity {
         // Set up click listeners for the two buttons
         Button yesButton = (Button) findViewById(R.id.yes_button);
         Button noButton = (Button) findViewById(R.id.no_button);
+        ImageButton orderButton = (ImageButton) findViewById(R.id.order_button);
 
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,40 +50,45 @@ public class MenuScreen extends ActionBarActivity {
                 onNoClick();
             }
         });
+        orderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOrderButtonClick();
+            }
+        });
 
-        // TODO: Change this code block to retrieve the menu from the server and populate the menu view
         // Get the menu wrapper that we will add the items too
+        final LinearLayout menuWrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
+        final Context context = this;
+        new AsyncTask<Void, Void, ArrayList<MenuData>>() {
+            @Override
+            protected ArrayList<MenuData> doInBackground(Void... params) {
+                return App.sqlConnection.getMenu();
+            }
+
+            @Override
+            protected void onPostExecute(ArrayList<MenuData> result) {
+                for(MenuData m : result)
+                    menuWrapper.addView(new MenuItem(context, m));
+            }
+        }.execute();
+    }
+
+    private void onOrderButtonClick() {
         LinearLayout menuWrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
-        /*
-        ArrayList<MenuItem> list = App.sqlConnection.getMenu();
-        for(MenuItem m : list)
-            menuWrapper.addView(m);
-            */
-        // Add 8 items
-        for(int i = 0; i < 8; i++) {
-            // Create the menu items
-            MenuItem menuItem = new MenuItem(this);
-
-            // Set the menu items' contents
-            menuItem.setItemIcon(getResources().getDrawable(R.drawable.menu_item_1));
-            menuItem.setItemName(getResources().getString(R.string.menu_item_1_name));
-            menuItem.setItemPrice(getResources().getString(R.string.menu_item_1_price));
-            menuItem.setItemIng(getResources().getString(R.string.menu_item_1_ing));
-
-            // Add the item to the menu
-            menuWrapper.addView(menuItem);
+        ArrayList<MenuData> selectedItems = new ArrayList<>();
+        for(int i = 0; i < menuWrapper.getChildCount(); i++) {
+            MenuItem item = (MenuItem) menuWrapper.getChildAt(i);
+            if(item.isChecked()) selectedItems.add(new MenuData(item));
         }
+
+        // TODO: Call MySQL.placeOrder with all ingredients
+
+        Intent intent = new Intent(this, PostOrderScreen.class);
+        intent.putExtra("selectedItems", selectedItems);
+        startActivity(intent);
     }
 
-    private void onNoClick() {
-        IngredientItem ing = addIngredient();
-        if(ing == null) return;
-        ing.getButton().setChecked(false);
-
-        updateIngredientLogic();
-    }
-
-    // TODO: Change this to better search within ingredient names
     private void addIngredientLogic(IngredientItem ing, boolean val) {
         LinearLayout menuWrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
         if(!val) {
@@ -82,7 +97,8 @@ public class MenuScreen extends ActionBarActivity {
                 MenuItem item = (MenuItem) v;
                 String[] ingredients_list = item.getIngredients().split(",");
                 for (String s : ingredients_list)
-                    if (s.trim().equalsIgnoreCase(ing.getName().trim())) item.setVisibility(View.GONE);
+                    if (s.trim().equalsIgnoreCase(ing.getName().trim()) || s.contains(ing.getName().trim()))
+                        item.setVisibility(View.GONE);
             }
         } else {
             for (int i = 0; i < menuWrapper.getChildCount(); i++) {
@@ -91,7 +107,7 @@ public class MenuScreen extends ActionBarActivity {
                 String[] ingredients_list = item.getIngredients().split(",");
                 boolean containsIng = false;
                 for (String s : ingredients_list)
-                    if (s.trim().equalsIgnoreCase(ing.getName().trim())) containsIng = true;
+                    if (s.trim().equalsIgnoreCase(ing.getName().trim()) || s.contains(ing.getName().trim())) containsIng = true;
                 if(!containsIng) item.setVisibility(View.GONE);
             }
         }
@@ -117,12 +133,26 @@ public class MenuScreen extends ActionBarActivity {
         updateIngredientLogic();
     }
 
-    // TODO: Check for duplicate ingredients
+    private void onNoClick() {
+        IngredientItem ing = addIngredient();
+        if(ing == null) return;
+        ing.getButton().setChecked(false);
+
+        updateIngredientLogic();
+    }
+
     private IngredientItem addIngredient() {
         // Get the ingredient name from the ingredient field
         EditText ing_field = (EditText) findViewById(R.id.ingredient_field);
         String ing_name = ing_field.getText().toString();
         if(ing_name.equals("")) return null;
+
+        LinearLayout ing_wrapper = (LinearLayout) findViewById(R.id.ing_wrapper);
+        for (int i = 0; i < ing_wrapper.getChildCount(); i++) {
+            IngredientItem ing = (IngredientItem) ing_wrapper.getChildAt(i);
+            if(ing_name.equals(ing.getName())) return null;
+        }
+
         final IngredientItem ing = new IngredientItem(this);
         ing.setName(ing_name);
 
@@ -180,13 +210,13 @@ public class MenuScreen extends ActionBarActivity {
         }
     }
 
-    private class MenuItem extends RelativeLayout {
+    public class MenuItem extends RelativeLayout {
 
         private ImageView itemIcon;
         private TextView itemName;
         private TextView itemPrice;
         private TextView itemIng;
-
+        private CheckBox itemBox;
 
         public MenuItem(Context context) {
             super(context);
@@ -196,6 +226,17 @@ public class MenuScreen extends ActionBarActivity {
             itemName = (TextView) findViewById(R.id.item_name);
             itemPrice = (TextView) findViewById(R.id.item_price);
             itemIng = (TextView) findViewById(R.id.item_ing);
+        }
+
+        public MenuItem(Context context, MenuData m) {
+            this(context);
+
+            this.setItemName(m.getName());
+            this.setItemPrice(m.getPrice());
+            this.setItemIng(m.getIng());
+            Drawable img = m.getImg();
+            if(img == null) img = getResources().getDrawable(R.drawable.no_image);
+            this.setItemIcon(img);
         }
 
         public void setItemIcon(Drawable icon) {
@@ -217,6 +258,18 @@ public class MenuScreen extends ActionBarActivity {
 
         public String getIngredients() {
             return itemIng.getText().toString();
+        }
+
+        public String getName() { return itemName.getText().toString();}
+
+        public String getPrice() { return itemPrice.getText().toString();}
+
+        public Drawable getImage() {
+            return itemIcon.getDrawable();
+        }
+
+        public boolean isChecked() {
+            return itemBox.isChecked();
         }
     }
 }

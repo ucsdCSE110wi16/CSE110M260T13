@@ -43,7 +43,6 @@
             android:layout_toRightOf="@+id/menu_ingredient_string"
             android:layout_toEndOf="@+id/menu_ingredient_string" />
 
-        <!-- TODO: Change the picture of this button to a small red x or similar -->
         <Button
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="34dp"
@@ -57,7 +56,6 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
-        <!-- TODO: Change the picture of this button to a small green check or similar -->
         <Button
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="34dp"
@@ -106,7 +104,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:id="@+id/menu_scrollview">
 
         <LinearLayout
@@ -119,6 +118,14 @@
 
     </ScrollView>
 
-    <!-- TODO: Add Order button -->
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:src="@drawable/order_button"
+        android:background="@drawable/order_button"
+        android:scaleType="centerCrop"
+        android:paddingRight="2dp"
+        android:id="@+id/order_button"
+        />
 
 </LinearLayout>

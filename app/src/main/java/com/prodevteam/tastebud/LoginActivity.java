@@ -31,8 +31,6 @@ import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends ActionBarActivity {
 
-    // TODO: Change this so that extra keys are global, or change extras so they are instead global fields
-    protected static final String NAME_EXTRA_KEY = "com.prodevteam.tastebud.USER_NAME";
     private Drawable[] backgrounds;
     private int imageIndex;
 
@@ -119,7 +117,7 @@ public class LoginActivity extends ActionBarActivity {
         String email = email_field.getText().toString();
         String pass = pass_field.getText().toString();
 
-        App.currentUser = new App.UserInfo(fname, lname, email, pass);
+        App.currentUser = new App.UserInfo(fname, lname, email, pass, "");
         startActivity(intent);
     }
 

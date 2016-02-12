@@ -66,15 +66,14 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Price"
-        android:textStyle=""
+        android:textStyle="normal"
         android:id="@+id/item_price"
-        android:layout_below="@id/item_icon"
-        android:layout_alignLeft="@id/item_icon"
-        android:layout_alignStart="@id/item_icon"
-        android:layout_alignRight="@id/item_icon"
-        android:layout_alignEnd="@id/item_icon"
-        android:textSize="10sp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_alignTop="@+id/item_name"
+        android:layout_toRightOf="@+id/item_name"
+        android:layout_above="@id/ing_list" />
 
     <View
         android:layout_width="match_parent"

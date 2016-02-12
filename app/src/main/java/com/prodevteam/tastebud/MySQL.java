@@ -166,6 +166,7 @@ public class MySQL {
     }
 
     /* method to store orders into database */
+    // This method should not throw any exceptions, SQL exceptions should be handled by the SQL class, not the calling class
     public boolean placeOrder (String email, String ings) throws SQLException{
 
         String query = "INSERT INTO Order_History values ('"+ email +"', '" + ings + "')";

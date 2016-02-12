@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class MenuScreen extends ActionBarActivity {
@@ -60,6 +61,7 @@ public class MenuScreen extends ActionBarActivity {
         // Get the menu wrapper that we will add the items too
         final LinearLayout menuWrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
         final Context context = this;
+
         new AsyncTask<Void, Void, ArrayList<MenuData>>() {
             @Override
             protected ArrayList<MenuData> doInBackground(Void... params) {
@@ -78,11 +80,32 @@ public class MenuScreen extends ActionBarActivity {
         LinearLayout menuWrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
         ArrayList<MenuData> selectedItems = new ArrayList<>();
         for(int i = 0; i < menuWrapper.getChildCount(); i++) {
-            MenuItem item = (MenuItem) menuWrapper.getChildAt(i);
+            MenuScreen.MenuItem item = (MenuScreen.MenuItem) menuWrapper.getChildAt(i);
             if(item.isChecked()) selectedItems.add(new MenuData(item));
         }
 
         // TODO: Call MySQL.placeOrder with all ingredients
+        String email = App.currentUser.getEmailAddress();
+        String ings = "";
+        for(MenuData m : selectedItems)
+            ings += m.getIng() + ", ";
+        ings = ings.substring(0, ings.lastIndexOf(','));
+        new AsyncTask<String, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(String... params) {
+                try {
+                    return App.sqlConnection.placeOrder(params[0], params[1]);
+                } catch (SQLException e) {
+                    return null;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+
+            }
+        }.execute(email, ings);
+
 
         Intent intent = new Intent(this, PostOrderScreen.class);
         intent.putExtra("selectedItems", selectedItems);

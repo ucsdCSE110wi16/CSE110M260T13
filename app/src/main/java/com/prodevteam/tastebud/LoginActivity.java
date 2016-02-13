@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends ActionBarActivity {
@@ -100,13 +101,9 @@ public class LoginActivity extends ActionBarActivity {
             }
         });
         // Create a new account on the database
-
     }
 
     private void onContinueClick() {
-        // Take the user to the settings screen
-
-        Intent intent = new Intent(this, AccountSettingsScreen.class);
         EditText fname_field = (EditText) findViewById(R.id.first_name_field);
         EditText lname_field = (EditText) findViewById(R.id.last_name_field);
         EditText email_field = (EditText) findViewById(R.id.new_email_field);
@@ -114,11 +111,44 @@ public class LoginActivity extends ActionBarActivity {
 
         String fname = fname_field.getText().toString();
         String lname = lname_field.getText().toString();
-        String email = email_field.getText().toString();
-        String pass = pass_field.getText().toString();
+        final String email = email_field.getText().toString();
+        final String pass = pass_field.getText().toString();
+        final String name = fname + " " + lname;
 
-        App.currentUser = new App.UserInfo(fname, lname, email, pass, "");
-        startActivity(intent);
+        new AsyncTask<String, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(String... params) {
+                try {
+                    return App.sqlConnection.checkForDuplicate(params[0]);
+                } catch(SQLException e) {
+                    return false;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                if(result) {
+                    insertAccount(email, pass, name);
+                    App.currentUser = new App.UserInfo(name, email, pass, "");
+                }
+                else Toast.makeText(LoginActivity.this, "An account already exists with this email.", Toast.LENGTH_SHORT).show();
+            }
+        }.execute(email);
+    }
+
+    private void insertAccount(String email, String pass, String name) {
+        new AsyncTask<String, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(String... params) {
+                return App.sqlConnection.createNewAccount(params[0], params[1], params[2]);
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                Intent intent = new Intent(LoginActivity.this, AccountSettingsScreen.class);
+                startActivity(intent);
+            }
+        }.execute(email, pass, name);
     }
 
     /**

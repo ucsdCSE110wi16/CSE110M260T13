@@ -29,6 +29,8 @@ import java.util.ArrayList;
 
 public class MenuScreen extends ActionBarActivity {
 
+    protected static final String ITEMS_EXTRA_KEY = "com.prodevteam.tastebud.selectedItems";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +86,6 @@ public class MenuScreen extends ActionBarActivity {
             if(item.isChecked()) selectedItems.add(new MenuData(item));
         }
 
-        // TODO: Call MySQL.placeOrder with all ingredients
         String email = App.currentUser.getEmailAddress();
         String ings = "";
         for(MenuData m : selectedItems)
@@ -106,9 +107,8 @@ public class MenuScreen extends ActionBarActivity {
             }
         }.execute(email, ings);
 
-
         Intent intent = new Intent(this, PostOrderScreen.class);
-        intent.putExtra("selectedItems", selectedItems);
+        intent.putExtra(ITEMS_EXTRA_KEY , selectedItems);
         startActivity(intent);
     }
 
@@ -233,7 +233,7 @@ public class MenuScreen extends ActionBarActivity {
         }
     }
 
-    public class MenuItem extends RelativeLayout {
+    public static class MenuItem extends RelativeLayout {
 
         private ImageView itemIcon;
         private TextView itemName;

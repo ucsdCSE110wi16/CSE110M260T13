@@ -42,13 +42,11 @@ public class MySQL {
             if(!result.next())
                 return null;
             //user_key = result.getInt("ID");
-            String[] names = result.getString("Name").split(" ");
-            String fname = names[0];
-            String lname = "";
+            String name = result.getString("Name");
             String restrictions = "";
             // String restrictions = result.getString("Restrictions");
 
-            App.UserInfo user = new App.UserInfo(fname, lname, email, password, restrictions);
+            App.UserInfo user = new App.UserInfo(name, email, password, restrictions);
             return user;
 
         } catch (SQLException e) {
@@ -164,6 +162,8 @@ public class MySQL {
         }
         return restrictions;
     }
+
+    // TODO: We need a method to update user info (for when the user clicks 'Save Changes' on the account settings screen)
 
     /* method to store orders into database */
     // This method should not throw any exceptions, SQL exceptions should be handled by the SQL class, not the calling class

@@ -104,7 +104,7 @@ public class PostLoginActivity extends ActionBarActivity implements SensorEventL
         TextView name_text = (TextView) findViewById(R.id.user_fname);
 
         // Retrieve the user's first name
-        String firstName = App.currentUser.getFirstName();
+        String firstName = App.currentUser.getName();
 
         name_text.setText(firstName.toCharArray(), 0, firstName.length());
 

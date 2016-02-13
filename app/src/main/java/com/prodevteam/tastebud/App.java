@@ -12,7 +12,7 @@ public class App extends Application {
     static MySQL sqlConnection;
     static UserInfo currentUser;
     static {
-        currentUser = new UserInfo("", "", "", "", "");
+        currentUser = new UserInfo("", "", "", "");
     }
 
     @Override
@@ -27,30 +27,24 @@ public class App extends Application {
 
     // Immutable userinfo class
     public static class UserInfo {
-        private String firstName;
-        private String lastName;
+        private String name;
         private String emailAddress;
         private String password;
         private String restrictions;
 
-        public UserInfo(String firstName, String lastName, String emailAddress, String password, String restrictions) {
-            this.firstName = firstName;
-            this.lastName = lastName;
+        public UserInfo(String name, String emailAddress, String password, String restrictions) {
+            this.name = name;
             this.emailAddress = emailAddress;
             this.password = password;
             this.restrictions = restrictions;
         }
 
-        public String getFirstName() {
-            return firstName;
+        public String getName() {
+            return name;
         }
 
         public String getEmailAddress() {
             return emailAddress;
-        }
-
-        public String getLastName() {
-            return lastName;
         }
 
         public String getPassword() {

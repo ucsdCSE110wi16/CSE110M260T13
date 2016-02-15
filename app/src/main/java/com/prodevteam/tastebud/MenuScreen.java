@@ -96,7 +96,7 @@ public class MenuScreen extends ActionBarActivity {
             protected Boolean doInBackground(String... params) {
                 try {
                     return App.sqlConnection.placeOrder(params[0], params[1]);
-                } catch (SQLException e) {
+                } catch (Exception e) {
                     return null;
                 }
             }

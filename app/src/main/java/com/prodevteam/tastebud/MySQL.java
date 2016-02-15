@@ -163,16 +163,39 @@ public class MySQL {
         return restrictions;
     }
 
-    // TODO: We need a method to update user info (for when the user clicks 'Save Changes' on the account settings screen)
+    /* method to update user information */
+    /* information are updated based on the email address provided */
+    /* error checking such as empty name/password field name must be handled in the IU */
+
+    public boolean updateUserInfo (String email, String name, String password, String restrictions){
+        String query = "UPDATE Customer_Info set " +
+                "Name ='" + name + "', " +
+                "Password = '" + password + "', " +
+                "Restrictions = '"+ restrictions + "' " +
+                "where Email = '" + email +"'";
+        try {
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            Log.e("MySQL", "Error:", e);
+            return false;
+        }
+        return true;
+    }
 
     /* method to store orders into database */
-    // This method should not throw any exceptions, SQL exceptions should be handled by the SQL class, not the calling class
-    public boolean placeOrder (String email, String ings) throws SQLException{
+    public boolean placeOrder (String email, String ings){
 
         String query = "INSERT INTO Order_History values ('"+ email +"', '" + ings + "')";
-        if (statement.execute(query)){
-            return true;
+        try{
+            if (statement.execute(query)){
+                return true;
+            }
+            return false;
         }
-        return false;
+        catch (SQLException e){
+            Log.e("MySQL", "Error:", e);
+            return false;
+        }
+
     }
 }

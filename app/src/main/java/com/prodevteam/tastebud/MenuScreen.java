@@ -94,11 +94,7 @@ public class MenuScreen extends ActionBarActivity {
         new AsyncTask<String, Void, Boolean>() {
             @Override
             protected Boolean doInBackground(String... params) {
-                try {
-                    return App.sqlConnection.placeOrder(params[0], params[1]);
-                } catch (Exception e) {
-                    return null;
-                }
+                return App.sqlConnection.placeOrder(params[0], params[1]);
             }
 
             @Override

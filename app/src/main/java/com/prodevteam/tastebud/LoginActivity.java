@@ -118,11 +118,7 @@ public class LoginActivity extends ActionBarActivity {
         new AsyncTask<String, Void, Boolean>() {
             @Override
             protected Boolean doInBackground(String... params) {
-                try {
-                    return App.sqlConnection.checkForDuplicate(params[0]);
-                } catch(SQLException e) {
-                    return false;
-                }
+                return App.sqlConnection.checkForDuplicate(params[0]);
             }
 
             @Override

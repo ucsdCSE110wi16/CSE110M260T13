@@ -69,7 +69,7 @@ public class MySQL {
         }
     }
 
-    public boolean checkForDuplicate(String email) throws SQLException {
+    public boolean checkForDuplicate(String email) {
 
         String query = "SELECT * FROM Customer_Info where email = '" + email + "'";
         try {
@@ -129,7 +129,7 @@ public class MySQL {
     }
 
     /* method to get order ings for specified email */
-    public String getUserIngs(String email) throws SQLException {
+    public String getUserIngs(String email) {
 
         String orderIngs = "";
         String query = "SELECT Ings_In_Orders from Order_History where email = '" + email + "')";

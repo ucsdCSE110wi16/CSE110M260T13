@@ -42,21 +42,22 @@
         android:layout_alignStart="@id/item_name"
         android:layout_below="@id/item_name"
         android:paddingRight="22dp"
+        android:paddingLeft="22dp"
+        android:paddingTop="20dp"
         android:scrollbarStyle="insideOverlay"
         android:scrollbarSize="@dimen/menu_scrollbar_size">
 
         <!--
         TODO: Change this TextView to a LinearLayout (horizontal) that will hold text bubbles
-                   This should be similar to the ingredients list in the menu screen (R.id.ing_list) -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Ingredients List"
-            android:id="@+id/item_ing"
-            android:textStyle="italic"
-            android:maxLines="1"
-            android:paddingBottom="4dp" />
+                  This should be similar to the ingredients list in the menu screen (R.id.ing_list) -->
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/ing_wrapper"
+            android:layout_gravity="center_vertical"
+            android:paddingBottom="5dp"></LinearLayout>
 
     </HorizontalScrollView>
 

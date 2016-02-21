@@ -21,20 +21,25 @@ import java.net.URL;
 public class MenuData {
     private String itemName;
     private String itemPrice;
-    private String itemIng;
+
+    private String majorItemIngs;
+    private String minorItemIngs;
     private Drawable itemImg;
 
     public MenuData(MenuScreen.MenuItem item) {
         itemName = item.getName();
         itemPrice = item.getPrice();
-        itemIng = item.getIngredients();
+        //TODO: itemIng must be the concatenation of majorItemIngs and minorItemIngs.
+        //itemIng = item.getIngredients();
         itemImg = item.getImage();
     }
 
-    public MenuData(String name, String price, String ing, String img) {
+    public MenuData(String name, String price, String minor_ings, String major_Ings, String img) {
         this.itemName = name;
         this.itemPrice = price;
-        this.itemIng = ing;
+        this.minorItemIngs = minor_ings;
+        this.majorItemIngs = major_Ings;
+
         new AsyncTask<String, Void, Drawable>() {
 
             @Override
@@ -64,10 +69,6 @@ public class MenuData {
         return itemPrice;
     }
 
-    public String getIng() {
-        return itemIng;
-    }
-
     public Drawable getImg() {
         return itemImg;
     }
@@ -80,8 +81,20 @@ public class MenuData {
         this.itemPrice = itemPrice;
     }
 
-    public void setIng(String itemIng) {
-        this.itemIng = itemIng;
+    public String getMajorIngs(){
+        return majorItemIngs;
+    }
+
+    public String getMinorIngs(){
+        return minorItemIngs;
+    }
+
+    public void setMinorIngs (String minorIng){
+        this.minorItemIngs = minorIng;
+    }
+
+    public void setMajorIngs (String majorIng) {
+        this.majorItemIngs = majorIng;
     }
 
     public void setImg(String itemImg) {

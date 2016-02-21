@@ -89,7 +89,12 @@ public class MenuScreen extends ActionBarActivity {
         String email = App.currentUser.getEmailAddress();
         String ings = "";
         for(MenuData m : selectedItems)
+
+            //TODO: getIng must return the concatenation of majorItemIngs and minorItemIngs
+            //ings += m.getMajorIngs() + ", " + m.getMinorIngs(); should do!
+
             ings += m.getIng() + ", ";
+
         ings = ings.substring(0, ings.lastIndexOf(','));
         new AsyncTask<String, Void, Boolean>() {
             @Override
@@ -252,6 +257,7 @@ public class MenuScreen extends ActionBarActivity {
 
             this.setItemName(m.getName());
             this.setItemPrice(m.getPrice());
+            //TODO: getIng() is no longer a valid method. Instead, getMajorIngs() and getMinorIngs() have been implemented.
             this.setItemIng(m.getIng());
             Drawable img = m.getImg();
             if(img == null) img = getResources().getDrawable(R.drawable.no_image);

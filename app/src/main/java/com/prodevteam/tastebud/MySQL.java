@@ -111,10 +111,11 @@ public class MySQL {
 
                 /* initialize and store values into item */
                 String name = result.getString("Item_Name");
-                String ing = result.getString("Item_Ing");
                 String price = result.getString("Item_Price");
+                String major_ing = result.getString("Item_Major_Ing");
+                String minor_ing = result.getString("Item_Minor_Ing");
                 String img = result.getString("Item_Img");
-                MenuData item = new MenuData(name, price, ing, img);
+                MenuData item = new MenuData(name, price, major_ing, minor_ing, img);
 
                 /* add item into ListMenuItem */
                 listMenuItems.add(item);

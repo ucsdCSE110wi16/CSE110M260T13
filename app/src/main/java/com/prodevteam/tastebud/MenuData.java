@@ -5,9 +5,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.MenuItem;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -18,19 +20,20 @@ import java.net.URL;
  * A MenuIteam.
  */
 
-public class MenuData {
+public class MenuData implements Serializable {
     private String itemName;
     private String itemPrice;
 
     private String majorItemIngs;
     private String minorItemIngs;
+    private String imageURL;
     private Drawable itemImg;
 
     public MenuData(MenuScreen.MenuItem item) {
         itemName = item.getName();
         itemPrice = item.getPrice();
-        //TODO: itemIng must be the concatenation of majorItemIngs and minorItemIngs.
-        //itemIng = item.getIngredients();
+        majorItemIngs = item.getMajorIngs();
+        minorItemIngs = item.getMinorIngs();
         itemImg = item.getImage();
     }
 
@@ -39,26 +42,19 @@ public class MenuData {
         this.itemPrice = price;
         this.minorItemIngs = minor_ings;
         this.majorItemIngs = major_Ings;
+        this.imageURL = img;
+    }
 
-        new AsyncTask<String, Void, Drawable>() {
-
-            @Override
-            protected Drawable doInBackground(String... params) {
-                try {
-                    HttpURLConnection connection = (HttpURLConnection) new URL(params[0]).openConnection();
-                    connection.connect();
-                    InputStream input = connection.getInputStream();
-                    return new BitmapDrawable(App.myApp.getApplicationContext().getResources(), BitmapFactory.decodeStream(input));
-                } catch (Exception e) {
-                    return null;
-                }
-            }
-
-            @Override
-            protected void onPostExecute(Drawable result) {
-                itemImg = result;
-            }
-        }.execute(img);
+    public void setImage() {
+        try {
+            HttpURLConnection connection = (HttpURLConnection) new URL(imageURL).openConnection();
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            itemImg = new BitmapDrawable(App.myApp.getApplicationContext().getResources(), BitmapFactory.decodeStream(input));
+        } catch (Exception e) {
+            Log.e("MenuData", imageURL, e);
+            itemImg = null;
+        }
     }
 
     public String getName() {
@@ -95,17 +91,6 @@ public class MenuData {
 
     public void setMajorIngs (String majorIng) {
         this.majorItemIngs = majorIng;
-    }
-
-    public void setImg(String itemImg) {
-        try {
-            HttpURLConnection connection = (HttpURLConnection) new URL(itemImg).openConnection();
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            this.itemImg = (new BitmapDrawable(App.myApp.getApplicationContext().getResources(), BitmapFactory.decodeStream(input)));
-        } catch (Exception e) {
-            this.itemImg = null;
-        }
     }
 
     public void setImg(Drawable img) {

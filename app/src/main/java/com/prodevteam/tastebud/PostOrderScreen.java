@@ -26,12 +26,13 @@ public class PostOrderScreen extends ActionBarActivity {
                 onContinueClicked();
             }
         });
-
+        /*
         LinearLayout wrapper = (LinearLayout) findViewById(R.id.order_wrapper);
         Serializable serializableExtra = getIntent().getSerializableExtra(MenuScreen.ITEMS_EXTRA_KEY);
         ArrayList<MenuData> selectedItems = (ArrayList) serializableExtra;
         for(MenuData m : selectedItems)
             wrapper.addView(new MenuScreen.MenuItem(PostOrderScreen.this, m));
+        */
     }
 
     private void onContinueClicked() {

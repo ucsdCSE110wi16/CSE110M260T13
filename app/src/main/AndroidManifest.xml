@@ -37,6 +37,9 @@
         <activity
             android:name=".AccountSettingsScreen"
             android:label="@string/title_activity_account_settings_screen" />
+
+        <activity android:name=".PostOrderScreen"
+            android:label="Post Order" />
     </application>
 
 </manifest>

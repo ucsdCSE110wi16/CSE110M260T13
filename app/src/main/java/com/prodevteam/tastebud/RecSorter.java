@@ -50,14 +50,7 @@ public class RecSorter {
     /* function to make a hashmap of ingredients and occurences of that user's orders */
     public HashMap makePriorityHash(String userEmail){
         //TODO: get useremail in string to pass
-        String userIng = "";
-        try{
-             userIng = App.sqlConnection.getUserIngs(userEmail);
-        }
-        catch (SQLException e){
-            HashMap bob = new HashMap(); // temporary filler TODO:replace with something useful
-            return bob;
-        }
+        String userIng = App.sqlConnection.getUserIngs(userEmail);
         int count;
         // go through string and make a list
         List<String> ingList = Arrays.asList(userIng.split(","));

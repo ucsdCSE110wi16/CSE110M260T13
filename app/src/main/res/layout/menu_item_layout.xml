@@ -47,15 +47,11 @@
         android:scrollbarStyle="insideOverlay"
         android:scrollbarSize="@dimen/menu_scrollbar_size">
 
-        <!--
-        TODO: Change this TextView to a LinearLayout (horizontal) that will hold text bubbles
-                  This should be similar to the ingredients list in the menu screen (R.id.ing_list) -->
-
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/ing_wrapper"
+            android:id="@+id/item_ing_wrapper"
             android:layout_gravity="center_vertical"
             android:paddingBottom="5dp"></LinearLayout>
 
@@ -66,9 +62,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/price"
-        android:textSize="10sp"
+        android:text="Price"
+        android:textSize="12sp"
         android:paddingTop="2dp"
+        android:paddingRight="8dp"
+        android:paddingEnd="8dp"
         android:textStyle="normal"
         android:id="@+id/item_price"
         android:gravity="center"

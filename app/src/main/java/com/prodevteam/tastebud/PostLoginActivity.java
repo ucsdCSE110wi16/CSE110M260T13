@@ -58,7 +58,7 @@ public class PostLoginActivity extends ActionBarActivity implements SensorEventL
 
     public void onMenuButtonClicked() {
         Intent intent = new Intent(this, MenuScreen.class);
-        intent.putExtra("a", "b");
+
         startActivity(intent);
     }
 

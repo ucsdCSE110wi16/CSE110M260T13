@@ -1,8 +1,15 @@
 package com.prodevteam.tastebud;
 
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.MenuItem;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -115,11 +122,8 @@ public class MySQL {
                 String major_ings = result.getString("Major_Item_Ings");
                 String minor_ings = result.getString("Minor_Item_Ings");
                 String img = result.getString("Item_Img");
-                MenuData item = new MenuData(name, price, major_ings, minor_ings, img);
 
-                /* add item into ListMenuItem */
-                listMenuItems.add(item);
-
+                listMenuItems.add(new MenuData(name, price, major_ings, minor_ings, img));
             }
         } catch (SQLException e) {
             Log.e("MySQL", "Error:", e);

@@ -31,5 +31,15 @@
     <string name="menu_item_1_ing">white rice, chicken, eggs, onions, peas, carrots, celery, bacon</string>
     <string name="title_activity_account_settings_screen">Settings</string>
     <string name="my_acc_string">My Account</string>
+    <string name="email_name">yaziz@ucsd.edu</string>
+    <string name="email_pass">123456</string>
+    <string name="Continue">Continue</string>
+    <string name="CreateAnAccount">Create an Account</string>
+    <string name="password_field">Password:</string>
+    <string name="email_field">Email Address:</string>
+    <string name="first_name_field">First Name:</string>
+    <string name="last_name_field">Last Name:</string>
+    <string name="item_name">Item Name</string>
+    <string name="price">Price</string>
 
 </resources>

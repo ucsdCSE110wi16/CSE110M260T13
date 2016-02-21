@@ -43,7 +43,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Continue"
+        android:text="@string/Continue"
         android:layout_marginTop="@dimen/menu_text_margin"
         android:id="@+id/order_finished_button"
         android:layout_gravity="center_horizontal" />

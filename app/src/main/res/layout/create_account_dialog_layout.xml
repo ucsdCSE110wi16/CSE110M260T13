@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Create an Account"
+        android:text="@string/CreateAnAccount"
         android:id="@+id/create_acc_title"
         android:gravity="center_horizontal"
         android:paddingBottom="5dp"/>
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Email Address:"
+            android:text="@string/email_field"
             android:id="@+id/email_text"
             android:textSize="14sp"
             android:layout_marginTop="4dp"/>
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Password:"
+            android:text="@string/password_field"
             android:textSize="14sp"
             android:id="@+id/password_text"
             android:layout_marginRight="@dimen/menu_text_margin_small"
@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="First Name:"
+            android:text="@string/first_name_field"
             android:textSize="14sp"
             android:id="@+id/first_name_text"
             android:layout_marginRight="@dimen/menu_text_margin_small"
@@ -98,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Last Name:"
+            android:text="@string/last_name_field"
             android:textSize="14sp"
             android:id="@+id/last_name_text"
             android:layout_marginRight="@dimen/menu_text_margin_small"
@@ -118,7 +118,7 @@
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Continue"
+        android:text="@string/Continue"
         android:id="@+id/continue_button" />
 
 </LinearLayout>

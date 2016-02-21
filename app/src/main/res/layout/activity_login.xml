@@ -48,7 +48,7 @@
         android:background="@color/text_field_bgcolor"
         android:fontFamily="sans-serif"
         android:textColor="@color/login_text_color"
-        android:text="yaziz@ucsd.edu"
+        android:text="@string/email_name"
         android:textColorHint="@color/login_hint_color" />
 
     <EditText
@@ -58,7 +58,7 @@
         android:gravity="center"
         android:layout_gravity="center"
         android:ems="10"
-        android:text="123456"
+        android:text="@string/email_pass"
         android:id="@+id/pass_field"
         android:hint="@string/pass_prompt"
         android:fontFamily="sans-serif"

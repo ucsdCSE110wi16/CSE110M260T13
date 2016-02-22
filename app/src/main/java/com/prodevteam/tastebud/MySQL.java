@@ -203,7 +203,50 @@ public class MySQL {
         }
     }
 
-    public ArrayList<MenuData> makeRec() {
-        return getMenu();
+    public ArrayList<MenuData> makeRec(String userRestrictions, String userIngs, ArrayList<MenuData>menuItems) {
+
+        String[]userIngredients = userIngs.trim().split(",");
+        String[]restrictions = userRestrictions.trim().split(",");
+        ArrayList<MenuData> recMenu = new ArrayList<>();
+
+        int score = 0;
+        boolean restrictFound = false;
+
+        for (int i = 0; i < menuItems.size(); i++) {
+            String[] ingsInItem = (menuItems.get(i).getMajorIngs() + "," + menuItems.get(i).getMinorIngs()).trim().split(",");
+            for (String ing: ingsInItem) {
+                for (String restrict: restrictions) {
+                    if (restrict.equalsIgnoreCase(ing)) {
+                        restrictFound = true;
+                    }
+                }
+            }
+            if (restrictFound == false) {
+                recMenu.add(menuItems.get(i));
+            }
+            restrictFound = false;
+        }
+
+        /*
+        if (!recMenu.isEmpty()){
+            for (MenuData item: recMenu){
+                String[] majorIngs = (item.getMajorIngs()).split(",");
+                String[] minorIngs = (item.getMinorIngs()).split(",");
+                for (String uIngs: userIngredients){
+                    for (String maIng: majorIngs){
+                        if (maIng.trim().equalsIgnoreCase(uIngs.trim())){
+                            score = score + 2;
+                        }
+                    }
+                    for (String miIng: minorIngs){
+                        if (miIng.trim().equalsIgnoreCase(uIngs.trim())){
+                            score = score + 1;
+                        }
+                    }
+                }
+                score = 0;
+            }
+        }*/
+        return recMenu;
     }
 }

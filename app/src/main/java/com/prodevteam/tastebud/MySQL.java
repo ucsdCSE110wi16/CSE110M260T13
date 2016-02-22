@@ -136,7 +136,7 @@ public class MySQL {
     public String getUserIngs(String email) {
 
         String orderIngs = "";
-        String query = "SELECT Ings_In_Orders from Order_History where email = '" + email + "')";
+        String query = "SELECT Ings_In_Order from Order_History where customer_email = '" + email + "'";
         try{
             ResultSet result = statement.executeQuery(query);
             while (result.next()){
@@ -153,7 +153,7 @@ public class MySQL {
     /* method to get user restrictions */
     public String getUserRestrictions(String email){
         String restrictions = "";
-        String query = "SELECT Restrictions from Customer_Info where email = '" + email + "')";
+        String query = "SELECT Restrictions from Customer_Info where email = '" + email + "'";
         try{
             ResultSet result = statement.executeQuery(query);
             if (result.next()){
@@ -204,9 +204,10 @@ public class MySQL {
 
     public ArrayList<MenuData> makeRec() {
 
-        String[]userIngredients = userIngs.trim().split(",");
-        String[]restrictions = userRestrictions.trim().split(",");
+        String[]userIngredients = App.sqlConnection.getUserIngs(App.currentUser.getEmailAddress()).split(",");
+        String[]restrictions = App.sqlConnection.getUserRestrictions(App.currentUser.getEmailAddress()).split(",");
         ArrayList<MenuData> recMenu = new ArrayList<>();
+        ArrayList<MenuData> menuItems = getMenu();
 
         int score = 0;
         boolean restrictFound = false;

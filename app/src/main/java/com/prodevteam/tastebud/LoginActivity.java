@@ -192,11 +192,23 @@ public class LoginActivity extends ActionBarActivity {
             }
 
             @Override
-            protected void onPostExecute(App.UserInfo result) {
+            protected void onPostExecute(final App.UserInfo result) {
                 if(result == null)
                     Toast.makeText(LoginActivity.this, "Error signing in, invalid email address or password.", Toast.LENGTH_SHORT).show();
                 else {
-                    startActivity(intent);
+                    new AsyncTask<String, Void, String>() {
+
+                        @Override
+                        protected String doInBackground(String... params) {
+                            return App.sqlConnection.getUserIngs(params[0]);
+                        }
+
+                        @Override
+                        protected void onPostExecute(String ings) {
+                            result.setPastIngredients(ings);
+                            startActivity(intent);
+                        }
+                    }.execute(userEmail);
                 }
             }
         }.execute(userEmail, password);

@@ -25,18 +25,31 @@ public class App extends Application {
         sqlConnection.initializeConnection();
     }
 
-    // Immutable userinfo class
     public static class UserInfo {
         private String name;
         private String emailAddress;
         private String password;
         private String restrictions;
+        private String pastIngredients;
 
         public UserInfo(String name, String emailAddress, String password, String restrictions) {
             this.name = name;
             this.emailAddress = emailAddress;
             this.password = password;
             this.restrictions = restrictions;
+        }
+
+        public String getPastIngredients() {
+            return pastIngredients;
+        }
+
+        public String addPastIngredient(String newIngredient) {
+            pastIngredients += ", " + newIngredient;
+            return pastIngredients;
+        }
+
+        public void setPastIngredients(String pastIngredients) {
+            this.pastIngredients = pastIngredients;
         }
 
         public String getName() {

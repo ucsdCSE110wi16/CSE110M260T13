@@ -50,8 +50,7 @@ public class MySQL {
                 return null;
             //user_key = result.getInt("ID");
             String name = result.getString("Name");
-            String restrictions = "";
-            // String restrictions = result.getString("Restrictions");
+            String restrictions = result.getString("Restrictions");
 
             App.UserInfo user = new App.UserInfo(name, email, password, restrictions);
             return user;
@@ -203,7 +202,7 @@ public class MySQL {
         }
     }
 
-    public ArrayList<MenuData> makeRec(String userRestrictions, String userIngs, ArrayList<MenuData>menuItems) {
+    public ArrayList<MenuData> makeRec() {
 
         String[]userIngredients = userIngs.trim().split(",");
         String[]restrictions = userRestrictions.trim().split(",");

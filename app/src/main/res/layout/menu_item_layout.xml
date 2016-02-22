@@ -41,9 +41,7 @@
         android:layout_alignLeft="@id/item_name"
         android:layout_alignStart="@id/item_name"
         android:layout_below="@id/item_name"
-        android:paddingRight="22dp"
-        android:paddingLeft="22dp"
-        android:paddingTop="20dp"
+        android:layout_marginRight="12dp"
         android:scrollbarStyle="insideOverlay"
         android:scrollbarSize="@dimen/menu_scrollbar_size">
 
@@ -53,7 +51,7 @@
             android:layout_height="match_parent"
             android:id="@+id/item_ing_wrapper"
             android:layout_gravity="center_vertical"
-            android:paddingBottom="5dp"></LinearLayout>
+            android:paddingBottom="5dp" />
 
     </HorizontalScrollView>
 

@@ -58,7 +58,6 @@ public class PostLoginActivity extends ActionBarActivity implements SensorEventL
 
     public void onMenuButtonClicked() {
         Intent intent = new Intent(this, MenuScreen.class);
-
         startActivity(intent);
     }
 
@@ -116,6 +115,15 @@ public class PostLoginActivity extends ActionBarActivity implements SensorEventL
             }
         });
 
+        // Set up the Recommendations button
+        Button recButton = (Button) findViewById(R.id.rec_button);
+        recButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRecButtonClicked();
+            }
+        });
+
         //set up the signout button
         Button signoutButton = (Button) findViewById(R.id.signout_button);
         signoutButton.setOnClickListener(new View.OnClickListener() {
@@ -132,5 +140,9 @@ public class PostLoginActivity extends ActionBarActivity implements SensorEventL
                 myAccountButtonClicked();
             }
         });
+    }
+
+    private void onRecButtonClicked() {
+        startActivity(new Intent(this, RecommendationScreen.class));
     }
 }

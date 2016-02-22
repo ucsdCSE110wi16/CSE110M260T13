@@ -82,12 +82,13 @@
 
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="44dp"
             android:id="@+id/ing_list"
             android:layout_below="@+id/horizontal_line"
-            android:paddingRight="@dimen/menu_text_margin_small"
-            android:paddingLeft="@dimen/menu_text_margin_small"
-            android:paddingTop="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginRight="@dimen/menu_text_margin_small"
+            android:layout_marginLeft="@dimen/menu_text_margin_small"
             android:scrollbarStyle="insideOverlay"
             android:scrollbarSize="@dimen/menu_scrollbar_size">
 
@@ -96,8 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/ing_wrapper"
-                android:layout_gravity="center_vertical"
-                android:paddingBottom="5dp"></LinearLayout>
+                android:layout_gravity="center_vertical"></LinearLayout>
         </HorizontalScrollView>
 
     </RelativeLayout>

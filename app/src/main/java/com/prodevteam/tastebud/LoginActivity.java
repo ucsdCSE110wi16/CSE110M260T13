@@ -104,16 +104,13 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     private void onContinueClick() {
-        EditText fname_field = (EditText) findViewById(R.id.first_name_field);
-        EditText lname_field = (EditText) findViewById(R.id.last_name_field);
+        EditText name_field = (EditText) findViewById(R.id.name_field);
         EditText email_field = (EditText) findViewById(R.id.new_email_field);
         EditText pass_field = (EditText) findViewById(R.id.pass_field);
 
-        String fname = fname_field.getText().toString();
-        String lname = lname_field.getText().toString();
+        final String name = name_field.getText().toString();
         final String email = email_field.getText().toString();
         final String pass = pass_field.getText().toString();
-        final String name = fname + " " + lname;
 
         new AsyncTask<String, Void, Boolean>() {
             @Override

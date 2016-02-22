@@ -60,38 +60,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="First Name"
-        android:id="@+id/fname_title" />
+        android:text="Name"
+        android:id="@+id/name_title" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/fname_field"
+        android:id="@+id/name_field"
         android:inputType="textPersonName"
         android:ems="10"
         android:textSize="16dp"
-        android:text="fname"
+        android:text="name"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_marginBottom="@dimen/menu_text_margin"/>
-
-    <!-- TODO: Change this so that there is only one box called Name instead of first name and last name -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Last Name"
-        android:id="@+id/lname_title" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:textSize="16dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginBottom="@dimen/menu_text_margin"
-        android:text="lname"
-        android:ems="10"
-        android:id="@+id/lname_field" />
 
     <View
         android:layout_width="match_parent"

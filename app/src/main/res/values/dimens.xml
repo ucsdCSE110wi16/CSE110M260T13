@@ -6,7 +6,7 @@
 
     <!-- Menu Screen dimensions -->
     <dimen name="menu_item_height">84dp</dimen>
-    <dimen name="menu_upper_bar_1_height">74dp</dimen>
+    <dimen name="menu_upper_bar_1_height">78dp</dimen>
     <dimen name="menu_button_top_margin">2dp</dimen>
     <dimen name="menu_text_margin">12dp</dimen>
     <dimen name="menu_text_margin_small">8dp</dimen>

@@ -201,6 +201,9 @@ public class MySQL {
             Log.e("MySQL", "Error:", e);
             return false;
         }
+    }
 
+    public ArrayList<MenuData> makeRec() {
+        return getMenu();
     }
 }

@@ -36,16 +36,14 @@ public class AccountSettingsScreen extends Activity {
 
         TextView email_setting = (TextView) findViewById(R.id.user_email);
         EditText pass_setting = (EditText) findViewById(R.id.pass_field);
-        EditText fname_setting = (EditText) findViewById(R.id.fname_field);
-        EditText lname_setting = (EditText) findViewById(R.id.lname_field);
+        EditText name_setting = (EditText) findViewById(R.id.name_field);
         EditText restrictions = (EditText) findViewById(R.id.restrictions_field);
 
 
         App.UserInfo user = App.currentUser;
         email_setting.setText(user.getEmailAddress().toCharArray(), 0, user.getEmailAddress().length());
         pass_setting.setText(user.getPassword().toCharArray(), 0, user.getPassword().length());
-        fname_setting.setText(user.getName().toCharArray(), 0, user.getName().length());
-        lname_setting.setText(user.getName().toCharArray(), 0, user.getName().length());
+        name_setting.setText(user.getName().toCharArray(), 0, user.getName().length());
         restrictions.setText(user.getRestrictions().toCharArray(), 0, user.getRestrictions().length());
 
         Button save_button = (Button) findViewById(R.id.save_button);
@@ -60,8 +58,6 @@ public class AccountSettingsScreen extends Activity {
     private void saveButtonClicked() {
         startActivity(new Intent(this, PostLoginActivity.class));
         // TODO: This method should also update the database with the newly entered info, also update App.currentUser
-
-
 
     }
 }

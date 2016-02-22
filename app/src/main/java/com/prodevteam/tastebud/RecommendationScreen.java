@@ -1,33 +1,16 @@
 package com.prodevteam.tastebud;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class MenuScreen extends MenuAbstract {
+/**
+ * Created by Belton on 2/22/2016.
+ */
+public class RecommendationScreen extends MenuAbstract {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +26,7 @@ public class MenuScreen extends MenuAbstract {
         new AsyncTask<Void, Void, ArrayList<MenuData>>() {
             @Override
             protected ArrayList<MenuData> doInBackground(Void... params) {
-                ArrayList<MenuData> menu = App.sqlConnection.getMenu();
+                ArrayList<MenuData> menu = App.sqlConnection.makeRec();
                 for(MenuData d : menu)
                     d.setImage();
                 return menu;

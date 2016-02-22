@@ -40,6 +40,9 @@
 
         <activity android:name=".PostOrderScreen"
             android:label="Post Order" />
+
+        <activity android:name=".RecommendationScreen"
+            android:label="Recommendations" />
     </application>
 
 </manifest>

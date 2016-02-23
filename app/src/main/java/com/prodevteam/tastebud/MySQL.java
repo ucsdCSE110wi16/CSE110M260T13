@@ -16,6 +16,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MySQL {
 
@@ -140,7 +145,7 @@ public class MySQL {
         try{
             ResultSet result = statement.executeQuery(query);
             while (result.next()){
-                orderIngs = orderIngs + ", " + result.toString();
+                orderIngs = orderIngs + ", " + result.getString("Ings_In_Order");
             }
         }
         catch (SQLException e){
@@ -204,49 +209,63 @@ public class MySQL {
 
     public ArrayList<MenuData> makeRec() {
 
-        String[]userIngredients = App.sqlConnection.getUserIngs(App.currentUser.getEmailAddress()).split(",");
-        String[]restrictions = App.sqlConnection.getUserRestrictions(App.currentUser.getEmailAddress()).split(",");
-        ArrayList<MenuData> recMenu = new ArrayList<>();
-        ArrayList<MenuData> menuItems = getMenu();
+        String[]userIngs = App.sqlConnection.getUserIngs(App.currentUser.getEmailAddress()).toString().split(",");
+        ArrayList<MenuData> recMenu = getMenu();
 
-        int score = 0;
-        boolean restrictFound = false;
-
-        for (int i = 0; i < menuItems.size(); i++) {
-            String[] ingsInItem = (menuItems.get(i).getMajorIngs() + "," + menuItems.get(i).getMinorIngs()).trim().split(",");
-            for (String ing: ingsInItem) {
-                for (String restrict: restrictions) {
-                    if (restrict.equalsIgnoreCase(ing)) {
-                        restrictFound = true;
-                    }
-                }
-            }
-            if (restrictFound == false) {
-                recMenu.add(menuItems.get(i));
-            }
-            restrictFound = false;
+        if (userIngs.length == 1 && userIngs[0] == "") {
+            return recMenu;
         }
 
-        /*
-        if (!recMenu.isEmpty()){
-            for (MenuData item: recMenu){
-                String[] majorIngs = (item.getMajorIngs()).split(",");
-                String[] minorIngs = (item.getMinorIngs()).split(",");
-                for (String uIngs: userIngredients){
-                    for (String maIng: majorIngs){
-                        if (maIng.trim().equalsIgnoreCase(uIngs.trim())){
-                            score = score + 2;
-                        }
-                    }
-                    for (String miIng: minorIngs){
-                        if (miIng.trim().equalsIgnoreCase(uIngs.trim())){
-                            score = score + 1;
-                        }
+        Map<String,Integer> itemRank = new HashMap<>();
+        ArrayList<MenuData> sortedRecMenu = new ArrayList<>();
+        int score = 0;
+
+        for (MenuData item : recMenu) {
+            String[] majorIngs = (item.getMajorIngs()).split(",");
+            String[] minorIngs = (item.getMinorIngs()).split(",");
+
+            for (String ing : userIngs) {
+                for (String MI : majorIngs) {
+                    if (MI.trim().equalsIgnoreCase(ing.trim())) {
+                        score = score + 2;
                     }
                 }
-                score = 0;
+                for (String MI : minorIngs) {
+                    if (MI.trim().equalsIgnoreCase(ing.trim())) {
+                        score = score + 1;
+                    }
+                }
+
             }
-        }*/
-        return recMenu;
+            itemRank.put(item.getName(), score);
+            score = 0;
+        }
+
+        List list = sortByScore(itemRank);
+
+        for (Object i : list) {
+            for (MenuData item : recMenu) {
+                if (i.toString().contains(item.getName())) {
+                    sortedRecMenu.add(recMenu.get(recMenu.indexOf(item)));
+                    break;
+                }
+            }
+        }
+
+        return sortedRecMenu;
     }
+
+    static <K, V extends Comparable<? super V>>
+    List<Map.Entry<K, V>> sortByScore(Map<K, V> map) {
+        List<Map.Entry<K, V>> sortedEntries = new ArrayList<>(map.entrySet());
+        Collections.sort(sortedEntries, new Comparator<Map.Entry<K, V>>() {
+            @Override
+            public int compare(Map.Entry<K, V> e1, Map.Entry<K, V> e2) {
+                return e2.getValue().compareTo(e1.getValue());
+            }
+        });
+        return sortedEntries;
+    }
+
+
 }

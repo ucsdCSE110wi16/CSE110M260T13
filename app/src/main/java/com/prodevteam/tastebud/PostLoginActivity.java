@@ -8,16 +8,25 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.List;
@@ -26,7 +35,10 @@ import java.util.List;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class PostLoginActivity extends ActionBarActivity implements SensorEventListener {
+public class PostLoginActivity extends AppCompatActivity implements SensorEventListener, AdapterView.OnItemSelectedListener {
+
+    protected static String[] restNames = {"Touch to begin", "Pines", "64 Degrees", "Cafe Ventanas", "Canyon Vista", "Foodworx"};
+    protected static int selectedRestaurantIndex; // initialize to 0 (no restaurant)
 
     private static final float BG_IMAGE_OFFSET_Y = 100.0F;
     private static final float BG_IMAGE_OFFSET_X = 400.0F;
@@ -103,7 +115,8 @@ public class PostLoginActivity extends ActionBarActivity implements SensorEventL
         TextView name_text = (TextView) findViewById(R.id.user_fname);
 
         // Retrieve the user's first name
-        String firstName = App.currentUser.getName();
+        String name = App.currentUser.getName();
+        String firstName = name.split(" ")[0];
 
         name_text.setText(firstName.toCharArray(), 0, firstName.length());
 
@@ -140,9 +153,59 @@ public class PostLoginActivity extends ActionBarActivity implements SensorEventL
                 myAccountButtonClicked();
             }
         });
+
+        Spinner spinner = (Spinner)findViewById(R.id.rest_selector);
+        //ArrayAdapter<String>adapter = new ArrayAdapter<>(PostLoginActivity.this,
+         //       android.R.layout.simple_spinner_item, restNames);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, restNames) {
+            public View getView(int position, View convertView,ViewGroup parent) {
+                View v = super.getView(position, convertView, parent);
+                v.setAlpha(0.7f);
+                ((TextView) v).setGravity(Gravity.CENTER);
+                return v;
+            }
+            public View getDropDownView(int position, View convertView,ViewGroup parent) {
+                View v = super.getDropDownView(position, convertView,parent);
+                ((TextView) v).setGravity(Gravity.CENTER);
+                v.setBackground(ContextCompat.getDrawable(PostLoginActivity.this, R.drawable.dropdown_item_border));
+                v.setAlpha(0.7f);
+                return v;
+            }
+        };
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
+        spinner.setSelection(selectedRestaurantIndex);
     }
 
     private void onRecButtonClicked() {
         startActivity(new Intent(this, RecommendationScreen.class));
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if((selectedRestaurantIndex = position) == 0) {
+            Button menuButton = (Button) findViewById(R.id.menu_button);
+            Button recButton = (Button) findViewById(R.id.rec_button);
+            menuButton.setVisibility(View.INVISIBLE);
+            recButton.setVisibility(View.INVISIBLE);
+            return;
+        }
+        Toast.makeText(PostLoginActivity.this, "Selected \"" + restNames[position] + "\" as current restaurant.", Toast.LENGTH_SHORT).show();
+
+        Button menuButton = (Button) findViewById(R.id.menu_button);
+        Button recButton = (Button) findViewById(R.id.rec_button);
+
+        // TODO: Make these buttons fade in
+        menuButton.setVisibility(View.VISIBLE);
+        recButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

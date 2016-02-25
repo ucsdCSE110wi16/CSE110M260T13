@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Thank you for your order!"
+        android:text="You're almost done!"
         android:paddingBottom="@dimen/menu_text_margin"
         android:id="@+id/order_title" />
 
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Your food is on its way..."
+        android:text="Take a moment to review your order..."
         android:paddingBottom="@dimen/menu_text_margin_small"
         android:layout_marginLeft="@dimen/menu_text_margin_small"
         android:id="@+id/order_text1" />
@@ -41,10 +41,32 @@
     </ScrollView>
 
     <Button
-        android:layout_width="wrap_content"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Continue"
-        android:layout_marginTop="@dimen/menu_text_margin"
-        android:id="@+id/order_finished_button"
-        android:layout_gravity="center_horizontal" />
+        android:text="Remove selected items and update order"
+        android:id="@+id/remove_button"
+        android:layout_gravity="right" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="64dp">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/back_button" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Continue"
+            android:layout_alignParentRight="true"
+            android:id="@+id/order_finished_button" />
+    </RelativeLayout>
 </LinearLayout>

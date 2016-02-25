@@ -3,8 +3,6 @@ package com.prodevteam.tastebud;
 import android.app.Application;
 import android.content.res.Resources;
 
-import org.apache.http.util.CharArrayBuffer;
-
 public class App extends Application {
 
     static App myApp;

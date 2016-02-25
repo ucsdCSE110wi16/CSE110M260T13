@@ -145,7 +145,7 @@ public class MySQL {
         try{
             ResultSet result = statement.executeQuery(query);
             while (result.next()){
-                orderIngs = orderIngs + ", " + result.getString("Ings_In_Order");
+                orderIngs += ", " + result.getString("Ings_In_Order");
             }
         }
         catch (SQLException e){
@@ -183,12 +183,16 @@ public class MySQL {
                 "Restrictions = '"+ restrictions + "' " +
                 "where Email = '" + email +"'";
         try {
-            statement.executeUpdate(query);
+            statement.execute(query);
         } catch (SQLException e) {
             Log.e("MySQL", "Error:", e);
             return false;
         }
         return true;
+    }
+
+    public boolean updateUserInfo(App.UserInfo user) {
+        return updateUserInfo(user.getEmailAddress(), user.getName(), user.getPassword(), user.getRestrictions());
     }
 
     /* method to store orders into database */

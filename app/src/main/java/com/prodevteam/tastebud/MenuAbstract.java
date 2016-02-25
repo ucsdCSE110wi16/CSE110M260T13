@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +24,7 @@ import java.util.ArrayList;
 /**
  * Created by Belton on 2/22/2016.
  */
-public abstract class MenuAbstract extends ActionBarActivity {
+public abstract class MenuAbstract extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,31 @@ public abstract class MenuAbstract extends ActionBarActivity {
                 onOrderButtonClick();
             }
         });
+
+        TextView restName = (TextView) findViewById(R.id.rest_name);
+        String rest = PostLoginActivity.restNames[PostLoginActivity.selectedRestaurantIndex];
+        restName.setText(rest.toCharArray(), 0, rest.length());
+
+        ImageButton backImageButton = (ImageButton) findViewById(R.id.back_image_button);
+        Button backButton = (Button) findViewById(R.id.back_button);
+        backImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackButtonClicked();
+            }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackButtonClicked();
+            }
+        });
+
         buildMenu();
+    }
+
+    private void onBackButtonClicked() {
+        startActivity(new Intent(this, PostLoginActivity.class));
     }
 
     public abstract void buildMenu();
@@ -63,17 +89,6 @@ public abstract class MenuAbstract extends ActionBarActivity {
             MenuScreen.MenuItem item = (MenuScreen.MenuItem) menuWrapper.getChildAt(i);
             if(item.isChecked()) selectedItems.add(new MenuData(item));
         }
-
-        String email = App.currentUser.getEmailAddress();
-        String ings = "";
-        for(MenuData m : selectedItems)
-            ings += m.getMajorIngs() + ", " + m.getMinorIngs();
-        new AsyncTask<String, Void, Boolean>() {
-            @Override
-            protected Boolean doInBackground(String... params) {
-                return App.sqlConnection.placeOrder(params[0], params[1]);
-            }
-        }.execute(email, ings);
 
         Intent intent = new Intent(this, PostOrderScreen.class);
         PostOrderScreen.selectedItems = selectedItems;
@@ -97,6 +112,20 @@ public abstract class MenuAbstract extends ActionBarActivity {
             View v = ing_wrapper.getChildAt(i);
             IngredientItem ing = (IngredientItem) v;
             addIngredientLogic(ing, ing.getButton().isChecked());
+        }
+        filterRestrictions();
+    }
+
+    protected void filterRestrictions() {
+        String restrictions = App.currentUser.getRestrictions();
+        String filterIngs[] = restrictions.split(", ");
+        for(String restrictedIngredient : filterIngs) {
+            LinearLayout menu_wrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
+            for(int i = 0; i < menu_wrapper.getChildCount(); i++) {
+                MenuItem item = (MenuItem) menu_wrapper.getChildAt(i);
+                for(String ing : item.getAllIngredients().split(", "))
+                    if(ing.trim().equals(restrictedIngredient.trim())) item.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -180,7 +209,7 @@ public abstract class MenuAbstract extends ActionBarActivity {
             this.majorIngs = m.getMajorIngs();
             this.minorIngs = m.getMinorIngs();
             Drawable img = m.getImg();
-            if(img == null) img = getResources().getDrawable(R.drawable.no_image);
+            if(img == null) img = ContextCompat.getDrawable(context, R.drawable.no_image);
             this.setItemIcon(img);
         }
 

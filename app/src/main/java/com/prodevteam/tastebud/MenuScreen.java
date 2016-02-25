@@ -53,6 +53,7 @@ public class MenuScreen extends MenuAbstract {
             protected void onPostExecute(ArrayList<MenuData> result) {
                 for(MenuData m : result)
                     menuWrapper.addView(new MenuItem(context, m));
+                filterRestrictions();
             }
         }.execute();
     }

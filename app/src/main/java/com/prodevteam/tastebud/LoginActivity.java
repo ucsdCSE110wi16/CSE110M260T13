@@ -6,29 +6,18 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends ActionBarActivity {
 
@@ -43,7 +32,7 @@ public class LoginActivity extends ActionBarActivity {
         ImageView bgimage = (ImageView) findViewById(R.id.bgimage);
         backgrounds = new Drawable[2];
         imageIndex = 4;
-        bgimage.setImageDrawable(getResources().getDrawable(R.drawable.login_4));
+        bgimage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.login_4));
 
         // This timer will change the background image every 3 seconds
         // It runs for 21 seconds and is then restarted
@@ -152,20 +141,20 @@ public class LoginActivity extends ActionBarActivity {
             case 5:
                 imageIndex = 1;
             case 1:
-                backgrounds[0] = getResources().getDrawable(R.drawable.login_1);
-                backgrounds[1] = getResources().getDrawable(R.drawable.login_2);
+                backgrounds[0] = ContextCompat.getDrawable(this, R.drawable.login_1);
+                backgrounds[1] = ContextCompat.getDrawable(this, R.drawable.login_2);
                 break;
             case 2:
-                backgrounds[0] = getResources().getDrawable(R.drawable.login_2);
-                backgrounds[1] = getResources().getDrawable(R.drawable.login_3);
+                backgrounds[0] = ContextCompat.getDrawable(this, R.drawable.login_2);
+                backgrounds[1] = ContextCompat.getDrawable(this, R.drawable.login_3);
                 break;
             case 3:
-                backgrounds[0] = getResources().getDrawable(R.drawable.login_3);
-                backgrounds[1] = getResources().getDrawable(R.drawable.login_4);
+                backgrounds[0] = ContextCompat.getDrawable(this, R.drawable.login_3);
+                backgrounds[1] = ContextCompat.getDrawable(this, R.drawable.login_4);
                 break;
             case 4:
-                backgrounds[0] = getResources().getDrawable(R.drawable.login_4);
-                backgrounds[1] = getResources().getDrawable(R.drawable.login_1);
+                backgrounds[0] = ContextCompat.getDrawable(this, R.drawable.login_4);
+                backgrounds[1] = ContextCompat.getDrawable(this, R.drawable.login_1);
                 break;
         }
         TransitionDrawable crossfade = new TransitionDrawable(backgrounds);

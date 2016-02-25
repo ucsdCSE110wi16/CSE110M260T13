@@ -107,6 +107,30 @@
         android:textSize="16dp"
         android:layout_marginBottom="@dimen/menu_text_margin" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Past Ingredients"
+        android:layout_marginBottom="@dimen/menu_text_margin_small"
+        android:id="@+id/ings_title" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ffffff"
+        android:id="@+id/horizontal_line5"
+        android:alpha="0.2"
+        android:layout_marginBottom="@dimen/menu_text_margin"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ings_field"
+        android:textSize="16dp"
+        android:layout_marginBottom="@dimen/menu_text_margin" />
+
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"

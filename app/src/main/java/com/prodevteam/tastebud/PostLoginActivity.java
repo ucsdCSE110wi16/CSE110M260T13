@@ -90,6 +90,9 @@ public class PostLoginActivity extends AppCompatActivity implements SensorEventL
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_post_login);
+        Intent intent = new Intent(this, RegistrationService.class);
+        startService(intent);
+        startService(intent);
 
         // Set up the gyroscope and the background image
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);

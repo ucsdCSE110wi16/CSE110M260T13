@@ -12,6 +12,7 @@ public class App extends Application {
     static {
         currentUser = new UserInfo("", "", "", "");
     }
+    static String token;
 
     @Override
     public void onCreate() {

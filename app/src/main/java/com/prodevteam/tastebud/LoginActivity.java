@@ -30,6 +30,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Intent intent = new Intent(this, RegistrationService.class);
+        startService(intent);
+
         ImageView bgimage = (ImageView) findViewById(R.id.bgimage);
         backgrounds = new Drawable[2];
         imageIndex = 4;

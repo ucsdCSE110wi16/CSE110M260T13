@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_id": "tastebuddy-3cf5b",
+    "project_number": "364282103429",
+    "name": "TasteBuddy"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:364282103429:android:6df3c4784bf52304",
+        "client_id": "android:com.prodevteam.tastebud",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.prodevteam.tastebud"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 2,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}

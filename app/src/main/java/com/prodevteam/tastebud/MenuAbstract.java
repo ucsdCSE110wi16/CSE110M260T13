@@ -3,12 +3,9 @@ package com.prodevteam.tastebud;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -194,10 +191,10 @@ public abstract class MenuAbstract extends AppCompatActivity {
 
             View.inflate(context, R.layout.menu_item_layout, this);
             itemIcon = (ImageView) findViewById(R.id.item_icon);
-            itemName = (TextView) findViewById(R.id.item_name);
-            itemPrice = (TextView) findViewById(R.id.item_price);
+            itemName = (TextView) findViewById(R.id.order_name);
+            itemPrice = (TextView) findViewById(R.id.order_price);
             itemIng = (LinearLayout) findViewById(R.id.item_ing_wrapper);
-            itemBox = (CheckBox) findViewById(R.id.item_checkbox);
+            itemBox = (CheckBox) findViewById(R.id.order_checkbox);
         }
 
         public MenuItem(Context context, MenuData m) {

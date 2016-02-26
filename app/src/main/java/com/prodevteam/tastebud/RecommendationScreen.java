@@ -23,10 +23,10 @@ public class RecommendationScreen extends MenuAbstract {
         final LinearLayout menuWrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
         final Context context = this;
 
-        new AsyncTask<Void, Void, ArrayList<MenuData>>() {
+        new AsyncTask<String, Void, ArrayList<MenuData>>() {
             @Override
-            protected ArrayList<MenuData> doInBackground(Void... params) {
-                ArrayList<MenuData> menu = App.sqlConnection.makeRec();
+            protected ArrayList<MenuData> doInBackground(String... params) {
+                ArrayList<MenuData> menu = App.sqlConnection.makeRec(params[0]);
                 for(MenuData d : menu)
                     d.setImage();
                 return menu;
@@ -38,6 +38,6 @@ public class RecommendationScreen extends MenuAbstract {
                     menuWrapper.addView(new MenuItem(context, m));
                 filterRestrictions();
             }
-        }.execute();
+        }.execute(PostLoginActivity.restaurantName);
     }
 }

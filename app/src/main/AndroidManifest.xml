@@ -43,6 +43,9 @@
 
         <activity android:name=".RecommendationScreen"
             android:label="Recommendations" />
+        
+        <activity android:name=".EmployeeActivity"
+            android:label="Employee" />
     </application>
 
 </manifest>

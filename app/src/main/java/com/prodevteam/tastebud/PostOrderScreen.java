@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -60,34 +61,31 @@ public class PostOrderScreen extends AppCompatActivity {
     }
 
     private void onContinueClicked() {
-        String email = App.currentUser.getEmailAddress();
-        String ings = "";
-        for(MenuData m : selectedItems)
-            ings += m.getMajorIngs() + ", " + m.getMinorIngs() + ", ";
         new AsyncTask<String, Void, Boolean>() {
             @Override
             protected Boolean doInBackground(String... params) {
-                return App.sqlConnection.placeOrder(params[0], params[1]);
+                return App.sqlConnection.placeOrder(params[0], selectedItems);
             }
-        }.execute(email, ings);
-        App.currentUser.addPastIngredient(ings);
+        }.execute(PostLoginActivity.restaurantName);
+        new AsyncTask<String, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(String... params) {
+                return App.sqlConnection.addOrders(params[0], selectedItems);
+            }
+        }.execute(PostLoginActivity.restaurantName);
+        Toast.makeText(PostOrderScreen.this, "Order completed!", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, PostLoginActivity.class));
     }
 
     private void onUpdateOrderClick() {
         LinearLayout wrapper = (LinearLayout) findViewById(R.id.order_wrapper);
-        ArrayList<MenuData> list = new ArrayList<>();
+        ArrayList<MenuAbstract.MenuItem> list = new ArrayList<>();
         for(int i = 0; i < wrapper.getChildCount(); i++)
-            if(((MenuAbstract.MenuItem) wrapper.getChildAt(i)).isChecked()) list.add(selectedItems.remove(i));
-        for(MenuData d : list) {
-            for(int i = 0; i < wrapper.getChildCount(); i++) {
-                MenuAbstract.MenuItem item = (MenuAbstract.MenuItem) wrapper.getChildAt(i);
-                if (item.getName().equals(d.getName())) {
-                    wrapper.removeView(item);
-                    break;
-                }
-            }
-        }
-
+            if(((MenuAbstract.MenuItem) wrapper.getChildAt(i)).isChecked()) list.add((MenuAbstract.MenuItem) (wrapper.getChildAt(i)));
+        for(MenuAbstract.MenuItem d : list)
+            wrapper.removeView(d);
+        selectedItems.clear();
+        for(int i = 0; i < wrapper.getChildCount(); i++)
+            selectedItems.add(new MenuData((MenuAbstract.MenuItem)(wrapper.getChildAt(i))));
     }
 }

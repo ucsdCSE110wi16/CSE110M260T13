@@ -40,10 +40,10 @@ public class MenuScreen extends MenuAbstract {
         final LinearLayout menuWrapper = (LinearLayout) findViewById(R.id.menu_wrapper);
         final Context context = this;
 
-        new AsyncTask<Void, Void, ArrayList<MenuData>>() {
+        new AsyncTask<String, Void, ArrayList<MenuData>>() {
             @Override
-            protected ArrayList<MenuData> doInBackground(Void... params) {
-                ArrayList<MenuData> menu = App.sqlConnection.getMenu();
+            protected ArrayList<MenuData> doInBackground(String... params) {
+                ArrayList<MenuData> menu = App.sqlConnection.getMenu(params[0]);
                 for(MenuData d : menu)
                     d.setImage();
                 return menu;
@@ -55,6 +55,6 @@ public class MenuScreen extends MenuAbstract {
                     menuWrapper.addView(new MenuItem(context, m));
                 filterRestrictions();
             }
-        }.execute();
+        }.execute(PostLoginActivity.restaurantName);
     }
 }

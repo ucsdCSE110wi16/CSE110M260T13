@@ -13,16 +13,6 @@
         android:layout_alignLeft="@+id/horizontal_line_2"
         android:layout_alignStart="@+id/horizontal_line_2" />
 
-    <ImageView
-        android:layout_width="@dimen/menu_item_pic_size"
-        android:layout_height="@dimen/menu_item_pic_size"
-        android:src="#ff0000"
-        android:id="@+id/item_icon"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/order_checkbox"
-        android:layout_toEndOf="@+id/order_checkbox"
-        android:layout_marginRight="@dimen/menu_text_margin_small" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,32 +20,10 @@
         android:text="@string/item_name"
         android:id="@+id/order_name"
         android:textStyle="bold"
-        android:layout_alignTop="@+id/item_icon"
-        android:layout_toRightOf="@+id/item_icon"
-        android:layout_toEndOf="@+id/item_icon" />
+        android:layout_alignTop="@+id/order_checkbox"
+        android:layout_toRightOf="@+id/order_checkbox"
+        android:layout_toEndOf="@+id/order_checkbox" />
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@id/ing_list"
-        android:layout_alignLeft="@id/order_name"
-        android:layout_alignStart="@id/order_name"
-        android:layout_below="@id/order_name"
-        android:layout_marginRight="12dp"
-        android:scrollbarStyle="insideOverlay"
-        android:scrollbarSize="@dimen/menu_scrollbar_size">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/item_ing_wrapper"
-            android:layout_gravity="center_vertical"
-            android:paddingBottom="5dp" />
-
-    </HorizontalScrollView>
-
-    <!-- TODO: Find a better place to put the price, item looks lopsided with price under icon -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,5 +51,15 @@
         android:layout_marginLeft="@dimen/menu_text_margin"
         android:layout_marginRight="@dimen/menu_text_margin"
         android:layout_alignParentBottom="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/customer_name"
+        android:layout_below="@+id/order_name"
+        android:layout_toRightOf="@+id/order_checkbox"
+        android:layout_toEndOf="@+id/order_checkbox" />
 
 </RelativeLayout>

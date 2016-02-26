@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-public class LoginActivity extends ActionBarActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private Drawable[] backgrounds;
     private int imageIndex;
@@ -64,6 +65,37 @@ public class LoginActivity extends ActionBarActivity {
                 onCreateAccountClick();
             }
         });
+
+        Button employeeButton = (Button) findViewById(R.id.emp_signin_button);
+        employeeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onEmployeeSignInClick();
+            }
+        });
+    }
+
+    private void onEmployeeSignInClick() {
+        // Retrieving the email address and password fields
+        EditText emailBar = (EditText) findViewById(R.id.email_field);
+        EditText passwordBar = (EditText) findViewById((R.id.pass_field));
+        String password = passwordBar.getText().toString();
+        String userEmail = emailBar.getText().toString();
+
+        // Login to the app
+        new AsyncTask<String, Void, String[]>() {
+            @Override
+            protected String[] doInBackground(String...params) {
+                return App.sqlConnection.attemptEmployeeLogin(params[0], params[1]);
+            }
+
+            @Override
+            protected void onPostExecute(String[] result) {
+                if(result == null)
+                    Toast.makeText(LoginActivity.this, "Error signing in, invalid email address or password.", Toast.LENGTH_SHORT).show();
+                else startActivity(new Intent(LoginActivity.this, EmployeeActivity.class).putExtra("restaurantName", result[1]).putExtra("email", result[0]));
+            }
+        }.execute(userEmail, password);
     }
 
     /**

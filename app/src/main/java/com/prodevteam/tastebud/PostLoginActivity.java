@@ -37,8 +37,9 @@ import java.util.List;
  */
 public class PostLoginActivity extends AppCompatActivity implements SensorEventListener, AdapterView.OnItemSelectedListener {
 
-    protected static String[] restNames = {"Touch to begin", "Pines", "64 Degrees", "Cafe Ventanas", "Canyon Vista", "Foodworx"};
+    protected static String[] restNames = {"Touch to begin", "ExampleRestaurant", "Pines", "64 Degrees", "Cafe Ventanas", "Canyon Vista", "Foodworx"};
     protected static int selectedRestaurantIndex; // initialize to 0 (no restaurant)
+    protected static String restaurantName;
 
     private static final float BG_IMAGE_OFFSET_Y = 100.0F;
     private static final float BG_IMAGE_OFFSET_X = 400.0F;
@@ -70,7 +71,8 @@ public class PostLoginActivity extends AppCompatActivity implements SensorEventL
 
     public void onMenuButtonClicked() {
         Intent intent = new Intent(this, MenuScreen.class);
-        startActivity(intent);
+        Spinner spinner = (Spinner) findViewById(R.id.rest_selector);
+        startActivity(intent.putExtra("restaurantName", restNames[spinner.getSelectedItemPosition()]));
     }
 
     public void signoutButtonClicked() {
@@ -182,11 +184,13 @@ public class PostLoginActivity extends AppCompatActivity implements SensorEventL
     }
 
     private void onRecButtonClicked() {
-        startActivity(new Intent(this, RecommendationScreen.class));
+        Spinner spinner = (Spinner) findViewById(R.id.rest_selector);
+        startActivity(new Intent(this, RecommendationScreen.class).putExtra("restaurantName", restNames[spinner.getSelectedItemPosition()]));
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        restaurantName = restNames[position];
         if((selectedRestaurantIndex = position) == 0) {
             Button menuButton = (Button) findViewById(R.id.menu_button);
             Button recButton = (Button) findViewById(R.id.rec_button);
@@ -194,7 +198,6 @@ public class PostLoginActivity extends AppCompatActivity implements SensorEventL
             recButton.setVisibility(View.INVISIBLE);
             return;
         }
-        Toast.makeText(PostLoginActivity.this, "Selected \"" + restNames[position] + "\" as current restaurant.", Toast.LENGTH_SHORT).show();
 
         Button menuButton = (Button) findViewById(R.id.menu_button);
         Button recButton = (Button) findViewById(R.id.rec_button);

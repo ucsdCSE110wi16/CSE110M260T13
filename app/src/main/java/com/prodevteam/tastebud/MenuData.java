@@ -21,13 +21,14 @@ import java.net.URL;
  */
 
 public class MenuData implements Serializable {
+
     private String itemName;
     private String itemPrice;
-
     private String majorItemIngs;
     private String minorItemIngs;
     private String imageURL;
     private Drawable itemImg;
+    //private double  itemRating;
 
     public MenuData(MenuScreen.MenuItem item) {
         itemName = item.getName();
@@ -55,6 +56,14 @@ public class MenuData implements Serializable {
             Log.e("MenuData", imageURL, e);
             itemImg = null;
         }
+    }
+
+    //TODO:
+    // Used in MySQL.placeOrder(), getImageURL() returns a null value instead of a string.
+    // Don't fix unless you want to display images in order history
+
+    public String getImageURL(){
+        return imageURL;
     }
 
     public String getName() {

@@ -39,15 +39,24 @@ public class App extends Application {
         }
 
         public String getPastIngredients() {
+            if (pastIngredients.startsWith(", ")){
+                pastIngredients = pastIngredients.substring(2);
+            }
             return pastIngredients;
         }
 
         public String addPastIngredient(String newIngredient) {
             pastIngredients += ", " + newIngredient;
+            if (pastIngredients.startsWith(", ")){
+                pastIngredients = pastIngredients.substring(2);
+            }
             return pastIngredients;
         }
 
         public void setPastIngredients(String pastIngredients) {
+            if (pastIngredients.startsWith(", ")){
+                pastIngredients = pastIngredients.substring(2);
+            }
             this.pastIngredients = pastIngredients;
         }
 

@@ -28,23 +28,6 @@
             </intent-filter>
         </receiver>
 
-        <service
-            android:name=".GCMListenerService"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            </intent-filter>
-        </service>
-        <service
-            android:name=".ListenerService"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID" />
-            </intent-filter>
-        </service>
-
         <activity
             android:name=".LoginActivity"
             android:configChanges="orientation|screenSize"

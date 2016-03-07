@@ -58,7 +58,7 @@ public class MySQL {
             String name = result.getString("Name");
             String restrictions = result.getString("Restrictions");
 
-            App.UserInfo user = new App.UserInfo(name, email, password, restrictions);
+            App.UserInfo user = new App.UserInfo(name, email, password, restrictions, "");
             return user;
 
         } catch (SQLException e) {
@@ -351,8 +351,9 @@ public class MySQL {
                 String name = result.getString("Item_Name");
                 String price = result.getString("Item_Price");
                 String cust_name = result.getString("Customer_Name");
+                String token = result.getString("Token");
 
-                list.add(new EmployeeActivity.OrderData(name, price, cust_name));
+                list.add(new EmployeeActivity.OrderData(name, price, cust_name, token));
             }
         } catch (SQLException e) {
             Log.e("MySQL", "Error:", e);

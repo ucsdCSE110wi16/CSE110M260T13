@@ -65,9 +65,9 @@ public class AccountSettingsScreen extends Activity {
     }
 
     private void saveButtonClicked() {
-        // TODO: This method should also update the database with the newly entered info, also update App.currentUser
+        String userToken = App.currentUser.getToken();
         App.currentUser = new App.UserInfo(name_setting.getText().toString(), email_setting.getText().toString(),
-                                            pass_setting.getText().toString(), restrictions.getText().toString());
+                                            pass_setting.getText().toString(), restrictions.getText().toString(), userToken);
         App.currentUser.setPastIngredients(ings.getText().toString());
         new AsyncTask<App.UserInfo, Void, Boolean>() {
             @Override

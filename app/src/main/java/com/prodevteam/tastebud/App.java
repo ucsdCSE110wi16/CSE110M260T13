@@ -1,25 +1,25 @@
 package com.prodevteam.tastebud;
 
 import android.app.Application;
+import android.content.Intent;
 import android.content.res.Resources;
 
 public class App extends Application {
-
-    static App myApp;
-
-    static MySQL sqlConnection;
-    static UserInfo currentUser;
+    protected static MySQL sqlConnection;
+    protected static UserInfo currentUser;
+    protected static App myApp;
     static {
-        currentUser = new UserInfo("", "", "", "");
+        currentUser = new UserInfo("", "", "", "", "");
     }
-    static String token;
+    protected static final String TOKEN = "";
+    protected static final String PUSH_NOTIFICATION_SERVER_URL = "";
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        if(myApp == null) myApp = this;
-
+        if(myApp == null)
+            myApp = this;
         sqlConnection = new MySQL();
         sqlConnection.initializeConnection();
     }
@@ -30,12 +30,14 @@ public class App extends Application {
         private String password;
         private String restrictions;
         private String pastIngredients;
+        private String token;
 
-        public UserInfo(String name, String emailAddress, String password, String restrictions) {
+        public UserInfo(String name, String emailAddress, String password, String restrictions, String token) {
             this.name = name;
             this.emailAddress = emailAddress;
             this.password = password;
             this.restrictions = restrictions;
+            this.token = "";
         }
 
         public String getPastIngredients() {
@@ -58,6 +60,10 @@ public class App extends Application {
                 pastIngredients = pastIngredients.substring(2);
             }
             this.pastIngredients = pastIngredients;
+        }
+
+        public String getToken() {
+            return token;
         }
 
         public String getName() {

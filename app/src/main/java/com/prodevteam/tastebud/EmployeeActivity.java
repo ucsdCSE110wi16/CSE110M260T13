@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -13,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 
 /**
@@ -94,10 +94,11 @@ public class EmployeeActivity extends AppCompatActivity {
     }
 
     private void onLogoutClick() {
+        App.currentUser = null;
         startActivity(new Intent(this, LoginActivity.class));
     }
 
-    private void onCancelButtonClicked() {
+    private ArrayList<OrderData> onCancelButtonClicked() {
         final ArrayList<OrderData> checkedOrders = new ArrayList<>();
         for(int i = 0; i < orderWrapper.getChildCount(); i++) {
             OrderItem order = (OrderItem) orderWrapper.getChildAt(i);
@@ -124,28 +125,44 @@ public class EmployeeActivity extends AppCompatActivity {
                 } else Toast.makeText(EmployeeActivity.this, "Error removing orders.", Toast.LENGTH_SHORT).show();
             }
         }.execute(restaurantName);
+        return checkedOrders;
     }
 
     private void onCompleteButtonClicked() {
         onCancelButtonClicked();
-        // TODO: SEND THE USER A PUSH NOTIFICATION
+        Toast.makeText(EmployeeActivity.this, "Order(s) filled.", Toast.LENGTH_SHORT).show();
+    }
+
+    private class PushNotificationRequest {
+        private String n1;
+        private String n2;
+        public PushNotificationRequest(String name, String t) {
+            n1 = name;
+            n2 = t;
+        }
     }
 
     public static class OrderData {
         private String name;
         private String price;
         private String customerName;
+        private String token;
 
-        public OrderData(String name, String price, String customerName) {
+        public OrderData(String name, String price, String customerName, String token) {
             this.name = name;
             this.price = price;
             this.customerName = customerName;
+            this.token = token;
         }
 
         public OrderData(OrderItem item) {
             this.name = item.getNameView().getText().toString();
             this.price = item.getPriceView().getText().toString();
             this.customerName = item.getCustomerNameView().getText().toString();
+        }
+
+        public String getToken() {
+            return token;
         }
 
         public String getCustomerName() {

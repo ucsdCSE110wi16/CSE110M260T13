@@ -13,8 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -30,28 +32,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Intent intent = new Intent(this, RegistrationService.class);
-        startService(intent);
-
         ImageView bgimage = (ImageView) findViewById(R.id.bgimage);
         backgrounds = new Drawable[2];
         imageIndex = 4;
         bgimage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.login_4));
-
-        // This timer will change the background image every 3 seconds
-        // It runs for 21 seconds and is then restarted
-        /*
-        new CountDownTimer(21000, 3000) {
-            public void onTick(long millisUntilFinished) {
-                changeBackgroundImage();
-                imageIndex++;
-            }
-
-            public void onFinish() {
-                this.start(); //Restart the timer when it finishes
-            }
-        }.start();
-        */
 
         // This sets the behavior of the sign in button, it calls onSignInClick
         Button signInButton = (Button) findViewById(R.id.signin_button);
@@ -124,7 +108,20 @@ public class LoginActivity extends AppCompatActivity {
                 onContinueClick();
             }
         });
+
+        ImageButton closeDialogButton = (ImageButton) findViewById(R.id.close_dialog_button);
+        closeDialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCloseDialogClicked(v.getParent(), v.getParent().getParent());
+            }
+        });
         // Create a new account on the database
+    }
+
+    private void onCloseDialogClicked(ViewParent parent, ViewParent gParent) {
+        LinearLayout layout = (LinearLayout) parent;
+        ((RelativeLayout) gParent).removeView(layout);
     }
 
     private void onContinueClick() {
@@ -146,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
             protected void onPostExecute(Boolean result) {
                 if(result) {
                     insertAccount(email, pass, name);
-                    App.currentUser = new App.UserInfo(name, email, pass, "");
+                    App.currentUser = new App.UserInfo(name, email, pass, "", "");
                 }
                 else Toast.makeText(LoginActivity.this, "An account already exists with this email.", Toast.LENGTH_SHORT).show();
             }
@@ -166,35 +163,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }.execute(email, pass, name);
-    }
-
-    /**
-     * Changes the background image through the 4 different images
-     */
-    private void changeBackgroundImage() {
-        switch(imageIndex) {
-            case 5:
-                imageIndex = 1;
-            case 1:
-                backgrounds[0] = ContextCompat.getDrawable(this, R.drawable.login_1);
-                backgrounds[1] = ContextCompat.getDrawable(this, R.drawable.login_2);
-                break;
-            case 2:
-                backgrounds[0] = ContextCompat.getDrawable(this, R.drawable.login_2);
-                backgrounds[1] = ContextCompat.getDrawable(this, R.drawable.login_3);
-                break;
-            case 3:
-                backgrounds[0] = ContextCompat.getDrawable(this, R.drawable.login_3);
-                backgrounds[1] = ContextCompat.getDrawable(this, R.drawable.login_4);
-                break;
-            case 4:
-                backgrounds[0] = ContextCompat.getDrawable(this, R.drawable.login_4);
-                backgrounds[1] = ContextCompat.getDrawable(this, R.drawable.login_1);
-                break;
-        }
-        TransitionDrawable crossfade = new TransitionDrawable(backgrounds);
-        ((ImageView) findViewById(R.id.bgimage)).setImageDrawable(crossfade);
-        crossfade.startTransition(400);
     }
 
     /**

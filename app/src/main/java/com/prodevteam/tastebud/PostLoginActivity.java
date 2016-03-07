@@ -35,7 +35,7 @@ import java.util.List;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class PostLoginActivity extends AppCompatActivity implements SensorEventListener, AdapterView.OnItemSelectedListener {
+public class PostLoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     //protected static String[] restNames = {"Touch to begin", "ExampleRestaurant", "Pines", "64 Degrees", "Cafe Ventanas", "Canyon Vista", "Foodworx"};
     protected static String[] restNames = {"Touch to begin", "64 Degrees", "Cafe Ventanas"};
@@ -45,30 +45,8 @@ public class PostLoginActivity extends AppCompatActivity implements SensorEventL
     private static final float BG_IMAGE_OFFSET_Y = 100.0F;
     private static final float BG_IMAGE_OFFSET_X = 400.0F;
 
-    private SensorManager sensorManager;
-    private Sensor gyroscope;
     private Matrix transformationMatrix;
     private ImageView bgImage;
-
-    private static final float NS2S = 1.0f / 1000000000.0f;
-    private final float[] deltaRotationVector = new float[4];
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        float axisY = event.values[1];
-        float axisZ = event.values[2];
-
-        // TODO: Add movement to bgImage to create a parallax effect
-        // When the device is tilted down, move image up, etc.
-        /*
-        if(axisY > 0) transformationMatrix.postTranslate(0.0F, -5.0F);
-        bgImage.setImageMatrix(transformationMatrix);
-        */
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
 
     public void onMenuButtonClicked() {
         Intent intent = new Intent(this, MenuScreen.class);
@@ -91,17 +69,8 @@ public class PostLoginActivity extends AppCompatActivity implements SensorEventL
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_post_login);
-        Intent intent = new Intent(this, RegistrationService.class);
-        startService(intent);
-        startService(intent);
-
-        // Set up the gyroscope and the background image
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-        sensorManager.registerListener(this, gyroscope, SensorManager.SENSOR_DELAY_GAME);
 
         // Scale and center the background image
-        // TODO: Test this image scaling on large displays (1080p)
         transformationMatrix = new Matrix();
         transformationMatrix.setScale(.90F, .90F);
         transformationMatrix.postTranslate(-BG_IMAGE_OFFSET_X,-BG_IMAGE_OFFSET_Y);

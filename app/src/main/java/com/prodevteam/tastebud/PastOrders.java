@@ -7,13 +7,23 @@ package com.prodevteam.tastebud;
 public class PastOrders {
 
     private String itemName;
-    private double itemRating;
+    private float itemRating;
+
+    public PastOrders(AccountSettingsScreen.PastOrder order) {
+        itemName = order.getName().getText().toString();
+        itemRating = order.getRating().getRating();
+    }
+
+    public PastOrders() {
+        itemName = "";
+        itemRating = 0;
+    }
 
     public String getName(){
         return itemName;
     }
 
-    public double getRating(){
+    public float getRating(){
         return itemRating;
     }
 
@@ -21,8 +31,8 @@ public class PastOrders {
         itemName = name;
     }
 
-    public void setRating(double rating){
-        itemRating = rating;
+    public void setRating(float item_rating) {
+        itemRating = item_rating;
     }
 }
 

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/menu_item_height"
+    android:id="@+id/sample_item">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/item_name"
+        android:id="@+id/name"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="2dp"
+        android:layout_alignLeft="@+id/horizontal_line_2"
+        android:layout_alignStart="@+id/horizontal_line_2" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ffffff"
+        android:id="@+id/horizontal_line_2"
+        android:alpha="0.2"
+        android:layout_marginLeft="@dimen/menu_text_margin"
+        android:layout_marginRight="@dimen/menu_text_margin"
+        android:layout_alignParentBottom="true" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rating"
+        style="?android:attr/ratingBarStyle"
+        android:layout_below="@+id/name"
+        android:layout_alignLeft="@+id/name"
+        android:layout_alignStart="@+id/name" />
+
+</RelativeLayout>

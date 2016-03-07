@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -85,6 +86,10 @@ public abstract class MenuAbstract extends AppCompatActivity {
         for(int i = 0; i < menuWrapper.getChildCount(); i++) {
             MenuScreen.MenuItem item = (MenuScreen.MenuItem) menuWrapper.getChildAt(i);
             if(item.isChecked()) selectedItems.add(new MenuData(item));
+        }
+        if(selectedItems.isEmpty()) {
+            Toast.makeText(MenuAbstract.this, "Please select one or more items and try again.", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         Intent intent = new Intent(this, PostOrderScreen.class);

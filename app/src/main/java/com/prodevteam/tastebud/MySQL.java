@@ -366,14 +366,14 @@ public class MySQL {
     public ArrayList<PastOrders> getOrderHistory (String email){
 
         ArrayList<PastOrders> pastOrders = new ArrayList<>();
-        String query = "SELECT * from Order_History where email = '" + email + "'";
+        String query = "SELECT * from Order_History where customer_email = '" + email + "'";
 
         try{
             ResultSet result = statement.executeQuery(query);
-            if (result.next()){
+            while (result.next()){
                 PastOrders item = new PastOrders();
                 item.setName(result.getString("Item_Name"));
-                item.setRating(result.getDouble("Item_Rating"));
+                item.setRating(result.getFloat("Item_Rating"));
                 pastOrders.add(item);
             }
         }

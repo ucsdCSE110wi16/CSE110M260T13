@@ -1,142 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:padding="@dimen/menu_text_margin">
+    android:layout_width="match_parent">
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/menu_text_margin">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/my_acc_string"
-        android:paddingBottom="@dimen/menu_text_margin_small"
-        android:id="@+id/account_title" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/my_acc_string"
+            android:paddingBottom="@dimen/menu_text_margin_small"
+            android:layout_centerVertical="true"
+            android:id="@+id/account_title" />
+            <Button
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:fontFamily="sans"
+                android:background="@null"
+                android:alpha="0.4"
+                android:id="@+id/back_button"
+                android:layout_marginRight="4dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+            <ImageButton
+                android:layout_height="48dp"
+                android:layout_width="20dp"
+                android:id="@+id/back_image_button"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:alpha="0.4"
+                android:src="@drawable/arrow4"
+                android:scaleType="fitCenter"
+                android:layout_toLeftOf="@id/back_button"/>
+            <View
+                android:layout_width="2dp"
+                android:layout_height="34dp"
+                android:background="#ffffff"
+                android:id="@+id/vert_line"
+                android:alpha="0.3"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="2dp"
+                android:layout_toLeftOf="@id/back_image_button"/>
+    </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ffffff"
+            android:id="@+id/horizontal_line2"
+            android:alpha="0.2"
+            android:layout_marginBottom="@dimen/menu_text_margin"
+            android:layout_gravity="center"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ffffff"
-        android:id="@+id/horizontal_line2"
-        android:alpha="0.2"
-        android:layout_marginBottom="@dimen/menu_text_margin"
-        android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Email Address"
+            android:id="@+id/email_title" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Email Address"
-        android:id="@+id/email_title" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="user@example.com"
+            android:textSize="16dp"
+            android:alpha="0.5"
+            android:layout_marginBottom="@dimen/menu_text_margin"
+            android:id="@+id/user_email" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="user@example.com"
-        android:textSize="16dp"
-        android:alpha="0.5"
-        android:layout_marginBottom="@dimen/menu_text_margin"
-        android:id="@+id/user_email" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Password"
+            android:id="@+id/pass_title" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Password"
-        android:id="@+id/pass_title" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:ems="10"
+            android:textSize="16dp"
+            android:id="@+id/pass_field"
+            android:layout_marginBottom="@dimen/menu_text_margin"
+            android:text="123456" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:ems="10"
-        android:textSize="16dp"
-        android:id="@+id/pass_field"
-        android:layout_marginBottom="@dimen/menu_text_margin"
-        android:text="123456" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Name"
+            android:id="@+id/name_title" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Name"
-        android:id="@+id/name_title" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/name_field"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:textSize="16dp"
+            android:text="name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginBottom="@dimen/menu_text_margin"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/name_field"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:textSize="16dp"
-        android:text="name"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginBottom="@dimen/menu_text_margin"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ffffff"
+            android:id="@+id/horizontal_line3"
+            android:alpha="0.2"
+            android:layout_marginBottom="@dimen/menu_text_margin"
+            android:layout_gravity="center"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ffffff"
-        android:id="@+id/horizontal_line3"
-        android:alpha="0.2"
-        android:layout_marginBottom="@dimen/menu_text_margin"
-        android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Dietary Restrictions"
+            android:layout_marginBottom="@dimen/menu_text_margin_small"
+            android:id="@+id/diet_title" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Dietary Restrictions"
-        android:layout_marginBottom="@dimen/menu_text_margin_small"
-        android:id="@+id/diet_title" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ffffff"
+            android:id="@+id/horizontal_line4"
+            android:alpha="0.2"
+            android:layout_marginBottom="@dimen/menu_text_margin"
+            android:layout_gravity="center"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ffffff"
-        android:id="@+id/horizontal_line4"
-        android:alpha="0.2"
-        android:layout_marginBottom="@dimen/menu_text_margin"
-        android:layout_gravity="center"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/restrictions_field"
+            android:textSize="16dp"
+            android:hint="Enter ingredients you dislike..."
+            android:layout_marginBottom="@dimen/menu_text_margin" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/restrictions_field"
-        android:textSize="16dp"
-        android:layout_marginBottom="@dimen/menu_text_margin" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ffffff"
+            android:id="@+id/horizontal_line6"
+            android:alpha="0.2"
+            android:layout_marginBottom="@dimen/menu_text_margin"
+            android:layout_gravity="center"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Past Ingredients"
-        android:layout_marginBottom="@dimen/menu_text_margin_small"
-        android:id="@+id/ings_title" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Order History"
+            android:layout_marginBottom="@dimen/menu_text_margin_small"
+            android:id="@+id/order_history" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ffffff"
-        android:id="@+id/horizontal_line5"
-        android:alpha="0.2"
-        android:layout_marginBottom="@dimen/menu_text_margin"
-        android:layout_gravity="center"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ffffff"
+            android:id="@+id/horizontal_line5"
+            android:alpha="0.2"
+            android:layout_marginBottom="@dimen/menu_text_margin"
+            android:layout_gravity="center"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ings_field"
-        android:textSize="16dp"
-        android:layout_marginBottom="@dimen/menu_text_margin" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/order_history_wrapper"
+            android:layout_marginBottom="@dimen/menu_text_margin">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/past_orders">
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save Changes"
-        android:id="@+id/save_button" />
+            </LinearLayout>
+            </ScrollView>
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Changes"
+            android:id="@+id/save_button" />
 
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

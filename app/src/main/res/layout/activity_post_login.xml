@@ -57,8 +57,8 @@
         android:layout_below="@+id/greetings_text"
         android:layout_alignRight="@+id/my_acc_button"
         android:layout_alignEnd="@+id/my_acc_button"
-        android:layout_marginRight="48dp"
-        android:layout_marginEnd="48dp" />
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp" />
 
     <TextView
         android:layout_width="match_parent"

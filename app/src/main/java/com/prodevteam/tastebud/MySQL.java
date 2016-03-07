@@ -351,9 +351,8 @@ public class MySQL {
                 String name = result.getString("Item_Name");
                 String price = result.getString("Item_Price");
                 String cust_name = result.getString("Customer_Name");
-                String token = result.getString("Token");
 
-                list.add(new EmployeeActivity.OrderData(name, price, cust_name, token));
+                list.add(new EmployeeActivity.OrderData(name, price, cust_name, ""));
             }
         } catch (SQLException e) {
             Log.e("MySQL", "Error:", e);

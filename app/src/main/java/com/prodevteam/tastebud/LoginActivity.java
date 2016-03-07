@@ -121,6 +121,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void onCloseDialogClicked(ViewParent parent, ViewParent gParent) {
         LinearLayout layout = (LinearLayout) parent;
+        Button signinButton = (Button) findViewById(R.id.signin_button);
+        Button employeebutton = (Button) findViewById(R.id.emp_signin_button);
+        signinButton.setVisibility(View.VISIBLE);
+        employeebutton.setVisibility(View.VISIBLE);
         ((RelativeLayout) gParent).removeView(layout);
     }
 

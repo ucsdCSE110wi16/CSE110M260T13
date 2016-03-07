@@ -21,17 +21,19 @@
         android:contentDescription="@string/login_bg" />
 
     <ImageView
-        android:layout_width="128dp"
-        android:layout_height="128dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:contentDescription="@string/logo_description"
         android:id="@+id/login_icon"
-        android:layout_gravity="center_horizontal"
         android:src="@drawable/iconnew1"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/email_field"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_marginBottom="25dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="26dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="256dp"
@@ -47,7 +49,7 @@
         android:layout_alignStart="@+id/pass_field"
         android:background="@color/text_field_bgcolor"
         android:fontFamily="sans-serif"
-        android:textColor="@color/login_text_color"
+        android:textColor="#000000"
         android:text="@string/email_name"
         android:textColorHint="@color/login_hint_color" />
 
@@ -67,7 +69,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
-        android:textColor="@color/login_text_color"
+        android:textColor="#000000"
         android:textColorHint="@color/login_hint_color"
         android:focusableInTouchMode="false" />
 

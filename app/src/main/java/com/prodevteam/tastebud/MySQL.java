@@ -46,6 +46,7 @@ public class MySQL {
             }}.execute();
     }
 
+    /* customer login */
     public App.UserInfo attemptLogin(String email, String password) {
         ResultSet result;
         String query = "SELECT * FROM Customer_Info where Email = '" + email + "' and Password = '" + password + "' LIMIT 1";
@@ -57,7 +58,7 @@ public class MySQL {
             String name = result.getString("Name");
             String restrictions = result.getString("Restrictions");
 
-            App.UserInfo user = new App.UserInfo(name, email, password, restrictions);
+            App.UserInfo user = new App.UserInfo(name, email, password, restrictions, "");
             return user;
 
         } catch (SQLException e) {
@@ -66,6 +67,7 @@ public class MySQL {
         return null;
     }
 
+    /* employee login */
     public String[] attemptEmployeeLogin(String email, String password) {
         ResultSet result;
         String query = "SELECT * FROM EmployeeRecords where EmployeeEmail = '" + email + "' and EmployeePassword = '" + password + "' LIMIT 1";
@@ -86,6 +88,7 @@ public class MySQL {
         return null;
     }
 
+    /* create a new account */
     public Boolean createNewAccount(String email, String password, String name) {
 
         String query = "INSERT INTO Customer_Info (email, password, name) VALUES('" + email + "','" + password + "', '" + name + "')";
@@ -100,6 +103,7 @@ public class MySQL {
         }
     }
 
+    /* check for duplicate account */
     public boolean checkForDuplicate(String email) {
 
         String query = "SELECT * FROM Customer_Info where email = '" + email + "'";
@@ -117,22 +121,12 @@ public class MySQL {
         }
     }
 
-    /*  - Using MenuData.java, getMenu() returns an arrayList of menu items in the format
-        ["Item Name", "Item Ing", "Item_Price", "Item_Img"] for each item.
-
-        - getMenu() should be called before or immediately after the user logs in.
-
-        HOW TO USE:
-        - Store getMenu()'s return into a local ArrayList<MenuData> variable, we will call it MenuItems.
-        - To access elements stored in MenuItems (done inside of MenuScreen.java):
-        for (int i = 0; i < MenuItems.size(); i++) {
-           menuItem.setItemName(MenuItems.get(i).getName());
-           menuItem.setItemIng(MenuItems.get(i).getIng());
-           etc...
-        }
-    */
+    /* get menu items for a specified restaurant */
     public ArrayList<MenuData> getMenu (String restaurantName) {
 
+        if (!restaurantName.equals(null)){
+            restaurantName = restaurantName.replace(" ", "_");
+        }
         String query = "SELECT * From " + restaurantName + "_menu";
         ArrayList<MenuData> listMenuItems = new ArrayList<>();
 
@@ -157,7 +151,7 @@ public class MySQL {
         return listMenuItems;
     }
 
-    /* method to get order ings for specified email */
+    /* get order ings for specified email */
     public String getUserIngs(String email) {
 
         String orderIngs = "";
@@ -175,7 +169,7 @@ public class MySQL {
         return orderIngs;
     }
 
-    /* method to get user restrictions */
+    /* get user restrictions */
     public String getUserRestrictions(String email){
         String restrictions = "";
         String query = "SELECT Restrictions from Customer_Info where email = '" + email + "'";
@@ -192,10 +186,7 @@ public class MySQL {
         return restrictions;
     }
 
-    /* method to update user information */
-    /* information are updated based on the email address provided */
-    /* error checking such as empty name/password field name must be handled in the IU */
-
+    /* update user information */
     public boolean updateUserInfo (String email, String name, String password, String restrictions){
         String query = "UPDATE Customer_Info set " +
                 "Name ='" + name + "', " +
@@ -215,27 +206,38 @@ public class MySQL {
         return updateUserInfo(user.getEmailAddress(), user.getName(), user.getPassword(), user.getRestrictions());
     }
 
-    /* method to store orders into database */
+    /* place order */
     public boolean placeOrder (String restaurantName, ArrayList<MenuData> items){
         String ings = "";
-        for(MenuData m : items)
-            ings += m.getMajorIngs() + ", " + m.getMinorIngs() + ", ";
-        App.currentUser.addPastIngredient(ings);
-
-        String query = "INSERT INTO Order_History values ('"+ App.currentUser.getEmailAddress() +"', '" + ings + "')";
-        try{
-            if (statement.execute(query))
-                return true;
-            return false;
+        for(MenuData m : items) {
+            ings = m.getMajorIngs() + ", " + m.getMinorIngs();
+            App.currentUser.addPastIngredient(ings);
+            String query = "INSERT INTO Order_History values ('"
+                    + App.currentUser.getEmailAddress()
+                    + "', '" + m.getName()
+                    + "', '" + ings
+                    + "', '" + m.getImageURL()
+                    + "', " + 0
+                    + ")";
+            try {
+                statement.execute(query);
+            } catch (SQLException e) {
+                Log.e("MySQL", "Error:", e);
+                return false;
+            }
         }
-        catch (SQLException e){
-            Log.e("MySQL", "Error:", e);
-            return false;
-        }
+        return true;
     }
 
+    /* add order */
     public boolean addOrders(String restaurantName, ArrayList<MenuData> items) {
+
+        if (!restaurantName.equals(null)){
+            restaurantName = restaurantName.replace(" ", "_");
+        }
+
         String query = "INSERT INTO " + restaurantName + "_orders VALUES ";
+
         for(MenuData m : items)
             query += "('" + m.getName() + "', '" + m.getPrice() + "', '" + App.currentUser.getName() + "'), ";
         query = query.substring(0, query.length() - 2);
@@ -251,6 +253,11 @@ public class MySQL {
     }
 
     public boolean removeOrders(String restaurantName, ArrayList<EmployeeActivity.OrderData> orders) {
+
+        if (!restaurantName.equals(null)){
+            restaurantName = restaurantName.replace(" ", "_");
+        }
+
         for(EmployeeActivity.OrderData item : orders) {
             String query = "DELETE FROM " + restaurantName + "_orders WHERE Item_Name = '" + item.getName() + "' AND Customer_Name = '" + item.getCustomerName() + "'";
             try {
@@ -265,8 +272,12 @@ public class MySQL {
 
     public ArrayList<MenuData> makeRec(String restaurantName) {
 
+        if (!restaurantName.equals(null)){
+            restaurantName = restaurantName.replace(" ", "_");
+        }
+
         String[]userIngs = App.sqlConnection.getUserIngs(App.currentUser.getEmailAddress()).toString().split(",");
-        ArrayList<MenuData> recMenu = getMenu(restaurantName);
+        ArrayList<MenuData> recMenu = getMenu(restaurantName.replace(" ", "_"));
 
         if (userIngs.length == 1 && userIngs[0] == "") {
             return recMenu;
@@ -324,6 +335,11 @@ public class MySQL {
     }
 
     public ArrayList<EmployeeActivity.OrderData> getPendingOrders(String restaurantName) {
+
+        if (!restaurantName.equals(null)){
+            restaurantName = restaurantName.replace(" ", "_");
+        }
+
         ArrayList<EmployeeActivity.OrderData> list = new ArrayList<>();
         String query = "SELECT * From " + restaurantName + "_orders";
 
@@ -335,8 +351,9 @@ public class MySQL {
                 String name = result.getString("Item_Name");
                 String price = result.getString("Item_Price");
                 String cust_name = result.getString("Customer_Name");
+                String token = result.getString("Token");
 
-                list.add(new EmployeeActivity.OrderData(name, price, cust_name));
+                list.add(new EmployeeActivity.OrderData(name, price, cust_name, token));
             }
         } catch (SQLException e) {
             Log.e("MySQL", "Error:", e);
@@ -344,5 +361,47 @@ public class MySQL {
         return list;
     }
 
+    /* get past orders */
+    /* returns an array list of item names and ratings */
+    public ArrayList<PastOrders> getOrderHistory (String email){
+
+        ArrayList<PastOrders> pastOrders = new ArrayList<>();
+        String query = "SELECT * from Order_History where email = '" + email + "'";
+
+        try{
+            ResultSet result = statement.executeQuery(query);
+            if (result.next()){
+                PastOrders item = new PastOrders();
+                item.setName(result.getString("Item_Name"));
+                item.setRating(result.getDouble("Item_Rating"));
+                pastOrders.add(item);
+            }
+        }
+        catch (SQLException e){
+            Log.e("MySQL", "Error:", e);
+            return null;
+        }
+        return pastOrders;
+    }
+
+    /* set item rating */
+    /* for each item in PastOrders, update the Item_Rating column in the database */
+    public boolean updateRatings (String email, ArrayList<PastOrders> orders){
+
+        for (PastOrders item : orders){
+            try{
+                String query = "UPDATE Order_History set " +
+                    "Item_Rating =" + item.getRating()
+                    + " WHERE customer_email = '" + email + "'"
+                    + " AND Item_Name ='" + item.getName() + "'";
+                statement.execute(query);
+            }
+            catch (SQLException e){
+                Log.e("MySQL", "Error:", e);
+                return false;
+            }
+        }
+        return true;
+    }
 
 }

@@ -21,96 +21,117 @@
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/diet_button"
-            android:id="@+id/my_acc_button"
-            android:layout_gravity="end" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="greetings"
-            android:id="@+id/greetings_text"
-            android:layout_gravity="start"
-            android:textSize="40sp"
-            android:alpha="0.75"
-            android:textStyle="italic"
-            android:typeface="sans"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:gravity="start" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="44sp"
-            android:id="@+id/user_fname"
-            android:text="fname"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:typeface="sans"
-            android:alpha=".90"
-            android:maxHeight="46dp"
-            android:gravity="bottom|end" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="24sp"
-            android:id="@+id/rest_text"
-            android:layout_marginTop="@dimen/menu_text_margin"
-            android:text="Select a restaurant"
-            android:typeface="sans"
-            android:gravity="center" />
-
-        <Spinner
-            android:layout_width="250dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:id="@+id/rest_selector"
-            android:spinnerMode="dropdown"
-            android:background="#ce424242"
-            android:gravity="center"
-            android:alpha="0.9"
-            android:layout_gravity="center_horizontal" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:baselineAligned="false">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_button"
-                android:id="@+id/menu_button" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/rec_button"
-                android:id="@+id/rec_button" />
-
-        </LinearLayout>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/signout_text"
-            android:id="@+id/signout_button"
-            android:layout_gravity="center"/>
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:id="@+id/linearLayout"
+        android:layout_marginTop="113dp"
+        android:layout_below="@+id/rest_selector"
+        android:layout_alignRight="@+id/rest_selector"
+        android:layout_alignEnd="@+id/rest_selector">
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/diet_button"
+        android:id="@+id/my_acc_button"
+        android:layout_gravity="end"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/linearLayout"
+        android:layout_alignEnd="@+id/linearLayout" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="44sp"
+        android:id="@+id/user_fname"
+        android:text="fname"
+        android:typeface="sans"
+        android:alpha=".90"
+        android:maxHeight="46dp"
+        android:gravity="bottom|end"
+        android:layout_below="@+id/greetings_text"
+        android:layout_alignRight="@+id/my_acc_button"
+        android:layout_alignEnd="@+id/my_acc_button"
+        android:layout_marginRight="48dp"
+        android:layout_marginEnd="48dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="greetings"
+        android:id="@+id/greetings_text"
+        android:layout_gravity="start"
+        android:textSize="40sp"
+        android:alpha="0.75"
+        android:textStyle="italic"
+        android:typeface="sans"
+        android:gravity="start"
+        android:layout_below="@+id/my_acc_button"
+        android:layout_alignLeft="@+id/rest_selector"
+        android:layout_alignStart="@+id/rest_selector" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="24sp"
+        android:id="@+id/rest_text"
+        android:text="Select a restaurant"
+        android:typeface="sans"
+        android:gravity="center"
+        android:layout_below="@+id/user_fname"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp" />
+
+    <Spinner
+        android:layout_width="348dp"
+        android:layout_height="40dp"
+        android:id="@+id/rest_selector"
+        android:spinnerMode="dropdown"
+        android:background="#ce424242"
+        android:gravity="center"
+        android:alpha="0.9"
+        android:layout_below="@+id/rest_text"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="324dp"
+        android:layout_height="wrap_content"
+        android:text="@string/rec_button"
+        android:id="@+id/rec_button"
+        android:layout_below="@+id/menu_button"
+        android:layout_alignLeft="@+id/rest_selector"
+        android:layout_toLeftOf="@+id/linearLayout"
+        android:layout_toStartOf="@+id/linearLayout" />
+
+    <Button
+        android:layout_width="319dp"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_button"
+        android:id="@+id/menu_button"
+        android:layout_below="@+id/rest_selector"
+        android:layout_alignLeft="@+id/rest_selector"
+        android:layout_alignStart="@+id/rest_selector"
+        android:layout_marginTop="69dp"
+        android:layout_alignRight="@+id/rest_selector"
+        android:layout_alignEnd="@+id/rest_selector" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/signout_text"
+        android:id="@+id/signout_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/rec_button"
+        android:layout_alignStart="@+id/rec_button"
+        android:layout_marginBottom="24dp"
+        android:layout_alignRight="@+id/rec_button"
+        android:layout_alignEnd="@+id/rec_button" />
 </RelativeLayout>

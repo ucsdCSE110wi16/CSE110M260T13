@@ -47,11 +47,13 @@
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/pass_field"
         android:layout_alignStart="@+id/pass_field"
-        android:background="@color/text_field_bgcolor"
+        android:background="#d52706"
         android:fontFamily="sans-serif"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
         android:text="@string/email_name"
-        android:textColorHint="@color/login_hint_color" />
+        android:textColorHint="@color/login_hint_color"
+        android:textStyle="normal|bold"
+        android:textIsSelectable="false" />
 
     <EditText
         android:layout_width="256dp"
@@ -64,14 +66,16 @@
         android:id="@+id/pass_field"
         android:hint="@string/pass_prompt"
         android:fontFamily="sans-serif"
-        android:background="@color/text_field_bgcolor"
+        android:background="#d10f05"
         android:layout_below="@+id/email_field"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
         android:textColorHint="@color/login_hint_color"
-        android:focusableInTouchMode="false" />
+        android:focusableInTouchMode="false"
+        android:textStyle="normal|bold"
+        android:textIsSelectable="false" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -81,7 +85,9 @@
         android:id="@+id/signin_button"
         android:layout_gravity="center"
         android:layout_below="@+id/pass_field"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignRight="@+id/pass_field"
+        android:layout_alignLeft="@+id/pass_field"
+        android:layout_alignStart="@+id/pass_field" />
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
@@ -90,7 +96,10 @@
         android:id="@+id/emp_signin_button"
         android:layout_gravity="center"
         android:layout_below="@+id/signin_button"
-        android:layout_centerHorizontal="true"/>
+        android:layout_alignRight="@+id/signin_button"
+        android:layout_alignEnd="@+id/signin_button"
+        android:layout_alignLeft="@+id/signin_button"
+        android:layout_alignStart="@+id/signin_button" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -99,7 +108,11 @@
         android:text="@string/register_string"
         android:layout_gravity="center"
         android:id="@+id/create_acc_button"
+        android:layout_marginBottom="25dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"/>
+        android:layout_alignLeft="@+id/emp_signin_button"
+        android:layout_alignStart="@+id/emp_signin_button"
+        android:layout_alignRight="@+id/emp_signin_button"
+        android:layout_alignEnd="@+id/emp_signin_button" />
+
 </RelativeLayout>

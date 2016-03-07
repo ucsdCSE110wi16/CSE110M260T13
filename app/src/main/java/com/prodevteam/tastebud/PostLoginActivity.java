@@ -37,7 +37,8 @@ import java.util.List;
  */
 public class PostLoginActivity extends AppCompatActivity implements SensorEventListener, AdapterView.OnItemSelectedListener {
 
-    protected static String[] restNames = {"Touch to begin", "ExampleRestaurant", "Pines", "64 Degrees", "Cafe Ventanas", "Canyon Vista", "Foodworx"};
+    //protected static String[] restNames = {"Touch to begin", "ExampleRestaurant", "Pines", "64 Degrees", "Cafe Ventanas", "Canyon Vista", "Foodworx"};
+    protected static String[] restNames = {"Touch to begin", "64 Degrees", "Cafe Ventanas"};
     protected static int selectedRestaurantIndex; // initialize to 0 (no restaurant)
     protected static String restaurantName;
 

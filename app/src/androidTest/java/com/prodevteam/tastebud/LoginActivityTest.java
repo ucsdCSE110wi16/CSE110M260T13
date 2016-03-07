@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.*;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.swipeUp;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.containsString;
@@ -33,11 +34,11 @@ public class LoginActivityTest {
         /// selecting a restaurant from a list of restaurants
         onView(withId(R.id.rest_selector)).perform(click());
      //   onView(withId(R.id.rest_selector)).check(matches(withText(containsString("ExampleRestaurant"))));
-        onData(allOf(is(instanceOf(String.class)), is("ExampleRestaurant"))).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("64 Degrees"))).perform(click());
 
         // checking out the menu
         onView(withId(R.id.menu_button)).perform(click());
-
+        onView(withId(R.id.menu_scrollview)).perform(swipeUp());
         onView(withId(R.id.back_button)).perform(click());
 
 
